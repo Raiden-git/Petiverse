@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Petiverse - Let's care your Furball</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/Cus-index.css">
+
     
 </head>
 <body>
-   
+    <!-- Header Section -->
     <header>
         <div class="logo">
             <h1>Petiverse</h1>
@@ -26,8 +28,9 @@
             </ul>
         </nav>
         <div class="login">
-            <a href="login.php">Login</a>
+            <a href="../index.html">Log out</a>
         </div>
+        <a href="../Customer/Cus-Profile.php" id="profile"><i class='bx bxs-user-circle'></i></a>
     </header>
 
     <!-- Hero Section -->
@@ -46,25 +49,25 @@
     <!-- Features Section -->
     <section class="features">
         <div class="feature-card">
-            <img src="src/img/shop.jpg" alt="Shop">
+            <img src="../src/img/shop.jpg" alt="Shop">
             <h3>Shop</h3>
             <p>Food, accessories, and medicines for your pets.</p>
             <a href="#" class="button">Shop Now</a>
         </div>
         <div class="feature-card">
-            <img src="src/img/vet.jpg" alt="Vet">
+            <img src="../src/img/vet.jpg" alt="Vet">
             <h3>Vet Services</h3>
             <p>Book online or physical appointments with vets.</p>
             <a href="#" class="button">Book Now</a>
         </div>
         <div class="feature-card">
-            <img src="src/img/day-care.jpeg" alt="Day Care">
+            <img src="../src/img/day-care.jpeg" alt="Day Care">
             <h3>Day Care</h3>
             <p>Find reliable day care services for your pets.</p>
             <a href="#" class="button">Find Day Care</a>
         </div>
         <div class="feature-card">
-            <img src="src/img/Health-track.jpg" alt="Health Tracker">
+            <img src="../src/img/Health-track.jpg" alt="Health Tracker">
             <h3>Health Tracker</h3>
             <p>Monitor your pet's health with our BMI tracker.</p>
             <a href="#" class="button">Track Health</a>
