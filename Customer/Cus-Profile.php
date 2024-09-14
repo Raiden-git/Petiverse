@@ -22,7 +22,8 @@ $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
     $user = mysqli_fetch_assoc($result);
 } else {
-    echo "No user found!"; 
+    echo "No user found!"; // Debugging line
+    exit();
 }
 
 // Close the connection
