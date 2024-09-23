@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vet Registration</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHdLOieN0OIcTyyY6CmJv6gPNx-OX3MwA&callback=initMap" async defer></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Register Your Clinic</h2>
+<form action="./register_vet.php" method="POST" onsubmit="getLatLng();">
+    <label>Vet Name:</label><br>
+    <input type="text" name="name" required><br>
+
+    <label>Qualification:</label><br>
+    <input type="text" name="qualification" required><br>
+
+    <label>Experience (years):</label><br>
+    <input type="number" name="experience" required><br>
+
+    <label>Clinic Name:</label><br>
+    <input type="text" name="clinic_name" required><br>
+
+    <label>Clinic Address:</label><br>
+    <input type="text" name="clinic_address" required><br>
+
+    <label>Consultation Fee:</label><br>
+    <input type="number" step="0.01" name="consultation_fee" required><br>
+
+    <label>Contact Details:</label><br>
+    <input type="text" name="contact_details" required><br>
+
+    <label>Services:</label><br>
+    <select name="services" required>
+        <option value="online">Online</option>
+        <option value="physical">Physical</option>
+        <option value="both">Both</option>
+    </select><br>
+
+    <input type="hidden" id="latitude" name="latitude">
+    <input type="hidden" id="longitude" name="longitude">
+
+    <label>Select Clinic Location on Map:</label><br>
+    <div id="map"></div><br>
+
+    <button type="submit">Register Vet</button>
+</form>
+
+<script>
+    let map;
+    let marker;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: -34.397, lng: 150.644},
+            zoom: 8
+        });
+
+        map.addListener('click', function(event) {
+            placeMarker(event.latLng);
+        });
+    }
+
+    function placeMarker(location) {
+        if (marker) {
+            marker.setPosition(location);
+        } else {
+            marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+        }
+
+        document.getElementById('latitude').value = location.lat();
+        document.getElementById('longitude').value = location.lng();
+    }
+
+    function getLatLng() {
+        if (!marker) {
+            alert("Please select your clinic location on the map.");
+            return false;
+        }
+    }
+</script>
+
+</body>
+</html>
