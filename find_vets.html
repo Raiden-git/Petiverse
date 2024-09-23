@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Nearby Vets</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHdLOieN0OIcTyyY6CmJv6gPNx-OX3MwA&callback=initMap" async defer></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Find Nearby Vets</h2>
+<button onclick="findNearbyVets()">Find Vets</button>
+
+<div id="vetList"></div>
+<div id="map"></div>
+
+<script>
+    let map;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: -34.397, lng: 150.644},
+            zoom: 8
+        });
+    }
+
+    function findNearbyVets() {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+
+            fetch(`find_vets.php?lat=${lat}&lng=${lng}`)
+                .then(response => response.json())
+                .then(vets => {
+                    vets.forEach(vet => {
+                        const vetDiv = document.createElement('div');
+                        vetDiv.innerHTML = `${vet.name} - ${vet.clinic_name} (${vet.distance.toFixed(2)} km away)`;
+                        document.getElementById('vetList').appendChild(vetDiv);
+
+                        const marker = new google.maps.Marker({
+                            position: {lat: parseFloat(vet.latitude), lng: parseFloat(vet.longitude)},
+                            map: map,
+                            title: vet.clinic_name
+                        });
+                    });
+                });
+        });
+    }
+</script>
+
+</body>
+</html>
