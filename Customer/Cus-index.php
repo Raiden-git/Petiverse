@@ -10,7 +10,7 @@
     
 </head>
 <body>
-    <!-- Header Section -->
+    <!-- Header Section Check-->
     <header>
         <div class="logo">
             <h1>Petiverse</h1>
