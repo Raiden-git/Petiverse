@@ -1,7 +1,7 @@
-<?php include('../db.php'); ?>
-
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+include '../db.php'; // Your database connection
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $qualification = $_POST['qualification'];
     $experience = $_POST['experience'];
@@ -13,24 +13,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $contact_details = $_POST['contact_details'];
     $services = $_POST['services'];
 
-    // Database connection
-    $conn = new mysqli('localhost', 'root', '', 'db');
+    $sql = "INSERT INTO vets (name, qualification, experience, clinic_name, clinic_address, latitude, longitude, consultation_fee, contact_details, services) 
+            VALUES ('$name', '$qualification', '$experience', '$clinic_name', '$clinic_address', '$latitude', '$longitude', '$consultation_fee', '$contact_details', '$services')";
 
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Insert into the vets table with is_approved = FALSE
-    $sql = "INSERT INTO vets (name, qualification, experience, clinic_name, clinic_address, latitude, longitude, consultation_fee, contact_details, services, is_approved)
-            VALUES ('$name', '$qualification', '$experience', '$clinic_name', '$clinic_address', '$latitude', '$longitude', '$consultation_fee', '$contact_details', '$services', 0)";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Vet registered successfully! Awaiting approval.";
+    if (mysqli_query($conn, $sql)) {
+        echo "Vet registered successfully!";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 
-    $conn->close();
+    mysqli_close($conn);
 }
 ?>
