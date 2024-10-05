@@ -58,37 +58,8 @@ if (isset($_SESSION['cart'])) {
     <title>Pet Shop - Cart</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f5f7fa;
-            color: #333;
-        }
-        h1, h2 {
-            color: #2b2b2b;
-            margin-bottom: 20px;
-            font-weight: 600;
-            text-align: center;
-        }
-        .cart-item {
-            padding: 20px;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .cart-item img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-        }
-        .total-price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-top: 20px;
-            text-align: right;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/cart.css">
+
     <script>
         function updatePrice(productId, price) {
             const quantity = document.getElementById(`quantity-${productId}`).value;
@@ -109,6 +80,25 @@ if (isset($_SESSION['cart'])) {
     </script>
 </head>
 <body>
+
+<header>
+    <div class="logo">
+        <a href="../index.html"><h1>Petiverse</h1></a>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="../index.php">Home</a></li>
+            <li><a href="../shop.php">Shop</a></li>
+            <li><a href="#">Vet Services</a></li>
+            <li><a href="#">Day Care</a></li>
+            <li><a href="#">Community</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Special Events</a></li> 
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Pet Selling</a></li>
+        </ul>
+    </nav>
+</header>
 
 <nav class="bg-white shadow-md">
     <div class="container mx-auto px-4 py-4">
