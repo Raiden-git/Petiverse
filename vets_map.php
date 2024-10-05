@@ -1,6 +1,13 @@
 <?php
 include 'db.php';
 
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+
 // Fetch vets data from the database
 $sql = "SELECT name, latitude, longitude FROM vets";
 $result = mysqli_query($conn, $sql);
@@ -45,7 +52,12 @@ while ($row = mysqli_fetch_assoc($result)) {
             </ul>
         </nav>
         <div class="login">
-            <a href="login.php">Login</a>
+            <?php if(isset($_SESSION['username'])): ?>
+                <a href="profile.php">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></a>
+                <a href="logout.php">Logout</a>
+            <?php else: ?>
+                <a href="login.php">Login</a>
+            <?php endif; ?>
         </div>
     </header>
 

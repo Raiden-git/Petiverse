@@ -1,37 +1,243 @@
 <?php
-// Include the database connection file
-include 'db.php';
+require 'google-config.php'; // Google Client configuration
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get the signup form data
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $address = mysqli_real_escape_string($conn, $_POST['address']);
-    $mobile_number = mysqli_real_escape_string($conn, $_POST['mobile_number']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Database connection
+    $conn = new mysqli('localhost', 'root', '', 'petiverse');
 
-    // Hash the password for security
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // Check if the email already exists
-    $check_email = "SELECT * FROM users WHERE email = '$email'";
-    $result = mysqli_query($conn, $check_email);
-
-    if (mysqli_num_rows($result) > 0) {
-        echo "<script>alert('Email already exists! Please use another email.'); window.location.href='index.html';</script>";
-    } else {
-        // Insert user data into the database
-        $sql = "INSERT INTO users (name, email, password, address, mobile_number) VALUES ('$name', '$email', '$hashed_password', '$address', '$mobile_number')";
-
-        if (mysqli_query($conn, $sql)) {
-            // Redirect to login page after successful signup
-            echo "<script>alert('Registration successful!'); window.location.href='../Customer/Cus-index.php';</script>";
-        } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-        }
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
+
+    // Collecting form data
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);
+    $confirm_password = md5($_POST['confirm_password']);
+    $address = $_POST['address'];
+    $mobile_number = $_POST['mobile_number'];
+
+    // Check if passwords match
+    if ($_POST['password'] != $_POST['confirm_password']) {
+        echo "<p class='error'>Passwords do not match!</p>";
+    } else {
+        // Check if the email already exists
+        $email_check = $conn->prepare("SELECT id FROM users WHERE email = ?");
+        $email_check->bind_param("s", $email);
+        $email_check->execute();
+        $email_check->store_result();
+        
+        if ($email_check->num_rows > 0) {
+            echo "<p class='error'>Email already exists!</p>";
+        } else {
+            // Insert user into database
+            $stmt = $conn->prepare("INSERT INTO users (full_name, email, password, address, contact_number) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssss", $name, $email, $password, $address, $mobile_number);
+
+            if ($stmt->execute()) {
+                echo "<p class='success'>Signup successful!</p>";
+                header("Location: login.php"); // Redirect to login page after signup
+                exit;
+            } else {
+                echo "<p class='error'>Error: " . $stmt->error . "</p>";
+            }
+            $stmt->close();
+        }
+        $email_check->close();
+    }
+
+    $conn->close();
 }
 
-// Close the connection
-mysqli_close($conn);
+$google_signup_url = $google_client->createAuthUrl(); // Google signup URL
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - Petiverse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #6A82FB, #FC5C7D);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .signup-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            animation: slideIn 0.8s ease;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: #FC5C7D;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .left-column, .right-column {
+            width: 48%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+            border-color: #FC5C7D;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #6A82FB;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #FC5C7D;
+        }
+
+        .google-signup-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #4285F4;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .google-signup-btn:hover {
+            background-color: #357ae8;
+        }
+
+        a {
+            color: #6A82FB;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .centered-or {
+            text-align: center;
+            /* margin-top: -10px; */
+            margin-bottom: 13px;
+            position: relative;
+            left: 47%;
+        }
+
+        .error {
+            color: #FF0000;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .success {
+            color: #28a745;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Signup to Petiverse</h2>
+        <form action="signup.php" method="POST">
+            <div class="left-column">
+                <label>Email:</label>
+                <input type="email" name="email" placeholder="Enter your email" required>
+
+                <label>Password:</label>
+                <input type="password" name="password" placeholder="Enter your password" required>
+
+                <label>Confirm Password:</label>
+                <input type="password" name="confirm_password" placeholder="Confirm your password" required>
+            </div>
+            <div class="right-column">
+                <label>Name:</label>
+                <input type="text" name="name" placeholder="Enter your name" required>
+
+                <label>Address:</label>
+                <input type="text" name="address" placeholder="Enter your address" required>
+
+                <label>Mobile Number:</label>
+                <input type="text" name="mobile_number" placeholder="Enter your mobile number" required>
+            </div>
+            <input type="submit" value="Signup" class="full-width">
+            <p class="centered-or">OR</p>
+            <a href="<?php echo $google_signup_url; ?>" class="google-signup-btn">Sign up with Google</a>
+        </form>
+        <p>Already registered? <a href="login.php">Login here</a></p>
+    </div>
+</body>
+</html>
