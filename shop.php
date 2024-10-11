@@ -108,33 +108,13 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Shop - Product Display</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <link rel="stylesheet" href="../assets/css/shop.css">
+    <link rel="stylesheet" href="assets/css/shop.css">
 </head>
 <body>
 
-<header>
-    <div class="logo">
-        <a href="../index.html"><h1>Petiverse</h1></a>
-    </div>
-    <nav>
-        <ul>
-        <li><a href="../index.php">Home</a></li>
-        <li><a href="../cart.php">Cart</a></li>
-            <li><a href="#">Vet Services</a></li>
-            <li><a href="#">Day Care</a></li>
-            <li><a href="#">Community</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Special Events</a></li>
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Pet Selling</a></li>
-        </ul>
-    </nav>
-    <div class="login">         
-                <a href="logout.php">Logout</a>
-     </div>
-</header>
+<!-- Navbar -->
+ <?php include 'Cus-NavBar/navBar.php'; ?>
 
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl mb-6">Pet Shop Categories</h1>

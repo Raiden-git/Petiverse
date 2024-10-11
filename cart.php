@@ -81,36 +81,7 @@ if (isset($_SESSION['cart'])) {
 </head>
 <body>
 
-<header>
-    <div class="logo">
-        <a href="../index.html"><h1>Petiverse</h1></a>
-    </div>
-    <nav>
-        <ul>
-            <li><a href="../index.php">Home</a></li>
-            <li><a href="../shop.php">Shop</a></li>
-            <li><a href="#">Vet Services</a></li>
-            <li><a href="#">Day Care</a></li>
-            <li><a href="#">Community</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Special Events</a></li> 
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Pet Selling</a></li>
-        </ul>
-    </nav>
-</header>
-
-<nav class="bg-white shadow-md">
-    <div class="container mx-auto px-4 py-4">
-        <div class="flex justify-between items-center">
-            <a class="text-2xl font-bold text-blue-600" href="#">Petiverse</a>
-            <div class="flex space-x-4">
-                <a class="text-gray-600 hover:text-blue-600" href="shop.php">Shop</a>
-                <a class="text-gray-600 hover:text-blue-600" href="cart.php">Cart</a>
-            </div>
-        </div>
-    </div>
-</nav>
+<?php include 'Cus-NavBar/navBar.php'; ?>
 
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl mb-6">Your Shopping Cart</h1>

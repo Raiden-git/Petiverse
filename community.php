@@ -2,6 +2,12 @@
 // Database connection
 include 'db.php';
 
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -225,26 +231,7 @@ $result = $conn->query($sql);
 </head>
 <body>
    
-    <header>
-        <div class="logo">
-            <h1>Petiverse</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">Shop</a></li>
-                <li><a href="#">Vet Services</a></li>
-                <li><a href="#">Day Care</a></li>
-                <li><a href="community.html">Community</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Special Events</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Pet Selling</a></li>
-            </ul>
-        </nav>
-        <div class="login">
-            <a href="profile.php">User Profile</a>
-        </div>
-    </header>
+    <?php include 'Cus-NavBar/navBar.php'; ?>
 
     <!-- Community Section -->
     <section class="community-section">
