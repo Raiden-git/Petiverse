@@ -192,31 +192,7 @@ input[type="submit"]:hover {
 </head>
 <body>
 
-<header>
-    <div class="logo">
-    <h1>  <a href="index.php">Petiverse</a></h1>
-    </div>
-    <nav>
-        <ul>
-            <li><a href="Customer/shop.php">Shop</a></li>
-            <li><a href="./vets_map.php">Vet Services</a></li>
-            <li><a href="#">Day Care</a></li>
-            <li><a href="#">Community</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Special Events</a></li>
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Pet Selling</a></li>
-        </ul>
-    </nav>
-    <div class="login">
-        <?php if (isset($_SESSION['username'])): ?>
-            <a href="profile.php">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></a>
-            <a href="logout.php">Logout</a>
-        <?php else: ?>
-            <a href="login.php">Login</a>
-        <?php endif; ?>
-    </div>
-</header>
+<?php include 'Cus-NavBar/navBar.php'; ?>
 
 <div class="profile-container">
     <h2>Welcome, <?php echo $name; ?>!</h2>

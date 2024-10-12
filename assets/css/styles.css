@@ -1,69 +1,51 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+
 
 body {
-    font-family: Arial, sans-serif;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #333;
-    color: white;
-}
-
-.logo h1 {
-    font-size: 24px;
-}
-
-/* Navigation styles */
-nav ul {
-    display: flex;
-    list-style: none;
-    background-color: #333;
-    padding: 10px;
-}
-
-nav ul li {
-    position: relative; /* Required for dropdown positioning */
-    margin-right: 15px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 15px;
-    display: block;
+    font-family: 'Poppins', sans-serif;
+    background-color: #FCFAEE;
+    color: #333;
+    margin: 0; 
+    padding: 0;
 }
 
 
-.login a {
-    color: white;
-    padding: 10px 15px;
-    text-decoration: none;
-    background-color: #f04e45;
-    border-radius: 5px;
-}
 .hero {
-    background-image: url('hero-image.jpg');
+    position: relative; /* Make sure the overlay and text are positioned within this */
+    background-image: url('../../uploads/Hero1.jpg');
     background-size: cover;
     background-position: center;
     height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
     color: white;
 }
 
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1; 
+}
+
+.hero-text {
+    position: relative; 
+    z-index: 2; 
+    text-align: center;
+    color: #FCFAEE;
+}
+
 .hero-text h2 {
-    font-size: 48px;
-    margin-bottom: 10px;
+    font-size: 70px; /* 48 */
+    margin-bottom: 5px;
+}
+
+.hero-text p {
+    font-size: 25px;
+    margin-bottom: 20px;
 }
 
 .cta-buttons {
@@ -73,13 +55,17 @@ nav ul li a {
 }
 
 .cta {
-    background-color: #f04e45;
+    background-color: #da845948;
     color: white;
     padding: 10px 20px;
     text-decoration: none;
-    border-radius: 5px;
+    border: 2px solid #DA8359;
+    border-radius: 25px;
 }
 
+.cta:hover {
+    background-color: #DA8359;
+}
 
 
 
@@ -88,14 +74,16 @@ nav ul li a {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     padding: 40px;
-    background-color: #f9f9f9;
+    background-color: white;
     text-align: center;
 }
 
 .feature-card {
-    background-color: white;
+    background-color: #FCFAEE;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 13px;
+    border: 1px solid #b3b0a5;
 }
 
 .feature-card img {
@@ -108,12 +96,18 @@ nav ul li a {
 
 .button {
     display: inline-block;
-    background-color: #333;
+    background-color: #DA8359;
     color: white;
     margin-top: 10px;
     padding: 10px 20px;
     text-decoration: none;
-    border-radius: 5px;
+    border: 2px solid #DA8359;
+    border-radius: 25px;
+}
+
+.button:hover {
+    background-color: #b85d30;
+    color: white;
 }
 
 .community-blog {

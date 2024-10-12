@@ -12,40 +12,17 @@ session_start(); // Start the session to check login status
 </head>
 <body>
    
-    <header>
-        <div class="logo">
-            <h1 href="index.php">Petiverse</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="./shop.php">Shop</a></li>
-                <li><a href="./vets_map.php">Vet Services</a></li>
-                <li><a href="#">Day Care</a></li>
-                <li><a href="#">Community</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Special Events</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Pet Selling</a></li>
-            </ul>
-        </nav>
-        <div class="login">
-            <?php if(isset($_SESSION['username'])): ?>
-                <a href="profile.php">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></a>
-                <a href="logout.php">Logout</a>
-            <?php else: ?>
-                <a href="login.php">Login</a>
-            <?php endif; ?>
-        </div>
-    </header>
+    <?php include 'Cus-NavBar/navBar.php'; ?>
 
     <!-- Hero Section -->
     <section class="hero">
+    <div class="hero-overlay"></div>
         <div class="hero-text">
             <h2>Welcome to Petiverse</h2>
             <p>Your One-Stop for Pet Care and Community</p>
             <div class="cta-buttons">
-                <a href="Customer/shop.php" class="cta">Explore Our Shop</a>
-                <a href="./vets_map.php" class="cta">Find a Vet</a>
+                <a href="./shop.php" class="cta">Explore Our Shop</a>
+                <a href="./vets_map.php" class="cta">Find a Veterinarian</a>
             </div>
         </div>
     </section>
@@ -56,7 +33,7 @@ session_start(); // Start the session to check login status
             <img src="src/img/shop.jpg" alt="Shop">
             <h3>Shop</h3>
             <p>Food, accessories, and medicines for your pets.</p>
-            <a href="Customer/shop.php" class="button">Shop Now</a>
+            <a href="./shop.php" class="button">Shop Now</a>
         </div>
         <div class="feature-card">
             <img src="src/img/vet.jpg" alt="Vet">
