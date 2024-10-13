@@ -10,16 +10,17 @@ body {
 
 
 .hero {
-    position: relative; /* Make sure the overlay and text are positioned within this */
+    position: relative;
     background-image: url('../../uploads/Hero1.jpg');
     background-size: cover;
     background-position: center;
-    height: 500px;
+    height: 90vh; 
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
 }
+
 
 .hero-overlay {
     position: absolute;

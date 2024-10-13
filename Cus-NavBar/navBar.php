@@ -73,7 +73,7 @@ nav a:hover {
     transform: translateY(-3px);
 }
 
-/* Login Section Styles */
+
 .login a {
     text-decoration: none;
     font-size: 16px;
@@ -165,14 +165,15 @@ nav a:hover {
     </div>
     <nav>
         <ul>
+            <li><a href="#">About Us</a></li>
             <li><a href="./shop.php">Shop</a></li>
             <li><a href="./vets_map.php">Vet Services</a></li>
             <li><a href="#">Day Care</a></li>
             <li><a href="./community.php">Community</a></li>
-            <li><a href="#">Blog</a></li>
+            <li><a href="./Blog.php">Blog</a></li>
             <li><a href="#">Lost & Found Pets</a></li>
             <li><a href="#">Pet Selling</a></li>
-            <li><a href="#">About Us</a></li>
+           
         </ul>
     </nav>
     <div class="login">
