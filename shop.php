@@ -1,13 +1,13 @@
 <?php
 include './db.php';
 
-
 // Initialize variables
 $categories = [];
-$selected_category = '';
+$selected_category = 'All'; // Default to "All" category
 $selected_subcategory = '';
 $subcategories = [];
 $products = [];
+$search_query = ''; // Search query variable
 
 // Fetch main categories
 $sql = "SELECT DISTINCT main_category FROM subcategories";
@@ -16,6 +16,7 @@ $result = $conn->query($sql);
 if ($result === false) {
     die("Error fetching main categories: " . $conn->error);
 } else {
+    $categories[] = 'All'; // Add "All" option for displaying all products
     while ($row = $result->fetch_assoc()) {
         $categories[] = $row['main_category'];
     }
@@ -24,8 +25,10 @@ if ($result === false) {
 // Get selected main category
 if (isset($_GET['category'])) {
     $selected_category = $conn->real_escape_string($_GET['category']);
+}
 
-    // Fetch subcategories for the selected main category
+// Fetch subcategories for the selected main category (except when "All" is selected)
+if ($selected_category && $selected_category !== 'All') {
     $sql = "SELECT sub_category FROM subcategories WHERE main_category = '$selected_category'";
     $result = $conn->query($sql);
     
@@ -43,6 +46,11 @@ if (isset($_GET['subcategory'])) {
     $selected_subcategory = $conn->real_escape_string($_GET['subcategory']);
 }
 
+// Get search query
+if (isset($_GET['search_query'])) {
+    $search_query = $conn->real_escape_string($_GET['search_query']);
+}
+
 // Process form submission (add to cart)
 session_start(); // Start session for cart
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
@@ -57,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     exit();
 }
 
-// Fetch products based on selected category and subcategory
+// Fetch products based on selected category, subcategory, or search query
 $limit = 9; // Products per page
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
@@ -65,12 +73,19 @@ $offset = ($page - 1) * $limit;
 // Construct the SQL query for products
 $sql = "SELECT * FROM products WHERE 1"; // Start with a condition that always returns true
 
-if ($selected_category) {
+// Filter by selected category, but if "All" is selected, skip the filtering
+if ($selected_category && $selected_category !== 'All') {
     $sql .= " AND category = '$selected_category'"; // Filter by selected category
 }
 
+// Further filter by subcategory if selected
 if ($selected_subcategory) {
-    $sql .= " AND subcategory = '$selected_subcategory'"; // Further filter by subcategory if selected
+    $sql .= " AND subcategory = '$selected_subcategory'";
+}
+
+// Add search functionality: If search query is present, search by product name or description
+if ($search_query) {
+    $sql .= " AND (name LIKE '%$search_query%' OR description LIKE '%$search_query%')";
 }
 
 $sql .= " LIMIT $limit OFFSET $offset"; // Add pagination
@@ -87,11 +102,14 @@ if ($result === false) {
 
 // Count total products for pagination
 $sql_count = "SELECT COUNT(*) as total FROM products WHERE 1";
-if ($selected_category) {
+if ($selected_category && $selected_category !== 'All') {
     $sql_count .= " AND category = '$selected_category'";
 }
 if ($selected_subcategory) {
     $sql_count .= " AND subcategory = '$selected_subcategory'";
+}
+if ($search_query) {
+    $sql_count .= " AND (name LIKE '%$search_query%' OR description LIKE '%$search_query%')";
 }
 $result_count = $conn->query($sql_count);
 $total_products = $result_count->fetch_assoc()['total'];
@@ -108,13 +126,24 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Shop - Product Display</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <link rel="stylesheet" href="assets/css/shop.css">
+    <link rel="stylesheet" href="./assets/css/shop.css">
 </head>
 <body>
 
-<!-- Navbar -->
- <?php include 'Cus-NavBar/navBar.php'; ?>
+<?php include 'Cus-NavBar/navBar.php'; ?>
+
+
+<!-- Search Bar -->
+<div class="search-bar-container">
+    <form method="GET" action="">
+        <input type="text" name="search_query" placeholder="Search for products..." value="<?= htmlspecialchars($search_query) ?>" class="search-bar">
+        <button type="submit" class="search-button">Search</button>
+    </form>
+</div>
+
+
 
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl mb-6">Pet Shop Categories</h1>
@@ -134,7 +163,7 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
     </ul>
 
     <!-- Subcategories Navbar -->
-    <?php if ($selected_category): ?>
+    <?php if ($selected_category && $selected_category !== 'All'): ?>
         <h2 class="text-2xl mb-4"><?= htmlspecialchars($selected_category) ?> Subcategories</h2>
         <ul class="flex justify-center mb-6">
             <?php if (!empty($subcategories)): ?>
@@ -150,9 +179,8 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
         </ul>
     <?php endif; ?>
 
-<!-- Product Cards -->
-<div class="container mx-auto px-2"> <!-- Reduced padding -->
-    <div class="grid md:grid-cols-4 gap-4"> <!-- Reduced gap -->
+    <!-- Product Cards -->
+    <div class="grid md:grid-cols-4 gap-4">
         <?php if (!empty($products)): ?>
             <?php foreach ($products as $product): ?>
                 <div class="product-card p-4">
@@ -173,9 +201,6 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
             <p>No products available.</p>
         <?php endif; ?>
     </div>
-</div>
-
-    
 </div>
 
 <!-- Fixed Cart Icon -->
