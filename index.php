@@ -9,6 +9,7 @@ session_start(); // Start the session to check login status
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Petiverse - Let's care your Furball</title>
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/scrollbar.css">
 </head>
 <body>
    
