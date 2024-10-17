@@ -15,7 +15,7 @@ include('session_check.php');
 </head>
 <body>
 <header>
-    <h1>Community Management</h1>
+    <h1 class="text-center mt-4">Community Management</h1>
 </header>
 
 <nav>
@@ -23,7 +23,6 @@ include('session_check.php');
         <li><a href="dashboard.php">Home</a></li>
         <li><a href="user_management.php">User Management</a></li>
         <li><a href="shop_management.php">Shop Management</a></li>
-        <li><a href="Added_Products_Manage.php">Added Products Manage</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
