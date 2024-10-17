@@ -73,14 +73,14 @@ $offset = ($page - 1) * $limit;
 // Construct the SQL query for products
 $sql = "SELECT * FROM products WHERE 1"; // Start with a condition that always returns true
 
-// Filter by selected category, but if "All" is selected, skip the filtering
+// If a category is selected but not "All", filter by the selected category
 if ($selected_category && $selected_category !== 'All') {
     $sql .= " AND category = '$selected_category'"; // Filter by selected category
-}
 
-// Further filter by subcategory if selected
-if ($selected_subcategory) {
-    $sql .= " AND subcategory = '$selected_subcategory'";
+    // Further filter by subcategory if selected
+    if ($selected_subcategory) {
+        $sql .= " AND subcategory = '$selected_subcategory'";
+    }
 }
 
 // Add search functionality: If search query is present, search by product name or description
@@ -88,6 +88,7 @@ if ($search_query) {
     $sql .= " AND (name LIKE '%$search_query%' OR description LIKE '%$search_query%')";
 }
 
+// Add the limit for pagination
 $sql .= " LIMIT $limit OFFSET $offset"; // Add pagination
 
 $result = $conn->query($sql);
@@ -129,6 +130,7 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <link rel="stylesheet" href="./assets/css/shop.css">
+    <link rel="stylesheet" href="./assets/css/scrollbar.css">
 </head>
 <body>
 
@@ -142,8 +144,6 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
         <button type="submit" class="search-button">Search</button>
     </form>
 </div>
-
-
 
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl mb-6">Pet Shop Categories</h1>
