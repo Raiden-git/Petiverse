@@ -51,7 +51,7 @@ $cart_items = [];
 $total_price = 0; // Initialize total price
 if (isset($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $product_id => $quantity) {
-        $sql = "SELECT * FROM products WHERE id = '$product_id'";
+        $sql = "SELECT id, name, description, price, photo FROM products WHERE id = '$product_id'";
         $result = $conn->query($sql);
         if ($result) {
             $cart_item = $result->fetch_assoc();
@@ -130,7 +130,8 @@ if (isset($_SESSION['cart'])) {
             <?php foreach ($cart_items as $item): ?>
 
                 <div class="cart-item flex items-center">
-                    <img src="../uploads/<?= htmlspecialchars($item['photo']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="w-24 h-24 object-cover rounded-md mr-4">
+                    <!-- Convert binary data to base64 for displaying as an image -->
+                    <img src="data:image/jpeg;base64,<?= base64_encode($item['photo']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="w-24 h-24 object-cover rounded-md mr-4">
                     <div>
                         <h5 class="text-lg font-semibold"><?= htmlspecialchars($item['name']) ?></h5>
                         <p class="text-blue-600 font-bold item-total" id="total-price-<?= $item['id'] ?>">
@@ -167,6 +168,8 @@ if (isset($_SESSION['cart'])) {
     <?php endif; ?>
 </div>
 
+
+
 <!-- Modal for payment method selection -->
 <div id="paymentModal" class="fixed inset-0 flex items-center justify-center modal-bg hidden">
     <div class="modal-container p-8 shadow-lg">
@@ -185,3 +188,8 @@ if (isset($_SESSION['cart'])) {
 
 </body>
 </html>
+
+<?php
+// Close the database connection
+$conn->close();
+?>

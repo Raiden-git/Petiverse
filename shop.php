@@ -71,7 +71,7 @@ $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
 // Construct the SQL query for products
-$sql = "SELECT * FROM products WHERE 1"; // Start with a condition that always returns true
+$sql = "SELECT id, name, description, price, photo FROM products WHERE 1"; // Include the photo field
 
 // If a category is selected but not "All", filter by the selected category
 if ($selected_category && $selected_category !== 'All') {
@@ -136,7 +136,6 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
 
 <?php include 'Cus-NavBar/navBar.php'; ?>
 
-
 <!-- Search Bar -->
 <div class="search-bar-container">
     <form method="GET" action="">
@@ -184,14 +183,15 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
         <?php if (!empty($products)): ?>
             <?php foreach ($products as $product): ?>
                 <div class="product-card p-4">
-                    <img src="../uploads/<?= htmlspecialchars($product['photo']) ?>" class="w-full h-48 object-cover rounded-t-lg" alt="<?= htmlspecialchars($product['name']) ?>">
+                    <!-- Convert binary data to base64 for displaying as an image -->
+                    <img src="data:image/jpeg;base64,<?= base64_encode($product['photo']) ?>" class="w-full h-48 object-cover rounded-t-lg" alt="<?= htmlspecialchars($product['name']) ?>">
                     <div class="p-3 text-center">
                         <h5 class="text-lg font-semibold"><?= htmlspecialchars($product['name']) ?></h5>
                         <p class="text-xl text-blue-600 font-bold">$<?= number_format($product['price'], 2) ?></p>
                         <p class="text-gray-600 mb-4"><?= htmlspecialchars($product['description']) ?></p>
                         <form method="POST" action="">
                             <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['id']) ?>">
-                            <button class="button-primary rounded-full px-4 py-2 hover:bg-blue-500 transition">Buy Now</button>
+                            <button type="button" class="button-primary rounded-full px-4 py-2 hover:bg-blue-500 transition" onclick="showPaymentModal()">Buy Now</button>
                             <button class="button-secondary rounded-full px-4 py-2 hover:bg-gray-500 transition ml-2" name="add_to_cart">Add to Cart</button>
                         </form>
                     </div>
@@ -207,16 +207,43 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
 <div class="cart-icon-container">
     <a href="cart.php">
         <box-icon name='cart' size="40px"></box-icon>
-        <?php if ($total_cart_items > 0): ?>
-            <span class="cart-count"><?= $total_cart_items ?></span>
-        <?php endif; ?>
+        <span class="cart-count"><?= $total_cart_items ?></span>
     </a>
 </div>
 
+<!-- Payment Modal -->
+<div id="paymentModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
+        <h3 class="text-xl font-semibold mb-4">Choose Payment Method</h3>
+        <p class="mb-6">Please select a payment method for your purchase.</p>
+        <div class="flex justify-between">
+            <button class="bg-green-500 text-white rounded px-4 py-2 hover:bg-green-600 transition" onclick="handlePayment('cod')">Cash on Delivery</button>
+            <button class="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600 transition" onclick="handlePayment('online')">Online Payment</button>
+        </div>
+        <button class="mt-4 text-red-500" onclick="closePaymentModal()">Cancel</button>
+    </div>
+</div>
+
+<script>
+    function showPaymentModal() {
+        document.getElementById('paymentModal').classList.remove('hidden');
+    }
+
+    function closePaymentModal() {
+        document.getElementById('paymentModal').classList.add('hidden');
+    }
+
+    function handlePayment(method) {
+        if (method === 'cod') {
+            // Redirect to cash_on_delivery.php
+            window.location.href = 'cash_on_delivery.php'; // Redirect to COD page
+        } else if (method === 'online') {
+            alert('You selected Online Payment. Redirecting to payment gateway...');
+            // Here you can redirect to the payment gateway or further implement online payment logic
+        }
+        closePaymentModal(); // Close the modal after selection
+    }
+</script>
+
 </body>
 </html>
-
-<?php
-// Close database connection
-$conn->close();
-?>
