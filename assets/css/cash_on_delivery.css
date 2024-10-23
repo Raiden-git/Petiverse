@@ -1,0 +1,235 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9fafb;
+  color: #2d3748;
+  line-height: 1.6;
+}
+
+/* Container styling */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+}
+
+/* Header Styles */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  width: 100%;
+}
+
+h1::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 4px;
+  background-color: #38a169;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+/* Order Summary */
+.order-summary {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.order-summary:hover {
+  transform: translateY(-5px); /* Lift effect */
+}
+
+.order-summary h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #38a169; /* Underline effect */
+  padding-bottom: 0.5rem;
+}
+
+.order-summary ul {
+  padding: 0;
+  list-style: none;
+}
+
+.order-summary li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.order-summary li:last-child {
+  border-bottom: none;
+}
+
+/* Product details inside the Order Summary */
+.order-summary img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 1rem;
+}
+
+.order-summary .item-details {
+  display: flex;
+  align-items: center;
+}
+
+.order-summary .item-name {
+  font-weight: 600;
+}
+
+.order-summary .item-quantity {
+  color: #718096;
+  margin-left: 0.5rem;
+}
+
+.order-summary .item-total {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+/* Total Amount */
+.total-amount {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: right;
+  margin-top: 1.5rem;
+  color: #2c5282;
+  background-color: #edf2f7;
+  border: 2px solid #38a169;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.total-amount:hover {
+  background-color: #e2f7e2;
+}
+
+/* Form Section */
+.form-section {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.form-section:hover {
+  transform: translateY(-5px); /* Lift effect */
+}
+
+.form-section h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #38a169; /* Underline effect */
+  padding-bottom: 0.5rem;
+}
+
+.form-section label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-section input,
+.form-section textarea {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #f7fafc;
+  transition: border-color 0.2s ease;
+}
+
+.form-section input:focus,
+.form-section textarea:focus {
+  border-color: #38a169;
+  outline: none;
+}
+
+/* Button Styles */
+.confirm-button {
+  background-color: #38a169;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+  width: 100%;
+}
+
+.confirm-button:hover {
+  background-color: #2f855a;
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  h1 {
+      font-size: 2rem;
+  }
+
+  .order-summary,
+  .form-section {
+      padding: 1rem;
+  }
+
+  .order-summary h2,
+  .form-section h2 {
+      font-size: 1.5rem;
+  }
+
+  .total-amount {
+      font-size: 1.25rem;
+  }
+
+  .confirm-button {
+      padding: 0.5rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+      padding: 1rem;
+  }
+
+  h1 {
+      font-size: 1.5rem;
+  }
+
+  .order-summary h2,
+  .form-section h2 {
+      font-size: 1.25rem;
+  }
+
+  .total-amount {
+      font-size: 1rem;
+  }
+
+  .confirm-button {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+  }
+}
