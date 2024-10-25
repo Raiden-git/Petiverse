@@ -2,10 +2,9 @@
 include 'db.php';
 
 session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
+
+// Check if the user is logged in, show login modal if not logged in
+$isLoggedIn = isset($_SESSION['user_id']);
 
 
 // Fetch vets data from the database
@@ -17,6 +16,16 @@ while ($row = mysqli_fetch_assoc($result)) {
     $vets[] = $row;
 }
 ?>
+
+<!-- Include the login modal if user is not logged in -->
+<?php if (!$isLoggedIn): ?>
+    <?php include 'login_modal.php'; ?>
+    <script>
+        window.onload = function() {
+            openLoginModal(); // Open the login modal automatically
+        };
+    </script>
+<?php endif; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,6 +49,10 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 <h2>All Registered Vets</h2>
 <div id="map"></div>
+
+
+
+
 
 <script>
     var vets = <?php echo json_encode($vets); ?>;
@@ -111,6 +124,14 @@ while ($row = mysqli_fetch_assoc($result)) {
         });
         map.setCenter(pos);
     }
+
+    // Auto-open login modal if user is not logged in
+    <?php if (!$isLoggedIn): ?>
+        window.onload = function() {
+            openLoginModal();
+        };
+    <?php endif; ?>
+
 </script>
 
 </body>

@@ -28,6 +28,18 @@ session_start(); // Start the session to check login status
         </div>
     </section>
 
+
+    <section class="about-section">
+            <h2>Our Story</h2>
+            <p>Founded with a vision to unite pet lovers and caregivers, Petiverse is dedicated to enhancing the lives of pets and their owners. We bring together services, resources, and a supportive community all in one platform, helping you find everything your pet needs with ease and confidence.</p>
+        </section>
+
+        <section class="about-section">
+            <h2>Our Mission</h2>
+            <p>Our mission is simple: to make pet care accessible, trustworthy, and supportive. We aim to provide an all-in-one solution for pet owners, offering a network of veterinarians, a comprehensive pet shop, and a forum for community connection.</p>
+        </section>
+
+
     <!-- Features Section -->
     <section class="features">
         <div class="feature-card">
