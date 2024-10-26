@@ -1,10 +1,10 @@
 <?php
-require 'google-config.php'; // Google Client configuration
+//require 'google-config.php'; // Google Client configuration
 
 
 
 $error_message = '';
-$google_login_url = $google_client->createAuthUrl(); // Google login URL
+//$google_login_url = $google_client->createAuthUrl(); // Google login URL
 
 // Restricted pages requiring login
 $restricted_pages = ['vets_map.php', 'daycare.php', 'lost_found.php', 'petselling.php'];
@@ -308,7 +308,7 @@ input[type="submit"]:hover {
             <li><a href="#" class="restricted-page" data-page="daycare.php">Day Care</a></li>
             <li><a href="community.php">Community</a></li>
             <li><a href="blog.php">Blog</a></li>
-            <li><a href="#" class="restricted-page" data-page="lost_found.php">Lost & Found Pets</a></li>
+            <li><a href="./pets.php">Lost & Found Pets</a></li>
             <li><a href="#" class="restricted-page" data-page="petselling.php">Pet Selling</a></li>
             <li><a href="about.php">About Us</a></li>
         </ul>

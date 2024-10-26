@@ -10,6 +10,7 @@ session_start(); // Start the session to check login status
     <title>Petiverse - Let's care your Furball</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/scrollbar.css">
+    <link rel="stylesheet" href="assets/css/popup.css"> <!-- CSS for the popup -->
 </head>
 <body>
    
@@ -17,7 +18,7 @@ session_start(); // Start the session to check login status
 
     <!-- Hero Section -->
     <section class="hero">
-    <div class="hero-overlay"></div>
+        <div class="hero-overlay"></div>
         <div class="hero-text">
             <h2>Welcome to Petiverse</h2>
             <p>Your One-Stop for Pet Care and Community</p>
@@ -28,17 +29,44 @@ session_start(); // Start the session to check login status
         </div>
     </section>
 
+    <!-- Popup Notification for Lost & Found -->
+    <div class="popup-container" id="notifications-container">
+        <?php
+        // Database connection
+        $conn = new mysqli('localhost', 'root', '', 'petiverse');
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        // Fetch the latest 4 lost and found reports
+        $sql = "SELECT pet_name, location, date FROM lost_and_found_pets ORDER BY date DESC LIMIT 4";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            // Display each record as a notification item
+            while ($row = $result->fetch_assoc()) {
+                echo '<div class="notification">';
+                echo '<p><strong>Pet Name:</strong> ' . htmlspecialchars($row['pet_name']) . '</p>';
+                echo '<p><strong>Location:</strong> ' . htmlspecialchars($row['location']) . '</p>';
+                echo '<p><strong>Date:</strong> ' . htmlspecialchars($row['date']) . '</p>';
+                echo '<button onclick="closeNotification(this)">✕</button>';
+                echo '</div>';
+            }
+        }
+        $conn->close();
+        ?>
+    </div>
+    <button id="close-all-btn" onclick="closeAllNotifications()">Close All</button>
 
     <section class="about-section">
-            <h2>Our Story</h2>
-            <p>Founded with a vision to unite pet lovers and caregivers, Petiverse is dedicated to enhancing the lives of pets and their owners. We bring together services, resources, and a supportive community all in one platform, helping you find everything your pet needs with ease and confidence.</p>
-        </section>
+        <h2>Our Story</h2>
+        <p>Founded with a vision to unite pet lovers and caregivers, Petiverse is dedicated to enhancing the lives of pets and their owners. We bring together services, resources, and a supportive community all in one platform, helping you find everything your pet needs with ease and confidence.</p>
+    </section>
 
-        <section class="about-section">
-            <h2>Our Mission</h2>
-            <p>Our mission is simple: to make pet care accessible, trustworthy, and supportive. We aim to provide an all-in-one solution for pet owners, offering a network of veterinarians, a comprehensive pet shop, and a forum for community connection.</p>
-        </section>
-
+    <section class="about-section">
+        <h2>Our Mission</h2>
+        <p>Our mission is simple: to make pet care accessible, trustworthy, and supportive. We aim to provide an all-in-one solution for pet owners, offering a network of veterinarians, a comprehensive pet shop, and a forum for community connection.</p>
+    </section>
 
     <!-- Features Section -->
     <section class="features">
@@ -100,5 +128,35 @@ session_start(); // Start the session to check login status
             <p>&copy; 2024 Petiverse. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <!-- JavaScript for notifications -->
+    <script>
+        // Function to close a single notification
+        function closeNotification(button) {
+            const notificationElement = button.parentElement;
+            notificationElement.remove();
+            checkNotifications(); // Check if there are no more notifications after closing one
+        }
+
+        // Function to close all notifications
+        function closeAllNotifications() {
+            const container = document.getElementById("notifications-container");
+            container.innerHTML = ""; // Clear all notifications
+            document.getElementById("close-all-btn").style.display = "none"; // Hide the Close All button
+        }
+
+        // Function to check notifications and hide the button if there are none
+        function checkNotifications() {
+            const container = document.getElementById("notifications-container");
+            if (container.children.length === 0) {
+                document.getElementById("close-all-btn").style.display = "none"; // Hide the Close All button
+            }
+        }
+
+        // Auto-hide the notifications after 8 seconds
+        setTimeout(() => {
+            closeAllNotifications();
+        }, 20000); // Adjust timing as needed
+    </script>
 </body>
 </html>
