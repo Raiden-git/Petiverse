@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F6F4E6; /* Light sand color */
+    color: #5B3D21; /* Dark brown color */
+    margin: 0;
+    padding: 0;
+}
+
+.pets-section {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+    color: #4E3B2B; /* Medium brown color */
+    margin-bottom: 20px;
+}
+
+.search-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px;
+    border: 1px solid #C4B7A6; /* Lighter brown */
+    border-radius: 5px;
+    width: 70%;
+}
+
+.search-form button {
+    padding: 10px 15px;
+    background-color: #A89F8D; /* Light brown */
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.search-form button:hover {
+    background-color: #4CAF50; /* Green on hover */
+}
+
+.pets-list {
+    margin-top: 20px;
+}
+
+.pet-card {
+    background-color: #E8D7C8; /* Light beige */
+    border: 1px solid #C4B7A6; /* Lighter brown */
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.pet-card h3 {
+    margin-top: 0;
+}
+
+footer {
+    background-color: #4E3B2B; /* Dark brown */
+    color: #FFF;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.submit-btn {
+    position: absolute;
+ 
+    right: 20px;
+    background-color: #af4c4c;
+    color: white;
+    padding: 10px 40px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+}
