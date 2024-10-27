@@ -266,7 +266,7 @@
                 </div>
 
                 <div class="team-member">
-                    <img src="./assets/img/himaz.jpg" alt="Himaz's Picture">
+                    <img src="./assets/img/himaz.jpeg" alt="Himaz's Picture">
                     <h3>Backend Developer</h3>
                     <p>Mohomad Himaz</p>
                 </div>
