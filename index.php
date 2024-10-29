@@ -11,6 +11,29 @@ session_start(); // Start the session to check login status
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/scrollbar.css">
     <link rel="stylesheet" href="assets/css/popup.css"> <!-- CSS for the popup -->
+    <style>
+        /* Additional CSS for notification images */
+        .notification img {
+            width: 80px; /* Set width */
+            height: 80px; /* Set height */
+            object-fit: cover; /* Maintain aspect ratio while filling the box */
+            margin-right: 10px; /* Space between image and text */
+            border-radius: 5px; /* Optional: rounded corners */
+        }
+        .notification {
+            display: flex; /* Flexbox to align image and text */
+            align-items: center; /* Center items vertically */
+            margin-bottom: 10px; /* Space between notifications */
+        }
+        .status {
+            font-weight: bold;
+            margin-left: 10px; /* Space between status and pet name */
+            color: #d9534f; /* Color for lost status */
+        }
+        .status.found {
+            color: #5cb85c; /* Color for found status */
+        }
+    </style>
 </head>
 <body>
    
@@ -38,17 +61,28 @@ session_start(); // Start the session to check login status
             die("Connection failed: " . $conn->connect_error);
         }
 
-        // Fetch the latest 4 lost and found reports
-        $sql = "SELECT pet_name, location, date FROM lost_and_found_pets ORDER BY date DESC LIMIT 4";
+        // Fetch the latest 4 lost and found reports including the image and status
+        $sql = "SELECT pet_name, location, date, image, status FROM lost_and_found_pets ORDER BY date DESC LIMIT 4";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
             // Display each record as a notification item
             while ($row = $result->fetch_assoc()) {
+                // Convert the image BLOB to a base64 string
+                $base64_image = base64_encode($row['image']);
+                $image_src = 'data:image/jpeg;base64,' . $base64_image; // Adjust the image type if needed
+                
+                // Set the status class based on the pet status
+                $status_class = ($row['status'] === 'found') ? 'found' : '';
+                $status_text = ucfirst(htmlspecialchars($row['status'])); // Capitalize the status
+               
                 echo '<div class="notification">';
-                echo '<p><strong>Pet Name:</strong> ' . htmlspecialchars($row['pet_name']) . '</p>';
+                echo '<img src="' . htmlspecialchars($image_src) . '" alt="' . htmlspecialchars($row['pet_name']) . '" class="pet-image" />';
+                echo '<div>'; // Create a wrapper for text
+                echo '<p><strong>Pet Name:</strong> ' . htmlspecialchars($row['pet_name']) . ' <span class="status ' . $status_class . '">' . $status_text . '</span></p>';
                 echo '<p><strong>Location:</strong> ' . htmlspecialchars($row['location']) . '</p>';
                 echo '<p><strong>Date:</strong> ' . htmlspecialchars($row['date']) . '</p>';
+                echo '</div>'; // Close wrapper
                 echo '<button onclick="closeNotification(this)">✕</button>';
                 echo '</div>';
             }
@@ -153,7 +187,7 @@ session_start(); // Start the session to check login status
             }
         }
 
-        // Auto-hide the notifications after 8 seconds
+        // Auto-hide the notifications after 20 seconds
         setTimeout(() => {
             closeAllNotifications();
         }, 20000); // Adjust timing as needed
