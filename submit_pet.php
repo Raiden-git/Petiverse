@@ -13,6 +13,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Variable to control popup display
+$showPopup = false;
+
 // If the form is submitted, insert data into the database
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pet_name = $_POST['pet_name'];
@@ -22,16 +25,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $status = $_POST['status'];
     $contact_info = $_POST['contact_info'];
 
-    // Insert data into the lost_and_found_pets table
-    $sql = "INSERT INTO lost_and_found_pets (pet_name, pet_type, description, location, status, contact_info) 
-            VALUES ('$pet_name', '$pet_type', '$description', '$location', '$status', '$contact_info')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Pet details submitted successfully!";
+    // Handle image upload
+    if (isset($_FILES['pet_image']) && $_FILES['pet_image']['error'] == 0) {
+        // Read image file and prepare for database insertion
+        $image = file_get_contents($_FILES['pet_image']['tmp_name']);
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        $image = null; // Set to null if no image uploaded
     }
 
+    // Insert data into the lost_and_found_pets table
+    $sql = "INSERT INTO lost_and_found_pets (pet_name, pet_type, description, location, status, contact_info, image) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssssss", $pet_name, $pet_type, $description, $location, $status, $contact_info, $image);
+
+    if ($stmt->execute()) {
+        $showPopup = true; // Set flag to show success popup
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
     $conn->close();
 }
 ?>
@@ -42,16 +56,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Lost or Found Pet</title>
-
     <link rel="stylesheet" href="./assets/css/submit_pet.css">
-
+    <style>
+        /* Popup styling */
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+        }
+        .popup-content h2 {
+            margin: 0 0 15px;
+        }
+        .popup-content button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
     
 <?php include './Cus-NavBar/navBar.php'; ?> <!-- Corrected path to include navigation bar -->
     <h1>Report a Lost or Found Pet</h1>
     
-    <form action="submit_pet.php" method="POST">
+    <form action="submit_pet.php" method="POST" enctype="multipart/form-data"> <!-- Added enctype -->
         <label for="pet-name">Pet Name:</label>
         <input type="text" id="pet-name" name="pet_name" required><br><br>
 
@@ -78,7 +123,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="contact-info">Contact Information (Email/Phone):</label>
         <input type="text" id="contact-info" name="contact_info" required><br><br>
 
+        <label for="pet-image">Upload Pet Image:</label>
+        <input type="file" id="pet-image" name="pet_image" accept="image/*" required><br><br>
+
         <button type="submit">Submit</button>
     </form>
+
+    <!-- Success Popup -->
+    <div class="popup" id="successPopup">
+        <div class="popup-content">
+            <h2>Pet details submitted successfully!</h2>
+            <button onclick="closePopup()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle popup
+        function closePopup() {
+            document.getElementById('successPopup').style.display = 'none';
+        }
+
+        // Show popup if form submission was successful
+        <?php if ($showPopup): ?>
+            document.getElementById('successPopup').style.display = 'flex';
+        <?php endif; ?>
+    </script>
 </body>
 </html>
