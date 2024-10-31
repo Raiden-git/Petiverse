@@ -10,165 +10,6 @@ session_start(); // Start the session to check login status
     <title>Petiverse - Let's care your Furball</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/scrollbar.css">
-
-    <style>
-        /* Container for the contact and feedback section */
-        .footer-container {
-    background-color: #2C3E50;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    padding: 40px 20px;
-    border-top: 4px solid #fda085;
-    text-align: left;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.footer-box {
-    width: 22%;
-    padding: 20px;
-}
-
-.footer-box h3 {
-    font-size: 1.6em;
-    color: #fda085;
-    margin-bottom: 15px;
-}
-
-.footer-box p,
-.footer-links li,
-.newsletter-form input {
-    font-size: 1em;
-    line-height: 1.6;
-    color: #ddd;
-}
-
-.footer-links {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-links li {
-    margin-bottom: 10px;
-}
-
-.footer-links a {
-    text-decoration: none;
-    color: #fda085;
-}
-
-.footer-links a:hover {
-    color: #fff;
-}
-
-.social-links a {
-    color: #fda085;
-    font-size: 1.6em;
-    margin-right: 15px;
-}
-
-.social-links a:hover {
-    color: #fff;
-}
-
-.newsletter-form {
-    display: flex;
-    flex-direction: column;
-}
-
-.newsletter-form input {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    margin-bottom: 10px;
-    font-size: 1em;
-}
-
-.newsletter-form button {
-    background-color: #fda085;
-    color: #2C3E50;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.newsletter-form button:hover {
-    background-color: #fff;
-    color: #fda085;
-}
-
-.feedback-box {
-    background-color: #fff;
-    padding: 30px;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.feedback-box h2 {
-    font-size: 1.8em;
-    color: #6A097D;
-    margin-bottom: 15px;
-}
-
-.feedback-box p {
-    font-size: 1em;
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 25px;
-}
-
-.feedback-box label {
-    font-size: 1.1em;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.feedback-box input,
-.feedback-box textarea {
-    width: 95%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1em;
-}
-
-.feedback-box button {
-    background-color: #6A097D;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.2em;
-    cursor: pointer;
-}
-
-.feedback-box button:hover {
-    background-color: #fda085;
-}
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .footer-container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .footer-box {
-        width: 100%;
-        margin-bottom: 20px;
-    }
-}
-
-
-    </style>
 </head>
 <body>
    
@@ -187,20 +28,16 @@ session_start(); // Start the session to check login status
         </div>
     </section>
 
-    <!-- Our Story Section -->
-    <section class="about-section" style="position:relative; padding: 60px 20px; background-color: #f0f8ff;">
-        <!-- Adding a Blob SVG Shape -->
-        <!-- <svg style="position: absolute; top: 50px;  z-index: 3;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="400" height="400">
-            <path fill="#FFD700" d="M45.5,-62.7C60.7,-51.4,73.8,-38.2,76.6,-22.7C79.4,-7.2,71.8,10.5,61.2,22.7C50.5,34.8,37,41.4,23.4,46.6C9.8,51.7,-3.9,55.5,-16.7,52.7C-29.5,49.8,-41.4,40.3,-47.5,28C-53.7,15.7,-53.9,0.6,-51.8,-13.6C-49.8,-27.8,-45.5,-41.1,-36.5,-53C-27.6,-64.9,-13.8,-75.4,1.2,-76.7C16.2,-78.1,32.4,-70,45.5,-62.7Z" transform="translate(100 100)" />
-        </svg> -->
 
-        <div class="about-content" style="position: relative; z-index: 2;">
-            <h2 style="font-size: 2.5em; text-align: center; color: #6A097D;">Our Story</h2>
-            <p style="font-size: 1.2em; line-height: 1.8; color: #333; max-width: 800px; margin: 0 auto; text-align: center;">
-                Founded with a vision to unite pet lovers and caregivers, Petiverse is dedicated to enhancing the lives of pets and their owners. We bring together services, resources, and a supportive community all in one platform, helping you find everything your pet needs with ease and confidence.
-            </p>
-        </div>
-    </section>
+    <section class="about-section">
+            <h2>Our Story</h2>
+            <p>Founded with a vision to unite pet lovers and caregivers, Petiverse is dedicated to enhancing the lives of pets and their owners. We bring together services, resources, and a supportive community all in one platform, helping you find everything your pet needs with ease and confidence.</p>
+        </section>
+
+        <section class="about-section">
+            <h2>Our Mission</h2>
+            <p>Our mission is simple: to make pet care accessible, trustworthy, and supportive. We aim to provide an all-in-one solution for pet owners, offering a network of veterinarians, a comprehensive pet shop, and a forum for community connection.</p>
+        </section>
 
     <!-- Features Section -->
     <h2>Our Services</h2>
@@ -320,25 +157,6 @@ session_start(); // Start the session to check login status
             <a href="https://twitter.com/petiverse" target="_blank"><i class="fab fa-twitter"></i></a>
             <a href="https://instagram.com/petiverse" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
-    </div>
-    <div class="footer-box">
-        <h3>Subscribe to Newsletter</h3>
-        <form action="subscribe.php" method="POST" class="newsletter-form">
-            <input type="email" name="email" placeholder="Enter your email" required>
-            <button type="submit">Subscribe</button>
-        </form>
-    </div>
-
-    
-
-
-</footer>
-
-
-
-
-    <!-- Footer -->
-    <?php include 'footer.php'; ?>
-
+    </footer>
 </body>
 </html>
