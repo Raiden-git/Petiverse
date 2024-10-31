@@ -307,7 +307,7 @@ input[type="submit"]:hover {
             <!-- Pages requiring login -->
             <li><a href="#" class="restricted-page" data-page="daycare.php">Day Care</a></li>
             <li><a href="community.php">Community</a></li>
-            <li><a href="blog.php">Blog</a></li>
+            <li><a href="../Blog.php">Blog</a></li>
             <li><a href="./pets.php">Lost & Found Pets</a></li>
             <li><a href="#" class="restricted-page" data-page="petselling.php">Pet Selling</a></li>
             <li><a href="about.php">About Us</a></li>
