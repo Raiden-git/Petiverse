@@ -181,11 +181,11 @@ nav a:hover {
             <li><a href="shop.php">Shop</a></li>
             <li><a href="vets_map.php">Vet Services</a></li>
             <!-- Pages requiring login -->
-            <li><a href="#" class="restricted-page" data-page="daycare.php">Day Care</a></li>
+            <li><a href="#">Day Care</a></li>
             <li><a href="community.php">Community</a></li>
             <li><a href="blog.php">Blog</a></li>
-            <li><a href="#" class="restricted-page" data-page="lost_found.php">Lost & Found Pets</a></li>
-            <li><a href="#" class="restricted-page" data-page="petselling.php">Pet Selling</a></li>
+            <li><a href="./pets.php">Lost & Found Pets</a></li>
+            <li><a href="#" >Pet Selling</a></li>
             <li><a href="about.php">About Us</a></li>
         </ul>
     </nav>
