@@ -1,0 +1,137 @@
+/* General Styles */
+body {
+  font-family: 'Verdana', sans-serif;
+  background-color: #eaeaea;
+  margin: 0;
+  color: #444;
+}
+
+
+
+/* Main Section Styles */
+.section {
+  margin-bottom: 40px;
+}
+
+h2 {
+  border-bottom: 3px solid #4CAF50;
+  padding-bottom: 10px;
+  color: #4CAF50;
+}
+
+.blogs-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.blog-post {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: calc(30% - 20px);
+  transition: transform 0.2s;
+}
+
+.blog-post:hover {
+  transform: translateY(-5px);
+}
+
+.blog-post h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.blog-post img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+/* Button Styles */
+button {
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  padding: 10px 15px;
+  margin: 5px 0;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.rejected-button {
+  background-color: #f44336; /* Red */
+}
+
+.rejected-button:hover {
+  background-color: #d32f2f; /* Darker Red */
+}
+
+/* Edit Form Styles */
+.edit-form {
+  margin-top: 20px;
+  display: none; /* Hidden by default */
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.edit-form label {
+  display: block;
+  margin: 10px 0 5px;
+  color: #555;
+}
+
+input[type="text"],
+textarea,
+select,
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+/* Filter Styles */
+.filter {
+  margin-bottom: 20px;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filter label {
+  margin-right: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .blog-post {
+      width: calc(48% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-post {
+      width: 100%;
+  }
+}

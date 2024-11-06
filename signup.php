@@ -35,8 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("sssss", $name, $email, $password, $address, $mobile_number);
 
             if ($stmt->execute()) {
-                echo "<p class='success'>Signup successful!</p>";
-                header("Location: login.php"); // Redirect to login page after signup
+                echo "<script>
+                          alert('Signup successful!');
+                          window.location.href = 'login.php';
+                      </script>";
                 exit;
             } else {
                 echo "<p class='error'>Error: " . $stmt->error . "</p>";
@@ -68,7 +70,7 @@ $google_signup_url = $google_client->createAuthUrl(); // Google signup URL
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to bottom right, #6A82FB, #FC5C7D);
+            background: transparent;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -76,6 +78,7 @@ $google_signup_url = $google_client->createAuthUrl(); // Google signup URL
         }
 
         .signup-container {
+            position: relative;
             background-color: #ffffff;
             padding: 40px;
             border-radius: 10px;
@@ -83,6 +86,7 @@ $google_signup_url = $google_client->createAuthUrl(); // Google signup URL
             width: 100%;
             max-width: 500px;
             animation: slideIn 0.8s ease;
+            left: 25%;
         }
 
         h2 {
@@ -168,7 +172,7 @@ $google_signup_url = $google_client->createAuthUrl(); // Google signup URL
         }
 
         a:hover {
-            text-decoration: underline;
+            text-decoration: none;
         }
 
         p {
@@ -179,7 +183,7 @@ $google_signup_url = $google_client->createAuthUrl(); // Google signup URL
         .centered-or {
             text-align: center;
             /* margin-top: -10px; */
-            margin-bottom: 13px;
+            margin-bottom: 5px;
             position: relative;
             left: 47%;
         }
@@ -234,8 +238,6 @@ $google_signup_url = $google_client->createAuthUrl(); // Google signup URL
                 <input type="text" name="mobile_number" placeholder="Enter your mobile number" required>
             </div>
             <input type="submit" value="Signup" class="full-width">
-            <p class="centered-or">OR</p>
-            <a href="<?php echo $google_signup_url; ?>" class="google-signup-btn">Sign up with Google</a>
         </form>
         <p>Already registered? <a href="login.php">Login here</a></p>
     </div>
