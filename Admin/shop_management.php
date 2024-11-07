@@ -9,8 +9,6 @@ if (!isset($_SESSION['message'])) {
 
 
 
-
-
 // Handling form submission for adding a subcategory
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_subcategory'])) {
     $main_category = $conn->real_escape_string($_POST['main_category']);
@@ -30,10 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_subcategory'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
-
-
-
-
 
 
 
@@ -63,7 +57,6 @@ if (isset($_POST['delete_subcategory'])) {
 
 
 
-
 // Add New Product
 if (isset($_POST['add_product'])) {
     $category = $_POST['category'];
@@ -73,23 +66,26 @@ if (isset($_POST['add_product'])) {
     $price = $_POST['price'];
 
     // Handle photo upload
-    if (!empty($_FILES['photo']['name'])) {
-        $photo = file_get_contents($_FILES['photo']['tmp_name']); // Convert image to binary
-    } else {
-        $photo = null;
-    }
+    $photo = !empty($_FILES['photo']['name']) ? file_get_contents($_FILES['photo']['tmp_name']) : null;
 
     $sql = "INSERT INTO products (category, subcategory, name, description, price, photo) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('sssdss', $category, $subcategory, $name, $description, $price, $photo);
+    $stmt->bind_param('ssssds', $category, $subcategory, $name, $description, $price, $photo);
 
     if ($stmt->execute()) {
         $_SESSION['message'] = "Product added successfully!";
+        
+        // Redirect to avoid re-submission on page refresh
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
     } else {
         $_SESSION['message'] = "Error adding product!";
     }
     $stmt->close();
 }
+
+
+
 
 // Delete Product
 if (isset($_POST['delete_product'])) {
@@ -107,6 +103,9 @@ if (isset($_POST['delete_product'])) {
     $stmt->close();
 }
 
+
+
+
 // Edit Product
 if (isset($_POST['edit_product'])) {
     $product_id = $_POST['product_id'];
@@ -118,14 +117,19 @@ if (isset($_POST['edit_product'])) {
 
     // Handle photo update
     if (!empty($_FILES['photo']['name'])) {
+        // Move uploaded photo to a specific folder
         $photo = file_get_contents($_FILES['photo']['tmp_name']);
         $sql = "UPDATE products SET category = ?, subcategory = ?, name = ?, description = ?, price = ?, photo = ? WHERE id = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sssdssi', $category, $subcategory, $name, $description, $price, $photo, $product_id);
+        
+        // Corrected bind_param types
+        $stmt->bind_param('ssssssi', $category, $subcategory, $name, $description, $price, $photo, $product_id);
     } else {
         $sql = "UPDATE products SET category = ?, subcategory = ?, name = ?, description = ?, price = ? WHERE id = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sssdsi', $category, $subcategory, $name, $description, $price, $product_id);
+        
+        // Corrected bind_param types
+        $stmt->bind_param('sssssi', $category, $subcategory, $name, $description, $price, $product_id);
     }
 
     if ($stmt->execute()) {
@@ -135,6 +139,13 @@ if (isset($_POST['edit_product'])) {
     }
     $stmt->close();
 }
+
+
+
+
+
+
+
 
 // Fetch Subcategories Dynamically
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['main_category'])) {
@@ -166,8 +177,6 @@ $all_products = $conn->query($sql);
 $conn->close();
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -337,7 +346,7 @@ $conn->close();
                     <td><?= htmlspecialchars($row['subcategory']) ?></td>
                     <td><?= htmlspecialchars($row['name']) ?></td>
                     <td><?= htmlspecialchars($row['description']) ?></td>
-                    <td>$<?= htmlspecialchars($row['price']) ?></td>
+                    <td>LKR <?= htmlspecialchars($row['price']) ?></td>
                     <td>
                         <?php if ($row['photo']) : ?>
                             <img src="data:image/jpeg;base64,<?= base64_encode($row['photo']) ?>" alt="Product Photo" width="50">
@@ -359,7 +368,6 @@ $conn->close();
         <?php endif; ?>
     </tbody>
 </table>
-
 
 
    <!-- Edit Product Modal -->
@@ -525,9 +533,6 @@ function editProduct(id, category, subcategory, name, description, price, photo)
     // Show the modal
     $('#editProductModal').modal('show');
 }
-
-
-    
 
 
    
