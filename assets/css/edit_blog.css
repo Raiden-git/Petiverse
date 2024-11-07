@@ -1,0 +1,255 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  justify-content: center;
+}
+
+.your_blog{
+  text-align: center;
+  color: #ffffff;
+  background-color: rgba(55, 53, 49, 0.671);
+  padding: 30px;
+margin: 0%;
+}
+
+
+.blog-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top:30px ;
+}
+
+.blog-item {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  width: 300px;
+  height: 450px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.blog-item:hover {
+  transform: translateY(-5px);
+}
+
+.blog-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.blog-content {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 10px 0;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limits to 3 lines */
+  -webkit-box-orient: vertical;
+}
+
+.approval-status {
+  font-weight: bold;
+  color: #0073e6;
+  margin-top: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.edit-btn, .delete-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.edit-btn {
+  background-color: #0073e6;
+}
+
+.delete-btn {
+  background-color: #d9534f;
+}
+
+.edit-btn:hover {
+  background-color: #005bb5;
+}
+
+.delete-btn:hover {
+  background-color: #c9302c;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Modal background overlay */
+.modal {
+  display: none; /* Hidden by default; show with JavaScript */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content box */
+.modal-content {
+  background-color: #ffffff;
+  padding: 50px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: slideDown 0.4s ease;
+  position: relative;
+  transform: translateY(-50%);
+  top: 50%; /* Center vertically */
+}
+
+/* Close button in the modal */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #555;
+}
+
+/* Slide-down animation for modal */
+@keyframes slideDown {
+  from { transform: translateY(-20%); opacity: 0; }
+  to { transform: translateY(-50%); opacity: 1; }
+}
+
+/* Form styling inside the modal */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+form input[type="text"],
+form textarea,
+form select,
+form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+form input[type="file"] {
+  border: none;
+  padding: 0;
+  font-size: 0.9rem;
+}
+
+/* Submit button styling */
+form input[type="submit"] {
+  background-color: #0073e6;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+form input[type="submit"]:hover {
+  background-color: #005bb5;
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+  .modal-content {
+      padding: 15px;
+  }
+}
+
+
+
+
+
+
+
+
+/* Responsive styling */
+@media (max-width: 600px) {
+  .modal-content {
+      padding: 15px;
+  }
+}
+
+
+
+/* Responsive grid */
+@media (min-width: 768px) {
+  .blog-list {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .blog-list {
+      grid-template-columns: repeat(3, 1fr);
+  }
+}
