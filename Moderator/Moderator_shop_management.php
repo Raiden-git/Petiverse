@@ -1,6 +1,6 @@
 <?php
 include('../db.php');
-include('session_check.php');
+
 
 // Initialize session message if not set
 if (!isset($_SESSION['message'])) {
@@ -28,8 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_subcategory'])) {
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
-
-
 
 
 // Delete Subcategory
@@ -210,7 +208,6 @@ $conn->close();
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
-        <li><a href="moderator_management.php">Moderator Management</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
 </nav>
