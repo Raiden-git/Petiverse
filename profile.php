@@ -1,55 +1,89 @@
 <?php
 session_start();
+require_once 'db.php';
 
-// If user is not logged in, redirect to login page
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
-// Database connection
-$conn = new mysqli('localhost', 'root', '', 'petiverse');
+$userId = $_SESSION['user_id'];
+$message = '';
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Fetch logged-in user details
-$user_id = $_SESSION['user_id'];
-$success_message = '';
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // If the form is submitted, update the user's data
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $address = $_POST['address'];
-    $mobile_number = $_POST['mobile_number'];
+// Handle cropped image upload
+if (isset($_POST['save_cropped'])) {
+    $croppedImage = $_POST['cropped_image'];
+    $croppedImage = str_replace('data:image/png;base64,', '', $croppedImage);
+    $croppedImage = str_replace(' ', '+', $croppedImage);
+    $imageData = base64_decode($croppedImage);
     
-    // Update query
-    $stmt = $conn->prepare("UPDATE users SET name = ?, email = ?, address = ?, mobile_number = ? WHERE id = ?");
-    $stmt->bind_param("ssssi", $name, $email, $address, $mobile_number, $user_id);
+    $sql = "UPDATE users SET profile_pic = ? WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("bi", $null, $userId);
+    $stmt->send_long_data(0, $imageData);
     
     if ($stmt->execute()) {
-        // Set a success message and redirect
-        $_SESSION['success_message'] = "Profile updated successfully!";
-        header("Location: profile.php");  // Redirect to the same page to prevent form resubmission
-        exit();  // Make sure no more code is executed after redirect
+        $message = "Profile photo updated successfully!";
     } else {
-        $_SESSION['error_message'] = "Error updating profile: " . $stmt->error;
+        $message = "Error updating profile photo.";
     }
-    
-    $stmt->close();
 }
 
-// Fetch the current data for display in the form
-$sql = "SELECT name, email, address, mobile_number FROM users WHERE id = ?";
+// Handle profile photo deletion
+if (isset($_POST['delete_photo'])) {
+    $sql = "UPDATE users SET profile_pic = NULL WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $userId);
+    if ($stmt->execute()) {
+        $message = "Profile photo deleted successfully!";
+    } else {
+        $message = "Error deleting profile photo.";
+    }
+}
+
+// Handle profile information update
+if (isset($_POST['update_profile'])) {
+    $firstName = $_POST['first_name'];
+    $lastName = $_POST['last_name'];
+    $email = $_POST['email'];
+    $contactNumber = $_POST['contact_number'];
+    $address = $_POST['address'];
+    
+    $sql = "UPDATE users SET 
+            first_name = ?, 
+            last_name = ?, 
+            email = ?,
+            full_name = CONCAT(?, ' ', ?),
+            contact_number = ?,
+            address = ?
+            WHERE id = ?";
+            
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssssssi", 
+        $firstName, 
+        $lastName, 
+        $email, 
+        $firstName, 
+        $lastName, 
+        $contactNumber, 
+        $address, 
+        $userId
+    );
+    
+    if ($stmt->execute()) {
+        $message = "Profile updated successfully!";
+    } else {
+        $message = "Error updating profile.";
+    }
+}
+
+// Fetch current user data
+$sql = "SELECT * FROM users WHERE id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $user_id);
+$stmt->bind_param("i", $userId);
 $stmt->execute();
-$stmt->bind_result($name, $email, $address, $mobile_number);
-$stmt->fetch();
-$stmt->close();
-$conn->close();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -57,187 +91,196 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - Petiverse</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <title>User Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
     <style>
-
-        /* Profile Container */
-.profile-container {
-    max-width: 600px;
-    margin: 40px auto;
-    background-color: #f4f4f9;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
-
-.profile-container h2 {
-    text-align: center;
-    font-size: 26px;
-    color: #34495e;
-    margin-bottom: 25px;
-}
-
-/* Form Styles */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-label {
-    font-size: 14px;
-    color: #2c3e50;
-    font-weight: bold;
-}
-
-input[type="text"],
-input[type="email"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #bdc3c7;
-    border-radius: 6px;
-    font-size: 16px;
-    color: #2c3e50;
-    background-color: #fff;
-    transition: border-color 0.3s ease;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus {
-    border-color: #3498db;
-    outline: none;
-}
-
-input[type="submit"] {
-    background-color: #3498db;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-input[type="submit"]:hover {
-    background-color: #2980b9;
-}
-
-/* Profile Actions */
-.profile-actions {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.logout-btn {
-    background-color: #e74c3c;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.logout-btn:hover {
-    background-color: #c0392b;
-}
-
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
+        .image-container {
+            max-width: 300px;
+            max-height: 300px;
+            margin: 0 auto;
         }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            width: 400px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
+        #preview {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
         }
-
-        .modal-content p {
-            font-size: 18px;
-            color: #2c3e50;
+        .cropper-container {
+            margin: 20px auto;
+            max-width: 500px;
+            height: 300px;
         }
-
-        .close-btn {
-            background-color: #3498db;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .close-btn:hover {
-            background-color: #2980b9;
-        }
-
     </style>
 </head>
 <body>
-
 <?php include 'Cus-NavBar/navBar.php'; ?>
+    <div class="container mt-5">
+        <?php if ($message): ?>
+            <div class="alert alert-info"><?php echo $message; ?></div>
+        <?php endif; ?>
 
-<div class="profile-container">
-    <h2>Welcome, <?php echo $name; ?>!</h2>
-    
-    <form action="profile.php" method="POST">
-        <label>Name:</label>
-        <input type="text" name="name" value="<?php echo $name; ?>" required><br>
-        
-        <label>Email:</label>
-        <input type="email" name="email" value="<?php echo $email; ?>" required><br>
-        
-        <label>Address:</label>
-        <input type="text" name="address" value="<?php echo $address; ?>" required><br>
-        
-        <label>Mobile Number:</label>
-        <input type="text" name="mobile_number" value="<?php echo $mobile_number; ?>" required><br><br>
-        
-        <input type="submit" value="Update Profile">
-    </form>
+        <div class="row">
+            <!-- Profile Photo Section -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Profile Photo</h4>
+                    </div>
+                    <div class="card-body text-center">
+                        <div id="preview">
+                            <?php if ($user['profile_pic']): ?>
+                                <img src="data:image/jpeg;base64,<?php echo base64_encode($user['profile_pic']); ?>" 
+                                     class="img-fluid">
+                            <?php else: ?>
+                                <img src="default-avatar.png" class="img-fluid">
+                            <?php endif; ?>
+                        </div>
 
-    <div class="profile-actions">
-        <a href="logout.php" class="logout-btn">Logout</a>
+                        <!-- Photo Upload Form -->
+                        <form method="POST" enctype="multipart/form-data" id="uploadForm">
+                            <div class="mb-3">
+                                <input type="file" class="form-control" id="imageInput" accept="image/*">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="cropButton" style="display: none;">
+                                Crop & Save
+                            </button>
+                            <?php if ($user['profile_pic']): ?>
+                                <button type="submit" name="delete_photo" class="btn btn-danger">Delete Photo</button>
+                            <?php endif; ?>
+                        </form>
+
+                        <!-- Hidden form for cropped image -->
+                        <form method="POST" id="cropForm" style="display: none;">
+                            <input type="hidden" name="cropped_image" id="croppedImage">
+                            <input type="hidden" name="save_cropped" value="1">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cropper Modal -->
+            <div class="modal fade" id="cropperModal" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Crop Image</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="cropper-container">
+                                <img id="cropperImage" src="" style="max-width: 100%;">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="saveCrop">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Information Section -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Profile Information</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" class="form-control" name="first_name" 
+                                           value="<?php echo htmlspecialchars($user['first_name']); ?>" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" name="last_name" 
+                                           value="<?php echo htmlspecialchars($user['last_name']); ?>" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" 
+                                       value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Contact Number</label>
+                                <input type="tel" class="form-control" name="contact_number" 
+                                       value="<?php echo htmlspecialchars($user['contact_number']); ?>">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Address</label>
+                                <textarea class="form-control" name="address" rows="3"><?php echo htmlspecialchars($user['address']); ?></textarea>
+                            </div>
+
+                            <button type="submit" name="update_profile" class="btn btn-primary">Update Profile</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
-<!-- Modal structure -->
-<div id="successModal" class="modal">
-    <div class="modal-content">
-        <p><?php echo isset($_SESSION['success_message']) ? $_SESSION['success_message'] : ''; ?></p>
-        <button class="close-btn" onclick="closeModal()">Close</button>
-    </div>
-</div>
 
-<script>
-// JavaScript to handle modal display
-function closeModal() {
-    document.getElementById('successModal').style.display = 'none';
-}
+    <?php include 'footer.php'; ?>
 
-// Check if there's a success message and show the modal
-<?php if (isset($_SESSION['success_message'])): ?>
-    document.getElementById('successModal').style.display = 'flex';
-    <?php unset($_SESSION['success_message']); // Remove the message after displaying ?>
-<?php endif; ?>
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script>
+        let cropper = null;
+        const modal = new bootstrap.Modal(document.getElementById('cropperModal'));
+        
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            if (e.target.files.length) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const cropperImage = document.getElementById('cropperImage');
+                    cropperImage.src = e.target.result;
+                    
+                    modal.show();
+                    
+                    if (cropper) {
+                        cropper.destroy();
+                    }
+                    
+                    cropper = new Cropper(cropperImage, {
+                        aspectRatio: 1,
+                        viewMode: 1,
+                        dragMode: 'move',
+                        autoCropArea: 1,
+                        restore: false,
+                        guides: true,
+                        center: true,
+                        highlight: false,
+                        cropBoxMovable: false,
+                        cropBoxResizable: false,
+                        toggleDragModeOnDblclick: false
+                    });
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
 
+        document.getElementById('saveCrop').addEventListener('click', function() {
+            if (cropper) {
+                const canvas = cropper.getCroppedCanvas({
+                    width: 400,
+                    height: 400
+                });
+                
+                const croppedImage = canvas.toDataURL('image/png');
+                document.getElementById('croppedImage').value = croppedImage;
+                document.getElementById('cropForm').submit();
+                
+                modal.hide();
+            }
+        });
+    </script>
 </body>
 </html>

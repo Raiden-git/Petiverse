@@ -101,7 +101,7 @@ button[type="submit"]:hover {
 </head>
 <body>
     
-    <form action="moderator_login.php" method="POST">
+    <form action="index.php" method="POST">
     <h2>Login as Moderator</h2>
         <label>Email:</label>
         <input type="email" name="email" required><br>
