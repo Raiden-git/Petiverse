@@ -212,6 +212,9 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
     </div>
 </div>
 
+<!-- Footer -->
+<?php include 'footer.php'; ?>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     function showPaymentModal() {

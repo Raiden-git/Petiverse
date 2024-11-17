@@ -79,7 +79,7 @@ include('../db.php');
 
 <nav>
     <ul>
-        <li><a href="dashboard.php">Home</a></li>
+        <li><a href="moderator_dashboard.php">Home</a></li>
         <li><a href="moderator_shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>

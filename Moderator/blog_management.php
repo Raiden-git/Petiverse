@@ -1,6 +1,5 @@
 <?php
 include('../db.php');
-include('session_check.php');
 
 // Handle blog approval, rejection, or deletion
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['blog_id'])) {
@@ -76,7 +75,7 @@ $result_approved_posts = $stmt_approved_posts->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Petiverse - Blog Management</title>
-    <link rel="stylesheet" href="admin_sidebar.css">
+    <link rel="stylesheet" href="moderator_sidebar.css">
     <link rel="stylesheet" href="../assets/css/blog_management.css">
     <script src="logout_js.js"></script>
     
@@ -89,7 +88,7 @@ $result_approved_posts = $stmt_approved_posts->get_result();
 <nav>
     <ul>
         <li><a href="dashboard.php">Home</a></li>
-        <li><a href="shop_management.php">Shop Management</a></li>
+        <li><a href="Moderator_shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>

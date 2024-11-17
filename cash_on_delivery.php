@@ -115,5 +115,10 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         </div>
     </div>
 </div>
+
+<!-- Footer -->
+<?php include 'footer.php'; ?>
+
+
 </body>
 </html>
