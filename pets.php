@@ -1,7 +1,6 @@
 <?php
 include './db.php';
-session_start();
-// Database connection
+
 
 // Handle search and category filter
 $searchQuery = '';

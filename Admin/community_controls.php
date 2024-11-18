@@ -36,24 +36,21 @@ table th, table td {
 table th {
     background-color: #f4f4f9;
     color: #333;
+    text-decoration: none;
 }
 
 table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-table tr:hover {
-    background-color: #f1f1f1;
-}
+
 
 a {
     color: #4CAF50;
     text-decoration: none;
 }
 
-a:hover {
-    text-decoration: underline;
-}
+
 /* Dropdown Menu Styles */
 nav ul li .dropdown-menu {
     display: none;
