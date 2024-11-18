@@ -214,45 +214,80 @@ session_start(); // Start the session to check login status
     </section>
 
     <!-- Popup Notification for Lost & Found -->
-    <div class="popup-container" id="notifications-container">
-        <?php
-        // Database connection
-        $conn = new mysqli('localhost', 'root', '', 'petiverse');
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+<div class="popup-container" id="notifications-container">
+    <?php
+    // Database connection
+    $conn = new mysqli('localhost', 'root', '', 'petiverse');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Fetch the latest 4 lost and found reports including the image and status
+    $sql = "SELECT pet_name, location, date, image, status FROM lost_and_found_pets ORDER BY date DESC LIMIT 4";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Display each record as a notification item
+        while ($row = $result->fetch_assoc()) {
+            // Convert the image BLOB to a base64 string
+            $base64_image = base64_encode($row['image']);
+            $image_src = 'data:image/jpeg;base64,' . $base64_image; // Adjust the image type if needed
+
+            // Set the status class based on the pet status
+            $status_class = ($row['status'] === 'found') ? 'found' : '';
+            $status_text = ucfirst(htmlspecialchars($row['status'])); // Capitalize the status
+
+            // Render each notification with 'display: none' initially
+            echo '<div class="notification" style="display:none;">';
+            echo '<img src="' . htmlspecialchars($image_src) . '" alt="' . htmlspecialchars($row['pet_name']) . '" class="pet-image" />';
+            echo '<div>'; // Create a wrapper for text
+            echo '<p><strong>Pet Name:</strong> ' . htmlspecialchars($row['pet_name']) . ' <span class="status ' . $status_class . '">' . $status_text . '</span></p>';
+            echo '<p><strong>Location:</strong> ' . htmlspecialchars($row['location']) . '</p>';
+            echo '<p><strong>Date:</strong> ' . htmlspecialchars($row['date']) . '</p>';
+            echo '</div>'; // Close wrapper
+            echo '<button onclick="closeNotification(this)">✕</button>';
+            echo '</div>';
         }
+    }
+    $conn->close();
+    ?>
+</div>
+<button id="close-all-btn" onclick="closeAllNotifications()">Close All</button>
 
-        // Fetch the latest 4 lost and found reports including the image and status
-        $sql = "SELECT pet_name, location, date, image, status FROM lost_and_found_pets ORDER BY date DESC LIMIT 4";
-        $result = $conn->query($sql);
+<script>
+// Function to show notifications and the "Close All" button with a delay
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        // Show all notifications
+        const notifications = document.querySelectorAll('.notification');
+        notifications.forEach(notification => {
+            notification.style.display = 'flex'; // Show notification after 2 seconds
+        });
 
-        if ($result->num_rows > 0) {
-            // Display each record as a notification item
-            while ($row = $result->fetch_assoc()) {
-                // Convert the image BLOB to a base64 string
-                $base64_image = base64_encode($row['image']);
-                $image_src = 'data:image/jpeg;base64,' . $base64_image; // Adjust the image type if needed
-                
-                // Set the status class based on the pet status
-                $status_class = ($row['status'] === 'found') ? 'found' : '';
-                $status_text = ucfirst(htmlspecialchars($row['status'])); // Capitalize the status
-               
-                echo '<div class="notification">';
-                echo '<img src="' . htmlspecialchars($image_src) . '" alt="' . htmlspecialchars($row['pet_name']) . '" class="pet-image" />';
-                echo '<div>'; // Create a wrapper for text
-                echo '<p><strong>Pet Name:</strong> ' . htmlspecialchars($row['pet_name']) . ' <span class="status ' . $status_class . '">' . $status_text . '</span></p>';
-                echo '<p><strong>Location:</strong> ' . htmlspecialchars($row['location']) . '</p>';
-                echo '<p><strong>Date:</strong> ' . htmlspecialchars($row['date']) . '</p>';
-                echo '</div>'; // Close wrapper
-                echo '<button onclick="closeNotification(this)">✕</button>';
-                echo '</div>';
-            }
-        }
-        $conn->close();
-        ?>
-    </div>
-    <button id="close-all-btn" onclick="closeAllNotifications()">Close All</button>
+        // Show the "Close All" button after 2 seconds
+        const closeAllBtn = document.getElementById('close-all-btn');
+        closeAllBtn.style.display = 'block'; // Make "Close All" button visible after 2 seconds
+    }, 2000); // 2000ms delay
+});
 
+// Function to close individual notification
+function closeNotification(button) {
+    const notification = button.parentElement;
+    notification.style.display = 'none';
+}
+
+// Function to close all notifications
+function closeAllNotifications() {
+    const notifications = document.querySelectorAll('.notification');
+    notifications.forEach(notification => {
+        notification.style.display = 'none';
+    });
+
+    // Optionally, you can hide the "Close All" button after closing all notifications
+    const closeAllBtn = document.getElementById('close-all-btn');
+    closeAllBtn.style.display = 'none';
+}
+</script>
 
     <!-- Our Story Section -->
     <section class="about-section" style="position:relative; padding: 60px 20px; background-color: #f0f8ff;">

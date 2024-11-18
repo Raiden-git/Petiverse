@@ -1,4 +1,14 @@
 <?php
+// Start the session to check if the user is logged in
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if not logged in
+    header("Location: login.php");
+    exit(); // Ensure the rest of the script does not run
+}
+
 // Database connection
 $host = "localhost";
 $dbname = "petiverse"; // Your existing database name
@@ -26,19 +36,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contact_info = $_POST['contact_info'];
 
     // Handle image upload
+    $image = null; // Default value if no image is provided
     if (isset($_FILES['pet_image']) && $_FILES['pet_image']['error'] == 0) {
-        // Read image file and prepare for database insertion
         $image = file_get_contents($_FILES['pet_image']['tmp_name']);
-    } else {
-        $image = null; // Set to null if no image uploaded
     }
 
-    // Insert data into the lost_and_found_pets table
-    $sql = "INSERT INTO lost_and_found_pets (pet_name, pet_type, description, location, status, contact_info, image) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)";
+    // Insert data into the lost_and_found_pets table with 'approved' set to 0 (pending approval)
+    $sql = "INSERT INTO lost_and_found_pets (pet_name, pet_type, description, location, status, contact_info, image, approved, user_id) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssss", $pet_name, $pet_type, $description, $location, $status, $contact_info, $image);
 
+    // Check if the statement was prepared correctly
+    if ($stmt === false) {
+        die("Error preparing statement: " . $conn->error);
+    }
+
+    // Ensure the image data is bound correctly
+    $approved = 0;  // New submissions are not approved, need admin review
+    $user_id = $_SESSION['user_id']; // Get the logged-in user's ID
+
+    // Bind parameters (image must use `addslashes` for proper binary handling)
+    $stmt->bind_param(
+        "ssssssbii", 
+        $pet_name, 
+        $pet_type, 
+        $description, 
+        $location, 
+        $status, 
+        $contact_info, 
+        $image, 
+        $approved, 
+        $user_id
+    );
+
+    // Send image data using `send_long_data` to handle large binary files
+    if ($image !== null) {
+        $stmt->send_long_data(6, $image); // 6 is the index of the 'image' parameter
+    }
+
+    // Execute the query
     if ($stmt->execute()) {
         $showPopup = true; // Set flag to show success popup
     } else {
@@ -92,11 +128,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-    
-<?php include './Cus-NavBar/navBar.php'; ?> <!-- Corrected path to include navigation bar -->
+    <?php include './Cus-NavBar/navBar.php'; ?> <!-- Corrected path to include navigation bar -->
     <h1>Report a Lost or Found Pet</h1>
-    
-    <form action="submit_pet.php" method="POST" enctype="multipart/form-data"> <!-- Added enctype -->
+
+    <form action="submit_pet.php" method="POST" enctype="multipart/form-data">
         <label for="pet-name">Pet Name:</label>
         <input type="text" id="pet-name" name="pet_name" required><br><br>
 
