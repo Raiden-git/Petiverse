@@ -10,7 +10,7 @@ $result = mysqli_query($conn, $sql);
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Management</title>
+    <title>Petiverse - Vet Management</title>
     <link rel="stylesheet" href="admin_sidebar.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHdLOieN0OIcTyyY6CmJv6gPNx-OX3MwA">
         // JavaScript function to display confirmation

@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Moderator Login</title>
+    <title>Petiverse - Moderator Login</title>
     <style>
         /* Style for the body and background */
 body {
@@ -101,7 +101,7 @@ button[type="submit"]:hover {
 </head>
 <body>
     
-    <form action="index.php" method="POST">
+    <form action="moderator_login.php" method="POST">
     <h2>Login as Moderator</h2>
         <label>Email:</label>
         <input type="email" name="email" required><br>

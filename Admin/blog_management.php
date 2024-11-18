@@ -89,6 +89,7 @@ $result_approved_posts = $stmt_approved_posts->get_result();
 <nav>
     <ul>
         <li><a href="dashboard.php">Home</a></li>
+        <li><a href="user_management.php">User Management</a></li>
         <li><a href="shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
@@ -101,6 +102,12 @@ $result_approved_posts = $stmt_approved_posts->get_result();
 </nav>
 
 <main>
+
+<a href="../Admin/admin_add_blog.php" ><button class="createblog">Create Blogs</button></a>
+
+
+
+
     <div class="section">
         <h2>Pending Blog Posts for Approval</h2>
         <div class="blogs-container">
