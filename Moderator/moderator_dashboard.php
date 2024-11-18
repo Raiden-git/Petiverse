@@ -6,7 +6,7 @@ include('../db.php');
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Moderator Panel</title>
+    <title>Petiverse - Moderator Panel</title>
     <link rel="stylesheet" href="moderator_sidebar.css">
     <style>
         /* General Styles */
@@ -80,7 +80,7 @@ include('../db.php');
 <nav>
     <ul>
         <li><a href="moderator_dashboard.php">Home</a></li>
-        <li><a href="moderator_shop_management.php">Shop Management</a></li>
+        <li><a href="Moderator_shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>

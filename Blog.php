@@ -157,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_blog'])) {
             </div>
         <?php endwhile; ?>
     <?php else: ?>
-        <p>No blogs found for "<?php echo htmlspecialchars($search_term); ?>" in this category.</p>
+        <p>No blogs found for in this category.</p>
     <?php endif; ?>
 </div>
 
@@ -225,3 +225,5 @@ function closePopup() {
 </script>
 </body>
 </html>
+
+

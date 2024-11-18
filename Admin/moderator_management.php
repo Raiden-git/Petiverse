@@ -72,7 +72,7 @@ $moderators = $conn->query("SELECT * FROM moderator");
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Moderator Management</title>
+  <title>Petiverse - Moderator Management</title>
   <link rel="stylesheet" href="admin_sidebar.css">
   <style>
 
