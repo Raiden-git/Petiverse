@@ -2,12 +2,6 @@
 include './db.php';
 
 
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
-
 // Handle search and category filter
 $searchQuery = '';
 $categoryFilter = 'lost'; // Default to show all pets
