@@ -39,10 +39,11 @@ $categoryFilter = isset($_GET['category']) ? $_GET['category'] : '';
 $animalFilter = isset($_GET['animal']) ? $_GET['animal'] : '';
 $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
 
-$sql = "SELECT posts.*, COALESCE(users.full_name, users.first_name) AS username 
+$sql = "SELECT posts.*, COALESCE(users.full_name, users.first_name) AS username, users.picture 
         FROM posts
         JOIN users ON posts.user_id = users.id
         ORDER BY posts.created_at DESC";
+
 
 // Fetch posts from the database
 
@@ -64,7 +65,23 @@ if (!$result) {
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/scrollbar.css">
     <link rel="stylesheet" href="./assets/css/community.css"> 
-
+    <style>
+        .post {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  position: relative;
+  max-width: 100%; /* Ensures post container doesn't expand beyond layout */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+.post:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+    </style>
 </head>
 <body>
    
@@ -81,7 +98,7 @@ if (!$result) {
                 <option value="food">Food</option>
                 <option value="other">Other</option>
             </select>
-            <input type="text" id="searchBar" class="search-bar" placeholder="Search here" oninput="applyFilters()">
+            <input type="text" id="searchBar" class="search-bar" placeholder="Search for topics or categories" oninput="applyFilters()">
             <select id="animalFilter" onchange="applyFilters()">
                 <option value="">All Animals</option>
                 <option value="dog">Dog</option>
@@ -104,35 +121,50 @@ if (!$result) {
                 <option value="insect">Insect</option>
                 <option value="other">Other</option>
             </select>
-            <button class="ask-question-btn" onclick="openQuestionModal()">Ask a Question</button>
+            <button class="ask-question-btn" onclick="openQuestionModal()">Start a Discussion</button>
         </div>
 
        <!-- Post List -->
-       <div class="posts-list">
-            <?php
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo '<a href="post_detail.php?post_id=' . $row['id'] . '" class="post">';
-                    if (!empty($row['image'])) {
-                        echo '<img src="' . htmlspecialchars($row['image']) . '" alt="Post Image">';
-                    }
-                    echo '<div class="post-content">';
-                    echo '<h4 class="post-username">' . htmlspecialchars($row['username']) . '</h4>';
-                    echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
-                    echo '<div style="display: flex; align-items: center;">';
-                    echo '<span class="badge ' . strtolower($row['category']) . '">' . htmlspecialchars($row['category']) . '</span>';
-                    echo '<span class="pet-category-badge">Category: ' . htmlspecialchars($row['pet_category']) . '</span>';
-                    echo '</div>';
-                    echo '<p>' . htmlspecialchars($row['content']) . '</p>';
-                    echo '<span class="post-time">' . date("Y-m-d | h:i A", strtotime($row['created_at'])) . '</span>';
-                    echo '</div>';
-                    echo '</a>';
-                }
-            } else {
-                echo "<p>No posts available.</p>";
+<div class="posts-list">
+    <?php
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $fullContent = htmlspecialchars($row['content']);
+            $shortContent = substr($fullContent, 0, 160); // Truncate to 100 characters
+            $isTruncated = strlen($fullContent) > 160; // Check if truncation is needed
+
+            echo '<a href="post_detail.php?post_id=' . $row['id'] . '" class="post">';
+            if (!empty($row['image'])) {
+                echo '<img src="' . htmlspecialchars($row['image']) . '" alt="Post Image">';
             }
-            ?>
-        </div>   
+            echo '<div class="post-content">';
+            echo '<h4 class="post-username">' . htmlspecialchars($row['username']) . '</h4>';
+            echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
+            echo '<div class="post-badges-container">';
+            echo '<div class="post-badges">';
+            echo '<span class="badge ' . strtolower($row['category']) . '">' . htmlspecialchars($row['category']) . '</span>';
+            
+            echo '<span class="pet-category-badge">Category: ' . htmlspecialchars($row['pet_category']) . '</span>';
+            
+            echo '</div>';
+            echo '</div>';
+            echo '<p class="post-text">' . ($isTruncated ? $shortContent . '...' : $fullContent) . '</p>';
+
+            // Only add the "Read More" button if the content is truncated
+            if ($isTruncated) {
+                echo '<button class="read-more-btn">Read More</button>';
+            }
+
+            echo '<span class="post-time">' . date("Y-m-d | h:i A", strtotime($row['created_at'])) . '</span>';
+            echo '</div>';
+            echo '</a>';
+        }
+    } else {
+        echo "<p>No posts available.</p>";
+    }
+    ?>
+</div>
+
     </section>
 
     <!-- Ask a Question Modal -->
@@ -186,25 +218,17 @@ if (!$result) {
             document.getElementById('questionModal').style.display = 'none';
         }
 
-        function applyFilters() {
+       function applyFilters() {
     const selectedCategory = document.getElementById("categoryFilter").value;
     const selectedAnimal = document.getElementById("animalFilter").value;
     const searchTerm = document.getElementById("searchBar").value;
 
     fetch(`fetch_posts.php?category=${selectedCategory}&animal=${selectedAnimal}&search=${encodeURIComponent(searchTerm)}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text();
-        })
+        .then(response => response.text())
         .then(html => {
             document.querySelector('.posts-list').innerHTML = html;
         })
-        .catch(error => {
-            console.error('Error fetching filtered posts:', error);
-            document.querySelector('.posts-list').innerHTML = "<p>Failed to load posts. Please try again later.</p>";
-        });
+        .catch(error => console.error('Error fetching filtered posts:', error));
 }
 
 
@@ -217,22 +241,29 @@ if (!$result) {
             document.getElementById("searchBar").value = urlParams.get('search') || "";
         };
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const posts = document.querySelectorAll(".post");
+        document.addEventListener('DOMContentLoaded', () => {
+    const readMoreButtons = document.querySelectorAll('.read-more-btn');
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("fade-in");
-                        observer.unobserve(entry.target); 
-                    }
-                });
-            }, {
-                threshold: 0.1 
-            });
+    readMoreButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const postContent = e.target.previousElementSibling;
+            const fullContent = postContent.getAttribute('data-full-content');
+            const isExpanded = postContent.classList.contains('expanded');
 
-            posts.forEach(post => observer.observe(post));
+            if (isExpanded) {
+                postContent.textContent = fullContent.slice(0, 160) + '...';
+                e.target.textContent = 'Read More';
+            } else {
+                postContent.textContent = fullContent;
+                e.target.textContent = 'Read Less';
+            }
+
+            postContent.classList.toggle('expanded');
         });
+    });
+});
+
+
     </script>
 
     <style>
@@ -258,6 +289,51 @@ if (!$result) {
           font-size: 14px;
           color: #333;
         }
+
+        .post-badges-container {
+    position: relative; /* Enables absolute positioning inside this container */
+    padding: 10px; /* Adjust padding to accommodate badges */
+}
+        .post-badges {
+            position: absolute;
+    top: 0; /* Adjust distance from the top */
+    right: 10px; /* Adjust distance from the right */
+    display: flex;
+    gap: 10px; /* Adds spacing between badges */
+    padding: 5px 0; 
+}
+
+        /* Health, Food, etc. */
+.badge {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: white;
+  border-radius: 12px;
+  text-align: center;
+  background-color: #4caf50; /* Default badge color */
+  margin-left: 5px;
+}
+
+
+.badge.health { background-color: #a8e6cf; }
+.badge.training { background-color: #a3cde8; }
+.badge.pet-stories { background-color: #FF9AA2; }
+.badge.food { background-color: #DEC584; }
+.badge.other { background-color: #c3aed6; }
+
+
+
+.pet-category-badge {
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 12px;
+  background-color: #DA8359; 
+  color: #ffffff;
+  margin-left: 5px;
+   display: inline-block; 
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
     </style>
 </body>
-</html>
+</html> 
