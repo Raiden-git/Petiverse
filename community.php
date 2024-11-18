@@ -81,6 +81,75 @@ if (!$result) {
 .post:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+
+#categoryFilter, #animalFilter{
+          background-color: #ececec !important;
+          border: none !important;
+          padding: 10px 20px !important;
+          border-radius: 10px !important;
+          font-size: 14px !important;
+          cursor: pointer;
+          -webkit-appearance: none; /* For Safari and Chrome */
+          -moz-appearance: none; /* For Firefox */
+          appearance: none; /* Standard */
+          color: #333 !important;
+          width: auto; /* Ensure it doesn't shrink */
+          transition: background-color 0.3s ease;
+        }
+        #categoryFilter:hover, #animalFilter:hover {
+          background-color: #ffeadb;
+        }
+
+        #categoryFilter option, #animalFilter option {
+          font-size: 14px;
+          color: #333;
+        }
+
+        .post-badges-container {
+    position: relative; /* Enables absolute positioning inside this container */
+    padding: 10px; /* Adjust padding to accommodate badges */
+}
+        .post-badges {
+        position: absolute;
+        top: 0; /* Adjust distance from the top */
+        right: 10px; /* Adjust distance from the right */
+        display: flex;
+        gap: 10px; /* Adds spacing between badges */
+        padding: 5px 0; 
+    }
+
+        /* Health, Food, etc. */
+    .badge {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: white;
+    border-radius: 12px;
+    text-align: center;
+    background-color: #4caf50; /* Default badge color */
+    margin-left: 5px;
+    }
+
+
+    .badge.health { background-color: #a8e6cf; }
+    .badge.training { background-color: #a3cde8; }
+    .badge.pet-stories { background-color: #FF9AA2; }
+    .badge.food { background-color: #DEC584; }
+    .badge.other { background-color: #c3aed6; }
+
+
+
+    .pet-category-badge {
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 12px;
+    background-color: #DA8359; 
+    color: #ffffff;
+    margin-left: 5px;
+    display: inline-block; 
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
     </style>
 </head>
 <body>
@@ -265,75 +334,5 @@ if (!$result) {
 
 
     </script>
-
-    <style>
-        #categoryFilter, #animalFilter{
-          background-color: #ececec !important;
-          border: none !important;
-          padding: 10px 20px !important;
-          border-radius: 10px !important;
-          font-size: 14px !important;
-          cursor: pointer;
-          -webkit-appearance: none; /* For Safari and Chrome */
-          -moz-appearance: none; /* For Firefox */
-          appearance: none; /* Standard */
-          color: #333 !important;
-          width: auto; /* Ensure it doesn't shrink */
-          transition: background-color 0.3s ease;
-        }
-        #categoryFilter:hover, #animalFilter:hover {
-          background-color: #ffeadb;
-        }
-
-        #categoryFilter option, #animalFilter option {
-          font-size: 14px;
-          color: #333;
-        }
-
-        .post-badges-container {
-    position: relative; /* Enables absolute positioning inside this container */
-    padding: 10px; /* Adjust padding to accommodate badges */
-}
-        .post-badges {
-            position: absolute;
-    top: 0; /* Adjust distance from the top */
-    right: 10px; /* Adjust distance from the right */
-    display: flex;
-    gap: 10px; /* Adds spacing between badges */
-    padding: 5px 0; 
-}
-
-        /* Health, Food, etc. */
-.badge {
-  display: inline-block;
-  padding: 5px 10px;
-  font-size: 12px;
-  color: white;
-  border-radius: 12px;
-  text-align: center;
-  background-color: #4caf50; /* Default badge color */
-  margin-left: 5px;
-}
-
-
-.badge.health { background-color: #a8e6cf; }
-.badge.training { background-color: #a3cde8; }
-.badge.pet-stories { background-color: #FF9AA2; }
-.badge.food { background-color: #DEC584; }
-.badge.other { background-color: #c3aed6; }
-
-
-
-.pet-category-badge {
-  padding: 5px 10px;
-  font-size: 12px;
-  border-radius: 12px;
-  background-color: #DA8359; 
-  color: #ffffff;
-  margin-left: 5px;
-   display: inline-block; 
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-    </style>
 </body>
 </html> 
