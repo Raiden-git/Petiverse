@@ -1,13 +1,30 @@
 <?php
 require 'google-config.php'; // Google Client configuration
+require_once 'db.php'; // Database connection
 
 
 
 $error_message = '';
 $google_login_url = $google_client->createAuthUrl(); // Google login URL
 
-// Restricted pages requiring login
-$restricted_pages = ['vets_map.php', 'daycare.php', 'lost_found.php', 'petselling.php'];
+
+/* $profile_pic = null;
+if(isset($_SESSION['user_id'])) {
+    $userId = $_SESSION['user_id'];
+    if ($conn) {
+        // Updated query to select all columns
+        $sql = "SELECT * FROM users WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        $_SESSION['user_data'] = $user; // Store user data in session
+        $profile_pic = $user['profile_pic'];
+    } else {
+        error_log("Database connection failed in navBar.php");
+    }
+} */
 
 ?>
 
@@ -57,7 +74,7 @@ nav ul {
 nav a {
     text-decoration: none;
     font-size: 15px;
-    color: black; /* Initial text color */
+    color: black;
     padding: 5px 9px;
     transition: color 0.3s ease, background-color 0.3s ease, border-bottom 0.3s ease, transform 0.3s ease;
     position: relative;
@@ -71,14 +88,14 @@ nav a::before {
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #DA8359; /* Orange underline */
+    background-color: #DA8359; 
     visibility: hidden;
     transition: all 0.3s ease-in-out;
 }
 
 nav a:hover::before {
     visibility: visible;
-    width: 100%; /* Expands underline to full width */
+    width: 100%; 
 }
 
 nav a:hover {
@@ -87,7 +104,7 @@ nav a:hover {
 }
 
 
-.login a {
+.login .loginbutton {
     text-decoration: none;
     font-size: 16px;
     color: black;
@@ -99,13 +116,13 @@ nav a:hover {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.login a:hover {
+.login .loginbutton:hover {
     background-color: #DA8359;
     color: #FCFAEE;
 }
 
 
-#logoutLink{
+/* #logoutLink{
     text-decoration: none;
     font-size: 16px;
     color: black;
@@ -120,7 +137,71 @@ nav a:hover {
 #logoutLink:hover {
     background-color: #d14035f8;
     color: #FCFAEE;
-}
+} */
+
+
+
+.profile-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .profile-pic {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        object-fit: cover;
+        border: 2px solid #DA8359;
+    }
+
+    .profile-dropdown {
+        position: absolute;
+        right: 0;
+        top: 50px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 10px 0;
+        min-width: 180px;
+        display: none;
+        z-index: 1000;
+    }
+
+    .profile-dropdown.show {
+        display: block;
+    }
+
+    .profile-dropdown-item {
+        padding: 8px 20px;
+        display: block;
+        color: black;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .profile-dropdown-item:hover {
+        background-color: #f5f5f5;
+        color: #DA8359;
+    }
+
+    .profile-dropdown-divider {
+        height: 1px;
+        background-color: #e0e0e0;
+        margin: 8px 0;
+    }
+
+    .login {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    @media (max-width: 768px) {
+        .profile-dropdown {
+            right: -50px;
+        }
+    }
 
 
 
@@ -180,7 +261,6 @@ nav a:hover {
             
             <li><a href="shop.php">Shop</a></li>
             <li><a href="vets_map.php">Vet Services</a></li>
-            <!-- Pages requiring login -->
             <li><a href="#">Day Care</a></li>
             <li><a href="community.php">Community</a></li>
             <li><a href="blog.php">Blog</a></li>
@@ -191,23 +271,58 @@ nav a:hover {
     </nav>
     <div class="login">
     <?php if(isset($_SESSION['username'])): ?>
-        <a href="profile.php">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></a>
-        <a href="#" id="logoutLink">Logout</a>
+        <div class="profile-container">
+            <img src="<?php echo isset($profile_pic) && !empty($profile_pic) ? 'data:image/jpeg;base64,' . base64_encode($profile_pic) : './assets/img/default.webp'; ?>" 
+                 alt="Profile" 
+                 class="profile-pic" 
+                 id="profilePic">
+            <div class="profile-dropdown" id="profileDropdown">
+                <div class="profile-dropdown-item">
+                    Signed in as<br>
+                    <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>
+                </div>
+                <div class="profile-dropdown-divider"></div>
+                <a href="profile.php" class="profile-dropdown-item">My Profile</a>
+                <a href="my-pets.php" class="profile-dropdown-item">My Pets</a>
+                <a href="my-orders.php" class="profile-dropdown-item">My Orders</a>
+                <div class="profile-dropdown-divider"></div>
+                <a href="#" class="profile-dropdown-item" id="logoutLink">Sign Out</a>
+            </div>
+        </div>
     <?php else: ?>
-        <a href="login.php">Login</a>
+        <a href="login.php" class="loginbutton">Login</a>
     <?php endif; ?>
 </div>
 </header>
 
 
 <script>
-    document.getElementById("logoutLink").addEventListener("click", function(event) {
-        event.preventDefault(); // Prevents immediate redirect
-        var confirmation = confirm("Are you sure you want to logout?");
-        if (confirmation) {
-            window.location.href = "logout.php"; // Redirects to logout page if confirmed
+    document.addEventListener('DOMContentLoaded', function() {
+    const profilePic = document.getElementById('profilePic');
+    const profileDropdown = document.getElementById('profileDropdown');
+    const logoutLink = document.getElementById('logoutLink');
+
+    // Toggle dropdown when clicking profile picture
+    profilePic?.addEventListener('click', function(e) {
+        e.stopPropagation();
+        profileDropdown.classList.toggle('show');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!profileDropdown?.contains(e.target) && !profilePic?.contains(e.target)) {
+            profileDropdown?.classList.remove('show');
         }
     });
+
+    // Logout confirmation
+    logoutLink?.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to logout?')) {
+            window.location.href = 'logout.php';
+        }
+    });
+});
 </script>
 </body>
 </html>

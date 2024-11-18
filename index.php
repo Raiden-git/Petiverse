@@ -25,8 +25,10 @@ session_start(); // Start the session to check login status
 }
 
 .footer-box {
-    width: 22%;
+    width: 30%;
     padding: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .footer-box h3 {
@@ -319,12 +321,12 @@ session_start(); // Start the session to check login status
         <div class="community">
             <h2>Join Our Community</h2>
             <p>Connect with fellow pet lovers, share stories, and tips.</p>
-            <a href="#" class="button">Join the Conversation</a>
+            <a href="community.php" class="button">Join the Conversation</a>
         </div>
         <div class="blog">
             <h2>Latest from Our Blog</h2>
             <p>Get the latest tips, news, and stories about pets.</p>
-            <a href="#" class="button">Read More</a>
+            <a href="blog.php" class="button">Read More</a>
         </div>
     </section>
 
@@ -363,23 +365,25 @@ session_start(); // Start the session to check login status
 <br>
 
     <footer class="footer-container">
-    <div class="footer-box">
-        <h3>About Petiverse</h3>
-        <p>Petiverse brings you the best in pet care, connecting you with veterinarians, pet products, and a thriving community of pet lovers.</p>
-    </div>
+
+    
+
+    
+
     <div class="footer-box">
         <h3>Quick Links</h3>
         <ul class="footer-links">
             <li><a href="shop.php">Shop</a></li>
             <li><a href="vets_map.php">Find a Vet</a></li>
-            <li><a href="#">Community</a></li>
-            <li><a href="#">Blog</a></li>
+            <li><a href="community.php">Community</a></li>
+            <li><a href="blog.php">Blog</a></li>
         </ul>
     </div>
+
     <div class="footer-box">
         <h3>Contact Us</h3>
         <p>Email: <a href="mailto:support@petiverse.com">support@petiverse.com</a></p>
-        <p>Phone: +1 (555) 123-4567</p>
+        <p>Phone: +94 (71) 123-4567</p>
         <div class="social-links">
             <a href="https://facebook.com/petiverse" target="_blank"><i class="fab fa-facebook"></i></a>
             <a href="https://twitter.com/petiverse" target="_blank"><i class="fab fa-twitter"></i></a>
@@ -387,13 +391,13 @@ session_start(); // Start the session to check login status
         </div>
 
         </div>
+
     <div class="footer-box">
-        <h3>Subscribe to Newsletter</h3>
-        <form action="subscribe.php" method="POST" class="newsletter-form">
-            <input type="email" name="email" placeholder="Enter your email" required>
-            <button type="submit">Subscribe</button>
-        </form>
+        <h3>About Petiverse</h3>
+        <p>Petiverse brings you the best in pet care, connecting you with veterinarians, pet products, and a thriving community of pet lovers.</p>
     </div>
+    
+    
     </footer>
 
     <!-- Footer -->

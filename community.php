@@ -8,10 +8,6 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

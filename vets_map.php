@@ -22,101 +22,359 @@ while ($row = mysqli_fetch_assoc($result)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vets Map</title>
+    <title>Veterinary Services</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHdLOieN0OIcTyyY6CmJv6gPNx-OX3MwA&callback=initMap" async defer></script>
     <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+        }
+
+        .herotxt {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .content-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Hero Section Styling */
+        .hero-section {
+            position: relative;
+            height: 80vh;
+            background: url('assets/img/vet_hero_bg.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Black overlay for text visibility */
+            z-index: 1;
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+            left: 25vw;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .hero-content p {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+
+        .hero-content .btn {
+            background-color: #3498db;
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero-content .btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Map styling */
         #map {
             height: 500px;
             width: 100%;
+            margin-bottom: 30px;
+            border-radius: 8px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+        /* Section Styling */
+        .section {
+            margin-bottom: 50px;
+            padding: 40px;
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
-        table, th, td {
-            border: 1px solid #ddd;
+
+        .section h2 {
+            font-size: 1.8em;
         }
-        th, td {
-            padding: 8px;
-            text-align: left;
+
+        .description {
+            font-size: 1.1em;
+            color: #34495e;
         }
-        tr.expandable {
-            cursor: pointer;
-        }
-        tr.details-row {
-            display: none;
-        }
-        .appointment-btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
+
+        .btn {
             display: inline-block;
+            background-color: #2980b9;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            text-align: center;
+            margin: 20px auto;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-        .appointment-btn:hover {
-            background-color: #45a049;
+
+        .btn:hover {
+            background-color: #3498db;
         }
+
+        /* Images Section */
+        .image-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .image-section img {
+            width: 45%;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-left {
+            float: left;
+        }
+
+        .image-right {
+            float: right;
+        }
+
+
+        .flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px; /* Spacing between image and content */
+    margin-bottom: 50px;
+}
+
+.image-container {
+    flex: 1;
+}
+
+.vetpet-image {
+    max-width: 400px;
+    height: 500px;
+    width: 500px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    padding: 0;
+    object-fit: cover;
+}
+
+.content-container {
+    flex: 2;
+    padding: 20px;
+}
+
+.content-container h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.content-container .description {
+    font-size: 1.1em;
+    color: #34495e;
+    line-height: 1.6;
+}
+
+ul.description {
+    list-style: none;
+    padding-left: 0;
+}
+
+ul.description li {
+    margin-bottom: 10px;
+}
+
+.flex-container-reverse {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px; /* Spacing between content and image */
+    margin-bottom: 50px;
+}
+
+.image-container {
+    flex: 1;
+}
+
+.vet-image {
+    max-width: 400px;
+    height: 500px;
+    width: 500px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+    display: inline-block;
+    background-color: #2980b9;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #3498db;
+}
+
+@media (max-width: 768px) {
+    .flex-container {
+        flex-direction: column;
+    }
+
+    .image-container {
+        margin-bottom: 20px;
+    }
+
+    .content-container {
+        padding: 0;
+    }
+
+    .flex-container-reverse {
+        flex-direction: column;
+    }
+
+}
+
     </style>
 </head>
 <body>
 
 <?php include 'Cus-NavBar/navBar.php'; ?>
 
-<br><br>
-<h1>Expert Veterinary Services at Your Fingertips – Your Pet’s Health, Our Priority</h1>
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="herotxt">Top-Notch Veterinary Care</h1>
+        <p>Providing high-quality veterinary services for your beloved pets.</p>
+        <a href="registered_vets.php" class="btn">Find a Veterinarian</a>
+    </div>
+</div>
 
-<br>
+</br>
 
-<h2>All Registered Vets</h2>
-<div id="map"></div>
+<div class="section flex-container">
+    <!--Image -->
+    <div class="image-container">
+        <img src="assets/img/vet_image.avif" alt="Veterinarian with Pet" class="vetpet-image">
+    </div>
 
-<!-- Table of vets -->
-<h3>List of Registered Vets</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Qualification</th>
-            <th>Experience</th>
-            <th>Clinic Name</th>
-            <th>Consultation Fee</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($vets as $vet): ?>
-        <tr class="expandable" data-vet-id="<?= $vet['id'] ?>">
-            <td><?= htmlspecialchars($vet['name']) ?></td>
-            <td><?= htmlspecialchars($vet['qualification']) ?></td>
-            <td><?= htmlspecialchars($vet['experience']) ?> years</td>
-            <td><?= htmlspecialchars($vet['clinic_name']) ?></td>
-            <td>Rs.<?= htmlspecialchars($vet['consultation_fee']) ?></td>
-        </tr>
-        <tr class="details-row" id="details-<?= $vet['id'] ?>">
-            <td colspan="5">
-                <strong>Services:</strong> <?= htmlspecialchars($vet['services']) ?><br>
-                <strong>More Info:</strong> This is where additional details about the vet can go.<br><br>
-                <!-- Make an Appointment Button -->
-                <a href="book_appointment.php?vet_id=<?= $vet['id'] ?>" class="appointment-btn">Make an Appointment</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+    <!--Content -->
+    <div class="content-container">
+        <h2>Why Choose Our Veterinarians?</h2>
+        <p class="description">
+            We provide the highest quality veterinary services for your pets, ensuring their health and well-being. Our veterinarians are certified experts offering a range of services from routine check-ups to specialist care.
+        </p>
+        <ul class="description">
+            <li><strong>Comprehensive Exams:</strong> Regular check-ups for overall health.</li>
+            <li><strong>Vaccinations:</strong> Keep your pets safe with essential vaccines.</li>
+            <li><strong>Online Consultations:</strong> Get advice from the comfort of your home.</li>
+            <li><strong>In-Clinic Visits:</strong> Professional care at our state-of-the-art clinics.</li>
+        </ul>
+    </div>
+</div>
 
-   <!-- Footer -->
-   <?php include 'footer.php'; ?>
+<div class="content-section">
 
+    <!-- Why Choose Our Veterinarians Section -->
+    
+
+    <!-- Map Section -->
+    <h1>Find a Veterinarian Near You</h1>
+    <div id="map"></div>
+</div>
+ 
+
+
+<!-- View All Veterinarians -->
+<div class="section flex-container">
+    <!--Image -->
+    <div class="image-container">
+        <img src="assets/img/all_vets.jpg" alt="Veterinarian with Pet" class="vetpet-image">
+    </div>
+
+    <!--Content -->
+    <div class="content-container">
+        <h2>Expert Veterinary Services at Your Fingertips</h2>
+        <p class="description">
+        Our network of certified and experienced veterinarians is dedicated to providing top-quality care for your pets. From routine check-ups to specialized treatments, trust our experts for your pet's health and well-being.
+        </p>
+        <a href="registered_vets.php" class="btn">View All Veterinarians</a>
+    </div>
+</div>
+
+
+
+
+<div class="section flex-container-reverse">
+    <!-- Left side: Content -->
+    <div class="content-container">
+        <h2>Become a Veterinarian</h2>
+        <p class="description">
+            Are you a certified vet looking to offer your services to a wider community? Join our platform and connect with pet owners across the country. We provide all the tools you need to manage appointments, consultations, and offer your expertise to those who need it most.
+        </p>
+        <a href="vet_registration.php" class="btn">Join as a Veterinarian</a>
+    </div>
+
+    <!-- Right side: Image -->
+    <div class="image-container">
+        <img src="assets/img/become_vet.jpg" alt="Veterinarian Joining" class="vet-image">
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- Footer -->
+<?php include 'footer.php'; ?>
 
 <script>
     var vets = <?php echo json_encode($vets); ?>;
     
     function initMap() {
-        // Default center coordinates
         var defaultCenter = { lat: -34.397, lng: 150.644 }; 
         var mapOptions = {
             zoom: 13,
@@ -131,7 +389,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             scaledSize: new google.maps.Size(40, 40)
         };
 
-        // Get user's current location
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 var userLocation = {
@@ -147,22 +404,15 @@ while ($row = mysqli_fetch_assoc($result)) {
                 });
             }, function(error) {
                 console.log("Geolocation error: " + error.message);
-                handleLocationError(true, defaultCenter, map);
-            }, {
-                enableHighAccuracy: true,
-                timeout: 10000,
-                maximumAge: 0
             });
-        } else {
-            handleLocationError(false, defaultCenter, map);
         }
 
-        // Add markers and info windows for vets
+        // Add markers for vets
         vets.forEach(function(vet) {
             var marker = new google.maps.Marker({
                 position: { lat: parseFloat(vet.latitude), lng: parseFloat(vet.longitude) },
                 map: map,
-                title: vet.name
+                title: vet.name + " - " + vet.clinic_name
             });
 
             // Create content for info window
@@ -187,47 +437,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             });
         });
     }
-
-    function handleLocationError(browserHasGeolocation, pos, map) {
-        var infoWindow = new google.maps.InfoWindow({
-            position: pos,
-            map: map,
-            content: browserHasGeolocation
-                ? "Error: The Geolocation service failed."
-                : "Error: Your browser doesn't support geolocation."
-        });
-        map.setCenter(pos);
-    }
-
-
-    //Vet Table
-     // Expand/Collapse row logic
-    document.addEventListener('DOMContentLoaded', function() {
-        var rows = document.querySelectorAll('tr.expandable');
-        var expandedRow = null;
-
-        rows.forEach(function(row) {
-            row.addEventListener('click', function() {
-                var vetId = row.getAttribute('data-vet-id');
-                var detailsRow = document.getElementById('details-' + vetId);
-
-                // Collapse the previously expanded row, if any
-                if (expandedRow && expandedRow !== detailsRow) {
-                    expandedRow.style.display = 'none';
-                }
-
-                // Toggle the clicked row's details
-                if (detailsRow.style.display === 'table-row') {
-                    detailsRow.style.display = 'none';
-                } else {
-                    detailsRow.style.display = 'table-row';
-                    expandedRow = detailsRow;  // Keep track of the expanded row
-                }
-            });
-        });
-    });
-
-
 </script>
 
 </body>

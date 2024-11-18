@@ -135,7 +135,7 @@ if (isset($_SESSION['cart'])) {
                     <div>
                         <h5 class="text-lg font-semibold"><?= htmlspecialchars($item['name']) ?></h5>
                         <p class="text-blue-600 font-bold item-total" id="total-price-<?= $item['id'] ?>">
-                            $<?= number_format($item['price'] * $item['quantity'], 2) ?>
+                            LKR <?= number_format($item['price'] * $item['quantity'], 2) ?>
                         </p>
                     </div>
                     <form method="POST" action="" class="ml-auto flex items-center" id="form-<?= $item['id'] ?>">
@@ -150,7 +150,7 @@ if (isset($_SESSION['cart'])) {
 
         <div class="total-price mt-6">
             <span class="text-xl font-semibold">Total Price: </span>
-            <span id="grand-total" class="text-xl font-semibold text-green-600">$<?= number_format($total_price, 2) ?></span>
+            <span id="grand-total" class="text-xl font-semibold text-green-600">LKR <?= number_format($total_price, 2) ?></span>
         </div>
         
         <!-- Proceed to Checkout Button -->
