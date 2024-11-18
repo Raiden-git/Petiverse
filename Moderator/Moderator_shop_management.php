@@ -182,8 +182,9 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Management</title>
-    <link rel="stylesheet" href="moderator_sidebar.css">
+    <title>Petiverse - Shop Management</title>
+    <link rel="stylesheet" href="../Moderator/moderator_sidebar.css">
+    <script src="logout_js.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -199,8 +200,8 @@ $conn->close();
 
     <nav>
     <ul>
-        <li><a href="moderator_dashboard.php">Home</a></li>
-        <li><a href="shop_management.php">Shop Management</a></li>
+    <li><a href="moderator_dashboard.php">Home</a></li>
+        <li><a href="Moderator_shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
@@ -425,12 +426,6 @@ $conn->close();
 
     <!-- JavaScript for dynamic loading -->
     <script>
-
-        // JavaScript function to display confirmation
-        function confirmLogout() {
-            return confirm("Do you really want to log out?");
-        }
-
         function loadSubcategories(category, selectedSubcategory = "") {
             $.ajax({
                 type: 'POST',
@@ -460,7 +455,7 @@ $conn->close();
         
         if (mainCategory !== "") {
             $.ajax({
-                url: 'shop_management.php', // Replace this with the correct PHP file handling the subcategory fetch
+                url: 'Moderator_shop_management.php', // Replace this with the correct PHP file handling the subcategory fetch
                 type: 'POST',
                 data: { main_category: mainCategory },
                 success: function (response) {
@@ -492,7 +487,7 @@ $conn->close();
 // Function to load subcategories based on the selected main category
 function loadSubcategories(mainCategory, selectedSubcategory = null) {
     $.ajax({
-        url: 'shop_management.php', // URL to fetch subcategories
+        url: 'Moderator_shop_management.php', // URL to fetch subcategories
         type: 'POST',
         data: { main_category: mainCategory }, // Send the selected main category
         success: function(response) {

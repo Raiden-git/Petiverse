@@ -135,3 +135,20 @@ select:focus {
       width: 100%;
   }
 }
+
+.createblog{
+  color: rgb(191, 180, 180);
+  background-color: #141313;
+  padding: 10px;
+  margin: 30px;
+ margin-left: 1000px;
+}
+
+
+.createblog:hover{
+  color: rgb(0, 0, 0);
+  background-color: #ef6161;
+  padding: 10px;
+  margin: 30px;
+ margin-left: 1000px;
+}

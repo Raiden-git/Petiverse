@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 <header>
-    <h1>Add Moderator</h1>
+    <h1>Petiverse - Add Moderator</h1>
 </header>
 
 <div class="container">

@@ -50,7 +50,7 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="admin_sidebar.css">
     <script src="logout_js.js"></script>
-    <title>User Management</title>
+    <title>Petiverse - User Management</title>
 
     <style>
         /* Container Styling */

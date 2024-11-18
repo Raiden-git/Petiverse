@@ -1,41 +1,31 @@
-<?php
-
-include('../db.php');
-include('session_check.php');
-// Code for user management goes here (e.g., displaying, deleting users, etc.)
-
-?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Petiverse - Special Event</title>
-    <link rel="stylesheet" href="admin_sidebar.css">
-    <script src="logout_js.js"></script>
+    <title>Petiverse - Vet Management</title>
+    <link rel="stylesheet" href="../Moderator/moderator_sidebar.css">
 </head>
 <body>
 <header>
-    <h1>Special Event Management</h1>
+    <h1>Vet Management</h1>
 </header>
 
 <nav>
     <ul>
-        <li><a href="dashboard.php">Home</a></li>
-        <li><a href="user_management.php">User Management</a></li>
-        <li><a href="shop_management.php">Shop Management</a></li>
+    <li><a href="moderator_dashboard.php">Home</a></li>
+        <li><a href="Moderator_shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
-        <li><a href="moderator_management.php">Moderator Management</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
 </nav>
 
 <main>
-    <h2>Special Event Management</h2>
     <!-- Add functionality for viewing, adding, and managing users here -->
+</table>
 </main>
 </body>
 </html>

@@ -6,7 +6,7 @@ include('session_check.php');
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Panel</title>
+    <title>Petiverse - Admin Panel</title>
     <link rel="stylesheet" href="admin_sidebar.css">
     <style>
         /* General Styles */
