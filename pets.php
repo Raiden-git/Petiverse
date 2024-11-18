@@ -1,6 +1,7 @@
 <?php
-//session_start();
-include './db.php'; // Database connection
+include './db.php';
+session_start();
+// Database connection
 
 session_start();
 if (!isset($_SESSION['user_id'])) {
@@ -19,7 +20,7 @@ if (isset($_POST['category'])) {
 }
 
 // Prepare SQL query based on the category filter
-$sql = "SELECT pet_name, pet_type, description, location, status, date, image, contact_info FROM lost_and_found_pets WHERE pet_name LIKE ?";
+$sql = "SELECT pet_name, pet_type, description, location, status, date, image, contact_info FROM lost_and_found_pets WHERE pet_name LIKE ? AND approved = 1"; // Only approved pets
 
 if ($categoryFilter !== 'all') {
     $sql .= " AND status = ?";
@@ -104,12 +105,12 @@ $result = $stmt->get_result();
 
     <!-- Category Filter -->
     <div class="category-filter">
-    <form method="POST" class="category-form">
-        <button type="submit" name="category" value="lost" class="filter-btn <?php if ($categoryFilter === 'lost') echo 'active'; ?>">Lost</button>
-        <button type="submit" name="category" value="found" class="filter-btn <?php if ($categoryFilter === 'found') echo 'active'; ?>">Found</button>
-        <button type="submit" name="category" value="all" class="filter-btn <?php if ($categoryFilter === 'all') echo 'active'; ?>">All</button>
-    </form>
-</div>
+        <form method="POST" class="category-form">
+            <button type="submit" name="category" value="lost" class="filter-btn <?php if ($categoryFilter === 'lost') echo 'active'; ?>">Lost</button>
+            <button type="submit" name="category" value="found" class="filter-btn <?php if ($categoryFilter === 'found') echo 'active'; ?>">Found</button>
+            <button type="submit" name="category" value="all" class="filter-btn <?php if ($categoryFilter === 'all') echo 'active'; ?>">All</button>
+        </form>
+    </div>
 
     <div class="pets-list">
         <?php if ($result->num_rows > 0): ?>

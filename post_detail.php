@@ -54,6 +54,14 @@ $comments_sql = "
 ";
 $comments_result = $conn->query($comments_sql);
 
+// Add this line to fetch the author's ID with the post
+$sql = "SELECT * FROM posts WHERE id = $post_id";
+$result = $conn->query($sql);
+$post = $result->fetch_assoc();
+
+// Get the author's ID
+$post_author_id = $post['user_id'];
+
 ?>
 
 
@@ -63,7 +71,7 @@ $comments_result = $conn->query($comments_sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($post['title']); ?> - Petiverse</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/posts.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -141,6 +149,12 @@ $comments_result = $conn->query($comments_sql);
             border-radius: 10px;
             margin: 15px 0;
         }
+        .post-detail h2{
+            font-size: 24px;       
+            font-weight: bold;    
+            color: #333;           
+            margin-bottom: 10px;
+        }
         .post-detail h2, .post-detail p {
             word-wrap: break-word;   /* Break long words if needed */
             overflow-wrap: break-word;
@@ -153,17 +167,32 @@ $comments_result = $conn->query($comments_sql);
         .post-detail strong {
             font-weight: bold;
         }
+        .post-detail small{
+            color: #8a7f80; 
+            font-size: 0.9rem;
+        }
         .like-section {
             display: flex;
             align-items: center;
             gap: 10px;
+            margin-top: 10px;
         }
         .like-section button {
             background: transparent;
             border: none;
             cursor: pointer;
             font-size: 1.2rem;
+            color: #555;
+            transition: color 0.3s ease;
         }
+        .like-section button:hover {
+    color: #e74c3c; /* Highlight color on hover */
+}
+
+.like-section span {
+    font-size: 1rem;
+    color: #333; /* Text color for likes count */
+}
         .comment-section {
             margin-top: 20px;
         }
@@ -219,30 +248,125 @@ $comments_result = $conn->query($comments_sql);
         .post-container, .comment-section {
             overflow-x: hidden; /* Ensure no horizontal scroll due to overflow */
         }
+        .category-tag {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            background-color: #DA8359; /* Default pastel color */
+            margin-right: 5px;
+        }
+
+        /* Optional: Different colors for categories */
+        .category-tag[data-category="health"] {
+            background-color: #a8e6cf; 
+        }
+
+        .category-tag[data-category="training"] {
+            background-color: #a3cde8; 
+        }
+
+        .category-tag[data-category="pet-stories"] {
+            background-color: #FF9AA2; 
+        }
+
+        .category-tag[data-category="food"] {
+            background-color: #DEC584; 
+        }
+        .category-tag[data-category="other"] {
+            background-color: #c3aed6; 
+        }
+        /* Options menu button */
+        .post-options {
+    position: absolute; /* For dropdown positioning */
+    top: 10px;
+    right: 10px;
+    display: inline-block; /* Align to the right of the post */
+}
+        .options-button {
+            background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    float: right;
+    color: #555;
+    position: relative;
+        }
+
+        /* Options menu dropdown */
+        .options-menu {
+            display: none; /* Hidden initially */
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background-color: #fff; /* Light background */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+    z-index: 10; /* Ensure visibility */
+    width: 120px; /* Fixed width */
+        }
+
+        .options-menu li {
+            text-align: left;
+        }
+
+        .options-menu li a {
+            display: block;
+    padding: 8px 12px;
+    color: #333; /* Neutral text */
+    text-decoration: none;
+    font-size: 14px;
+        }
+
+        .options-menu li:hover {
+            background-color: #f2f2f2; /* Light hover effect */
+            color: #ff5733; 
+        }
+
+        /* Show menu on hover or button click */
+        .post-options:hover .options-menu,
+        .options-button:focus + .options-menu {
+            display: block;
+        }
+
 
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-         $(document).ready(function() {
-    $('.like-post').on('click', function(e) {
+        $(document).ready(function() {
+    $('.like-post, .dislike-post').on('click', function(e) {
         e.preventDefault();
         var postId = $(this).data('post-id');
+        var action = $(this).hasClass('like-post') ? 'like' : 'dislike';
 
         $.ajax({
             url: 'like.php',
             type: 'POST',
-            data: { type: 'post', id: postId },
+            data: { type: 'post', id: postId, action: action },
             success: function(response) {
-                if (response === 'liked') {
-                    var likes = parseInt($('#post-likes').text()) + 1;
+                if (response === 'liked' || response === 'disliked') {
+                    var likes = parseInt($('#post-likes').text());
+                    likes += (action === 'like' ? 1 : -1);
                     $('#post-likes').text(likes + ' likes');
-                    $('.like-post').prop('disabled', true);  // Disable the button
-                } else if (response === 'already liked') {
-                    alert('You have already liked this post.');
+
+                    // Toggle buttons
+                    $('.like-post').toggleClass('hidden', action === 'like');
+                    $('.dislike-post').toggleClass('hidden', action === 'dislike');
+                } else {
+                    alert(response);
                 }
             }
         });
     });
+
+
+
 
     $('.like-comment').on('click', function(e) {
         e.preventDefault();
@@ -266,6 +390,25 @@ $comments_result = $conn->query($comments_sql);
 });
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.options-button');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const menu = button.nextElementSibling;
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+
+            // Close menu if clicked outside
+            document.addEventListener('click', (e) => {
+                if (!button.contains(e.target) && !menu.contains(e.target)) {
+                    menu.style.display = 'none';
+                }
+            });
+        });
+    });
+});
+
+
     </script>
 </head>
 <body>
@@ -279,18 +422,36 @@ $comments_result = $conn->query($comments_sql);
     <div class="post-container">
         <section class="post-detail">
             <h2><?php echo htmlspecialchars($post['title']); ?></h2>
+
+            <!-- Options menu -->
+            <?php if ($post['user_id'] == $user_id): ?>
+            <div class="post-options">
+                <button class="options-button">⋮</button>
+                <ul class="options-menu">
+                   <li><a href="edit_post.php?post_id=<?php echo $post_id; ?>">Edit</a></li>
+                   <li>
+                      <a href="delete_post.php?post_id=<?php echo $post_id; ?>" 
+                         onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
+                   </li>
+                </ul>
+            </div>
+            <?php endif; ?>
+
+
             <?php if (!empty($post['image'])): ?>
                 <img src="<?php echo htmlspecialchars($post['image']); ?>" alt="Post Image">
             <?php endif; ?>
             <p><?php echo htmlspecialchars($post['content']); ?></p>
-            <p><strong>Category:</strong> <?php echo htmlspecialchars($post['category']); ?></p>
-            <p><strong>Pet Category:</strong> <?php echo htmlspecialchars($post['pet_category']); ?></p>
+            <p><strong>Category:</strong> <span class="category-tag" data-category="<?php echo htmlspecialchars($post['category']); ?>"><?php echo htmlspecialchars($post['category']); ?></span></p>
+            <p><strong>Pet Category:</strong> <span class="category-tag" data-category="<?php echo htmlspecialchars($post['pet_category']); ?>"><?php echo htmlspecialchars($post['pet_category']); ?></span></p>
             <p><small>Posted on <?php echo date("Y-m-d | h:i A", strtotime($post['created_at'])); ?></small></p>
             
             <div class="like-section">
-                <button class="like-post" data-post-id="<?php echo $post_id; ?>">❤️</button>
+                <button class="like-post" data-post-id="<?php echo $post_id; ?>" <?php echo in_array($user_id, json_decode($post['user_likes'], true) ?? []) ? 'hidden' : ''; ?>>❤️ Like</button>
+                <button class="dislike-post" data-post-id="<?php echo $post_id; ?>" <?php echo !in_array($user_id, json_decode($post['user_likes'], true) ?? []) ? 'hidden' : ''; ?>>💔 Dislike</button>
                 <span id="post-likes"><?php echo $post['likes']; ?> likes</span>
             </div>
+
             <hr>
             
             <h3>Comments</h3>
