@@ -1,7 +1,6 @@
 <?php
 include './db.php';
-session_start();
-// Database connection
+
 
 session_start();
 if (!isset($_SESSION['user_id'])) {

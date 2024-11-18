@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         unset($_SESSION['cart']);
 
         // Redirect to an order confirmation page
-        echo "<script>alert('Your order has been successfully placed!'); window.location.href='order_confirmation.php';</script>";
+        echo "<script>alert('Your order has been successfully placed!'); window.location.href='shop.php';</script>";
     } else {
         echo "<script>alert('Your cart is empty. Please add items before proceeding.'); window.location.href='shop.php';</script>";
     }

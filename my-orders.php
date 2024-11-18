@@ -75,7 +75,7 @@ body {
 
 /* Container for the content */
 .container {
-    width: 80%;
+    width: 100%;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -197,8 +197,8 @@ tr:hover {
                             <td>" . $row['product_name'] . "</td>
                             <td>" . $row['product_description'] . "</td>
                             <td>" . $row['quantity'] . "</td>
-                            <td>$" . number_format($row['price'], 2) . "</td>
-                            <td>$" . number_format($row['total_price'], 2) . "</td>";
+                            <td>LKR." . number_format($row['price'], 2) . "</td>
+                            <td>LKR." . number_format($row['total_price'], 2) . "</td>";
                     
                     // Display the product photo
                     if ($row['product_photo']) {

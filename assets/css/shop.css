@@ -16,6 +16,7 @@ body
     background-color: #f3e8c1;
     border-radius: 8px;
     margin-right: 30px;
+    width: 950px;
 }
 
 .main-category-nav .nav-pills .nav-link {
@@ -236,4 +237,30 @@ body
 
 
 
+.container .shop-intro h2{
+    padding-top:20px ;
+color: #e2975a;
 
+}
+
+.container .shop-intro p{
+    padding-top:0px ;
+color: #000000;
+padding-bottom: 40px;
+font-size: 18px;
+
+}
+
+
+.container .subcategory {
+    color: rgb(255, 0, 0);
+    padding-top: 0px;
+
+}
+
+
+
+.container .subcategory .list-unstyled a{
+
+    color: #1040ff;
+}

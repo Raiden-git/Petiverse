@@ -22,9 +22,12 @@ if ($result === false) {
     }
 }
 
+
 // Get selected main category
 if (isset($_GET['category'])) {
     $selected_category = $conn->real_escape_string($_GET['category']);
+} else {
+    $selected_category = 'Food'; // Default to "Food" category
 }
 
 // Fetch subcategories for the selected category
@@ -40,6 +43,7 @@ if ($selected_category && $selected_category !== 'All') {
         }
     }
 }
+
 
 // Get selected subcategory and search query
 if (isset($_GET['subcategory'])) {
@@ -141,23 +145,28 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
 <div class="container d-flex">
     
     <!-- Sidebar for Subcategories -->
-    <aside class="col-3 p-3 bg-white shadow-sm subcategory-sidebar">
-        <h2 class="h5">Subcategories</h2>
-        <?php if ($selected_category === 'All'): ?>
-            <div class="shop-intro">
+    <aside class="subcategory">
+    <div class="shop-intro">
                 <h2>Your One-Stop Shop for All Pet Needs at Petivers</h2>
                 <p>Discover a captivating range of products designed to intertwine with your pet's needs.</p>
             </div>
+
+        <h2 class="h5">Subcategories</h2>
+        <?php if ($selected_category === 'All'): ?>
+
         <?php elseif (!empty($subcategories)): ?>
             <ul class="list-unstyled">
                 <?php foreach ($subcategories as $subcategory): ?>
                     <li class="mb-2">
-                        <a href="?category=<?= urlencode($selected_category) ?>&subcategory=<?= urlencode($subcategory) ?>" class="text-primary">
+                        <a href="?category=<?= urlencode($selected_category) ?>&subcategory=<?= urlencode($subcategory) ?>" class="">
                             <?= htmlspecialchars($subcategory) ?>
+                            
                         </a>
+                        
                     </li>
                 <?php endforeach; ?>
             </ul>
+
         <?php else: ?>
             <p>No subcategories available.</p>
         <?php endif; ?>

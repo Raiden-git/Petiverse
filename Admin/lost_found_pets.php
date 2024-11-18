@@ -49,9 +49,6 @@ $result = $conn->query($sql);
 <header>
     <div class="header-content">
         <h1>Lost & Found Pets Management</h1>
-        <div class="logout-btn">
-            <a href="logout.php" onclick="return confirmLogout();">Logout</a>
-        </div>
     </div>
 </header>
 
@@ -66,6 +63,7 @@ $result = $conn->query($sql);
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
+        <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
 </nav>
 
