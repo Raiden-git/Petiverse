@@ -39,7 +39,7 @@ include('../db.php');
         }
 
         main {
-            margin-left: 260px; /* Space for the sidebar */
+            margin-left: 260px;
             padding: 40px;
             flex: 1;
         }

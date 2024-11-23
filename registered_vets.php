@@ -121,7 +121,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     detailsRow.style.display = 'none';
                 } else {
                     detailsRow.style.display = 'table-row';
-                    expandedRow = detailsRow;  // Keep track of the expanded row
+                    expandedRow = detailsRow;  
                 }
             });
         });

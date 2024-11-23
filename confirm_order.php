@@ -23,14 +23,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Fetch user id (assuming the user is logged in and their id is stored in the session)
-        $user_id = $_SESSION['user_id']; // Update with actual user session variable
+        $user_id = $_SESSION['user_id']; 
 
         // Generate a unique order ID
         $order_id = 'ORD' . strtoupper(uniqid()); // Unique order ID for this session
 
         // Loop through cart items to insert each one into the database
         foreach ($_SESSION['cart'] as $product_id => $quantity) {
-            // Fetch product details from the database
+           
             $sql = "SELECT id, name, price, photo FROM products WHERE id = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("i", $product_id);
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Get product details
                 $product_name = $item['name'];
                 $product_price = $item['price'];
-                $product_photo = $item['photo']; // Binary data of the product photo
+                $product_photo = $item['photo']; 
 
                 // Calculate total price
                 $total_price = $product_price * $quantity;

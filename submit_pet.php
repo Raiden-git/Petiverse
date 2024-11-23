@@ -6,12 +6,12 @@ session_start();
 if (!isset($_SESSION['user_id'])) {
     // Redirect to login page if not logged in
     header("Location: login.php");
-    exit(); // Ensure the rest of the script does not run
+    exit(); 
 }
 
 // Database connection
 $host = "localhost";
-$dbname = "petiverse"; // Your existing database name
+$dbname = "petiverse"; 
 $username = "root";
 $password = "";
 
@@ -52,8 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Ensure the image data is bound correctly
-    $approved = 0;  // New submissions are not approved, need admin review
-    $user_id = $_SESSION['user_id']; // Get the logged-in user's ID
+    $approved = 0; 
+    $user_id = $_SESSION['user_id']; 
 
     // Bind parameters (image must use `addslashes` for proper binary handling)
     $stmt->bind_param(
@@ -71,12 +71,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Send image data using `send_long_data` to handle large binary files
     if ($image !== null) {
-        $stmt->send_long_data(6, $image); // 6 is the index of the 'image' parameter
+        $stmt->send_long_data(6, $image); 
     }
 
     // Execute the query
     if ($stmt->execute()) {
-        $showPopup = true; // Set flag to show success popup
+        $showPopup = true; 
     } else {
         echo "Error: " . $stmt->error;
     }
@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <style>
         /* Popup styling */
         .popup {
-            display: none; /* Hidden by default */
+            display: none; 
             position: fixed;
             top: 0;
             left: 0;
@@ -128,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-    <?php include './Cus-NavBar/navBar.php'; ?> <!-- Corrected path to include navigation bar -->
+    <?php include './Cus-NavBar/navBar.php'; ?> 
     <h1>Report a Lost or Found Pet</h1>
 
     <form action="submit_pet.php" method="POST" enctype="multipart/form-data">

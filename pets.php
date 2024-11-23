@@ -13,7 +13,7 @@ if (isset($_POST['category'])) {
 }
 
 // Prepare SQL query based on the category filter
-$sql = "SELECT pet_name, pet_type, description, location, status, date, image, contact_info FROM lost_and_found_pets WHERE pet_name LIKE ? AND approved = 1"; // Only approved pets
+$sql = "SELECT pet_name, pet_type, description, location, status, date, image, contact_info FROM lost_and_found_pets WHERE pet_name LIKE ? AND approved = 1";
 
 if ($categoryFilter !== 'all') {
     $sql .= " AND status = ?";
@@ -40,8 +40,8 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lost & Found Pets - Petiverse</title>
-    <link rel="stylesheet" href="assets/css/styles.css"> <!-- General styles -->
-    <link rel="stylesheet" href="./assets/css/lost_found.css"> <!-- Link to new CSS file -->
+    <link rel="stylesheet" href="assets/css/styles.css"> 
+    <link rel="stylesheet" href="./assets/css/lost_found.css"> 
     <style>
         /* Pop-up styles */
         .popup {
@@ -83,7 +83,7 @@ $result = $stmt->get_result();
     </style>
 </head>
 <body>
-<?php include './Cus-NavBar/navBar.php'; ?> <!-- Corrected path to include navigation bar -->
+<?php include './Cus-NavBar/navBar.php'; ?> 
 
 <section class="pets-section">
     <h2>Lost & Found Pets</h2>
@@ -162,13 +162,13 @@ $result = $stmt->get_result();
         if (image) {
             document.getElementById('popup-image').src = 'data:image/jpeg;base64,' + image;
         } else {
-            document.getElementById('popup-image').src = 'assets/img/placeholder.jpg'; // Fallback image
+            document.getElementById('popup-image').src = 'assets/img/placeholder.jpg'; 
         }
-        document.getElementById('popup').style.display = 'flex'; // Show popup
+        document.getElementById('popup').style.display = 'flex'; 
     }
 
     function closePopup() {
-        document.getElementById('popup').style.display = 'none'; // Hide popup
+        document.getElementById('popup').style.display = 'none'; 
     }
 </script>
 

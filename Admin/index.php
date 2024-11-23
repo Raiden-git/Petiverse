@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* Reintroducing gradient */
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5); 
         }
 
         .login-container {
@@ -158,5 +158,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </form>
 </div>
 
+
+
+
+
+
 </body>
 </html>
+

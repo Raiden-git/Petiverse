@@ -7,7 +7,7 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); // Redirect to login page if not logged in
+    header("Location: login.php"); 
     exit();
 }
 
@@ -16,7 +16,7 @@ $user_id = $_SESSION['user_id'];
 
 // Get post ID from URL
 $post_id = $_GET['post_id'] ?? 0;
-$post_id = intval($post_id); // Sanitize input
+$post_id = intval($post_id); 
 
 // Fetch post details
 $sql = "SELECT * FROM posts WHERE id = $post_id";
@@ -144,8 +144,8 @@ $post_author_id = $post['user_id'];
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .post-container img {
-            max-width: 100%;         /* Ensure image doesn't overflow */
-            height: auto;            /* Keep image proportionate */
+            max-width: 100%;         
+            height: auto;            
             border-radius: 10px;
             margin: 15px 0;
         }
@@ -156,10 +156,10 @@ $post_author_id = $post['user_id'];
             margin-bottom: 10px;
         }
         .post-detail h2, .post-detail p {
-            word-wrap: break-word;   /* Break long words if needed */
+            word-wrap: break-word;  
             overflow-wrap: break-word;
-            hyphens: auto;           /* Add hyphen when breaking words */
-            max-width: 100%;         /* Ensure they don't exceed the container */
+            hyphens: auto;         
+            max-width: 100%;       
             margin-bottom: 10px;
             font-size: 16px;
             color: #333;
@@ -186,12 +186,12 @@ $post_author_id = $post['user_id'];
             transition: color 0.3s ease;
         }
         .like-section button:hover {
-    color: #e74c3c; /* Highlight color on hover */
+    color: #e74c3c; 
 }
 
 .like-section span {
     font-size: 1rem;
-    color: #333; /* Text color for likes count */
+    color: #333; 
 }
         .comment-section {
             margin-top: 20px;
@@ -204,7 +204,7 @@ $post_author_id = $post['user_id'];
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
         }
         .comment p {
-            word-wrap: break-word;   /* Break long words */
+            word-wrap: break-word;   
             overflow-wrap: break-word;
             max-width: 100%;
             margin-bottom: 8px;
@@ -246,7 +246,7 @@ $post_author_id = $post['user_id'];
         }
         /* General overflow prevention for all sections */
         .post-container, .comment-section {
-            overflow-x: hidden; /* Ensure no horizontal scroll due to overflow */
+            overflow-x: hidden; 
         }
         .category-tag {
             display: inline-block;
@@ -255,7 +255,7 @@ $post_author_id = $post['user_id'];
             font-size: 14px;
             font-weight: bold;
             color: #333;
-            background-color: #DA8359; /* Default pastel color */
+            background-color: #DA8359; 
             margin-right: 5px;
         }
 
@@ -280,10 +280,10 @@ $post_author_id = $post['user_id'];
         }
         /* Options menu button */
         .post-options {
-    position: absolute; /* For dropdown positioning */
+    position: absolute; 
     top: 10px;
     right: 10px;
-    display: inline-block; /* Align to the right of the post */
+    display: inline-block;
 }
         .options-button {
             background: none;
@@ -297,19 +297,19 @@ $post_author_id = $post['user_id'];
 
         /* Options menu dropdown */
         .options-menu {
-            display: none; /* Hidden initially */
+            display: none; 
     position: absolute;
     right: 0;
     top: 30px;
-    background-color: #fff; /* Light background */
-    border: 1px solid #ddd; /* Subtle border */
+    background-color: #fff; 
+    border: 1px solid #ddd; 
     border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     list-style: none;
     padding: 5px 0;
     margin: 0;
-    z-index: 10; /* Ensure visibility */
-    width: 120px; /* Fixed width */
+    z-index: 10; 
+    width: 120px; 
         }
 
         .options-menu li {
@@ -319,13 +319,13 @@ $post_author_id = $post['user_id'];
         .options-menu li a {
             display: block;
     padding: 8px 12px;
-    color: #333; /* Neutral text */
+    color: #333; 
     text-decoration: none;
     font-size: 14px;
         }
 
         .options-menu li:hover {
-            background-color: #f2f2f2; /* Light hover effect */
+            background-color: #f2f2f2;
             color: #ff5733; 
         }
 
@@ -380,7 +380,7 @@ $post_author_id = $post['user_id'];
                 if (response === 'liked') {
                     var likes = parseInt($('#comment-likes-' + commentId).text()) + 1;
                     $('#comment-likes-' + commentId).text(likes + ' likes');
-                    $(this).prop('disabled', true);  // Disable the button
+                    $(this).prop('disabled', true);  
                 } else if (response === 'already liked') {
                     alert('You have already liked this comment.');
                 }

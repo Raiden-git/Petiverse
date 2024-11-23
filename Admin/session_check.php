@@ -5,7 +5,7 @@
 session_start();
 
 // Set timeout duration (in seconds)
-$timeout_duration = 300; // 5 minutes
+$timeout_duration = 300; 
 
 // Check if the user is logged in
 if ($_SESSION['role'] != 'admin') {
