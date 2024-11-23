@@ -5,7 +5,7 @@
     right: 20px;
     display: flex;
     flex-direction: column;
-    gap: 12px; /* Slightly increased gap */
+    gap: 12px;
     z-index: 1000;
 }
 
@@ -14,23 +14,23 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(135deg, #444, #555); /* Subtle gradient */
+    background: linear-gradient(135deg, #444, #555);
     color: #fff;
-    padding: 10px 18px; /* Reduced padding slightly */
-    border-radius: 8px; /* Rounded corners for a softer look */
-    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.4); /* Deeper shadow for more depth */
-    min-width: 240px; /* Reduced min-width slightly */
-    max-width: 280px; /* Reduced max-width slightly */
-    font-size: 13px; /* Reduced font size slightly */
+    padding: 10px 18px; 
+    border-radius: 8px; 
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.4); 
+    min-width: 240px; 
+    max-width: 280px;
+    font-size: 13px; 
     opacity: 0.95;
-    transition: opacity 0.3s ease, transform 0.3s ease; /* Added smooth transition */
-    transform: translateY(10px); /* Initial offset for smoother entry */
-    border: 2px solid #f05a24; /* Orange border */
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+    transform: translateY(10px); 
+    border: 2px solid #f05a24;
 }
 
 /* Apply smooth appearance for notifications */
 .notification.show {
-    transform: translateY(0); /* Slide into view */
+    transform: translateY(0); 
 }
 
 /* Close button styling inside each notification */
@@ -38,29 +38,29 @@
     background: none;
     border: none;
     color: #fff;
-    font-size: 16px; /* Slightly larger font for the close button */
+    font-size: 16px;
     cursor: pointer;
     transition: transform 0.2s ease;
 }
 
 .notification button:hover {
-    transform: scale(1.2); /* Button hover effect */
+    transform: scale(1.2);
 }
 
 /* Close All button styling */
 #close-all-btn {
-    display: none; /* Initially hide the Close All button */
+    display: none;
     position: fixed;
     bottom: 10px;
     right: 20px;
-    padding: 8px 14px; /* Slightly smaller padding */
-    font-size: 12px; /* Slightly smaller font */
+    padding: 8px 14px; 
+    font-size: 12px; 
     color: #fff;
     background-color: #f05a24;
     border: none;
-    border-radius: 30px; /* Rounded corners for a softer look */
+    border-radius: 30px;
     cursor: pointer;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4); /* Deeper shadow for more depth */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4); 
     z-index: 1000;
     transition: background-color 0.3s ease, transform 0.3s ease;
     opacity: 0.9;
@@ -68,8 +68,8 @@
 
 /* Close All button hover effect */
 #close-all-btn:hover {
-    background-color: #e04d23; /* Darker shade when hovered */
-    transform: scale(1.05); /* Slight scaling effect */
+    background-color: #e04d23; 
+    transform: scale(1.05); 
     opacity: 1;
 }
 
@@ -77,25 +77,25 @@
 @media (max-width: 768px) {
     .notification {
         max-width: 90%;
-        font-size: 12px; /* Slightly smaller font size for readability */
-        padding: 10px 16px; /* Reduced padding */
+        font-size: 12px; 
+        padding: 10px 16px; 
     }
 
     #close-all-btn {
-        font-size: 11px; /* Slightly smaller font */
-        padding: 8px 12px; /* Reduced padding */
+        font-size: 11px; 
+        padding: 8px 12px; 
     }
 }
 
 @media (max-width: 480px) {
     .notification {
         max-width: 100%;
-        font-size: 11px; /* Smaller font size for mobile */
-        padding: 8px 14px; /* Reduced padding */
+        font-size: 11px; 
+        padding: 8px 14px;
     }
 
     #close-all-btn {
-        font-size: 10px; /* Even smaller font */
-        padding: 6px 10px; /* Reduced padding further */
+        font-size: 10px; 
+        padding: 6px 10px; 
     }
 }

@@ -8,24 +8,6 @@ $error_message = '';
 $google_login_url = $google_client->createAuthUrl(); // Google login URL
 
 
-/* $profile_pic = null;
-if(isset($_SESSION['user_id'])) {
-    $userId = $_SESSION['user_id'];
-    if ($conn) {
-        // Updated query to select all columns
-        $sql = "SELECT * FROM users WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $userId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
-        $_SESSION['user_data'] = $user; // Store user data in session
-        $profile_pic = $user['profile_pic'];
-    } else {
-        error_log("Database connection failed in navBar.php");
-    }
-} */
-
 ?>
 
 <!DOCTYPE html>
@@ -34,12 +16,12 @@ if(isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.cdnfonts.com/css/cheri" rel="stylesheet">                
-
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script> 
 
 <style>
     /* General Styles for Header */
 header {
-    background-color: #ECDFCC; /* Light background */
+    background-color: #ECDFCC; 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -59,7 +41,7 @@ header {
 .logo a {
     font-family: 'Cheri', sans-serif;
     text-decoration: none;
-    color: #DA8359; /* Vibrant orange */
+    color: #DA8359; 
 }
 
 /* Navigation Styles */
@@ -120,24 +102,6 @@ nav a:hover {
     background-color: #DA8359;
     color: #FCFAEE;
 }
-
-
-/* #logoutLink{
-    text-decoration: none;
-    font-size: 16px;
-    color: black;
-    margin-left: 20px;
-    border: 2px solid #d14035f8;
-    background-color: #d1403557;
-    padding: 8px 15px;
-    border-radius: 25px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#logoutLink:hover {
-    background-color: #d14035f8;
-    color: #FCFAEE;
-} */
 
 
 
@@ -247,6 +211,50 @@ nav a:hover {
     }
 }
 
+
+
+.custom-cart-icon {
+    position: relative;
+    color: #333;
+    text-decoration: none;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.custom-cart-icon box-icon {
+    color: #555; 
+    transition: transform 0.3s ease;
+}
+
+.custom-cart-icon:hover box-icon {
+    transform: scale(1.2); 
+}
+
+.custom-cart-badge {
+    position: absolute;
+    top: -5px; 
+    right: -10px; 
+    background-color: #ff5722; 
+    color: white; 
+    font-size: 0.8rem; 
+    font-weight: bold;
+    border-radius: 50%; 
+    padding: 2px 6px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
 
 
@@ -269,6 +277,27 @@ nav a:hover {
             <li><a href="about.php">About Us</a></li>
         </ul>
     </nav>
+
+
+
+
+<!-- Cart Icon Section -->
+<div class="custom-cart-section">
+    <a href="cart.php" class="custom-cart-icon">
+        <box-icon name="cart" type="solid" size="lg"></box-icon>
+        <?php 
+        $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0; 
+        if ($total_cart_items > 0): ?>
+            <span class="custom-cart-badge"><?= $total_cart_items ?></span>
+        <?php endif; ?>
+    </a>
+</div>
+
+
+
+
+
+
     <div class="login">
     <?php if(isset($_SESSION['username'])): ?>
         <div class="profile-container">
@@ -293,6 +322,13 @@ nav a:hover {
         <a href="login.php" class="loginbutton">Login</a>
     <?php endif; ?>
 </div>
+
+
+
+
+
+
+
 </header>
 
 

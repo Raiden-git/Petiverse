@@ -10,7 +10,7 @@ session_start(); // Start the session to check login status
     <title>Petiverse - Let's care your Furball</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/scrollbar.css">
-    <link rel="stylesheet" href="assets/css/popup.css"> <!-- CSS for the popup -->
+    <link rel="stylesheet" href="assets/css/popup.css"> 
     <style>
         /* Container for the contact and feedback section */
         .footer-container {
@@ -158,24 +158,24 @@ session_start(); // Start the session to check login status
 
 /* Additional CSS for notification images */
 .notification img {
-            width: 80px; /* Set width */
-            height: 80px; /* Set height */
-            object-fit: cover; /* Maintain aspect ratio while filling the box */
-            margin-right: 10px; /* Space between image and text */
-            border-radius: 5px; /* Optional: rounded corners */
+            width: 80px; 
+            height: 80px; 
+            object-fit: cover; 
+            margin-right: 10px; 
+            border-radius: 5px; 
         }
         .notification {
-            display: flex; /* Flexbox to align image and text */
-            align-items: center; /* Center items vertically */
-            margin-bottom: 10px; /* Space between notifications */
+            display: flex; 
+            align-items: center; 
+            margin-bottom: 10px; 
         }
         .status {
             font-weight: bold;
-            margin-left: 10px; /* Space between status and pet name */
-            color: #d9534f; /* Color for lost status */
+            margin-left: 10px; 
+            color: #d9534f; 
         }
         .status.found {
-            color: #5cb85c; /* Color for found status */
+            color: #5cb85c;
         }
 
 
@@ -231,11 +231,11 @@ session_start(); // Start the session to check login status
         while ($row = $result->fetch_assoc()) {
             // Convert the image BLOB to a base64 string
             $base64_image = base64_encode($row['image']);
-            $image_src = 'data:image/jpeg;base64,' . $base64_image; // Adjust the image type if needed
+            $image_src = 'data:image/jpeg;base64,' . $base64_image; 
 
             // Set the status class based on the pet status
             $status_class = ($row['status'] === 'found') ? 'found' : '';
-            $status_text = ucfirst(htmlspecialchars($row['status'])); // Capitalize the status
+            $status_text = ucfirst(htmlspecialchars($row['status'])); 
 
             // Render each notification with 'display: none' initially
             echo '<div class="notification" style="display:none;">';
@@ -261,12 +261,12 @@ document.addEventListener("DOMContentLoaded", function() {
         // Show all notifications
         const notifications = document.querySelectorAll('.notification');
         notifications.forEach(notification => {
-            notification.style.display = 'flex'; // Show notification after 2 seconds
+            notification.style.display = 'flex';
         });
 
         // Show the "Close All" button after 2 seconds
         const closeAllBtn = document.getElementById('close-all-btn');
-        closeAllBtn.style.display = 'block'; // Make "Close All" button visible after 2 seconds
+        closeAllBtn.style.display = 'block'; 
     }, 2000); // 2000ms delay
 });
 
@@ -444,28 +444,28 @@ function closeAllNotifications() {
         function closeNotification(button) {
             const notificationElement = button.parentElement;
             notificationElement.remove();
-            checkNotifications(); // Check if there are no more notifications after closing one
+            checkNotifications(); 
         }
 
         // Function to close all notifications
         function closeAllNotifications() {
             const container = document.getElementById("notifications-container");
             container.innerHTML = ""; // Clear all notifications
-            document.getElementById("close-all-btn").style.display = "none"; // Hide the Close All button
+            document.getElementById("close-all-btn").style.display = "none"; 
         }
 
         // Function to check notifications and hide the button if there are none
         function checkNotifications() {
             const container = document.getElementById("notifications-container");
             if (container.children.length === 0) {
-                document.getElementById("close-all-btn").style.display = "none"; // Hide the Close All button
+                document.getElementById("close-all-btn").style.display = "none"; 
             }
         }
 
         // Auto-hide the notifications after 20 seconds
         setTimeout(() => {
             closeAllNotifications();
-        }, 20000); // Adjust timing as needed
+        }, 20000); 
     </script>
 
     

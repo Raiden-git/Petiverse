@@ -20,7 +20,7 @@ if (empty($post_title) || empty($post_content) || empty($category)) {
 $image = null; // Default value for image
 
 if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-    $target_dir = "C:\xampp\htdocs\Petiverse1\Petiverse\uploads"; // Directory where files will be uploaded
+    $target_dir = "C:\xampp\htdocs\Petiverse1\Petiverse\uploads"; 
     $target_file = $target_dir . basename($_FILES["image"]["name"]);
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
@@ -29,7 +29,7 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
     if ($check !== false) {
         // Move the uploaded file to the "uploads" directory
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            $image = $target_file; // Store the file path in the $image variable
+            $image = $target_file; 
         } else {
             echo "Sorry, there was an error uploading your file.";
             exit();
@@ -48,7 +48,7 @@ if ($stmt) {
     $stmt->bind_param("issss", $user_id, $post_title, $post_content, $category, $image);
     
     if ($stmt->execute()) {
-        header("Location: community.php"); // Redirect to community after successful post
+        header("Location: community.php"); 
         exit();
     } else {
         echo "Error: " . $conn->error;

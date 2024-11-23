@@ -80,20 +80,12 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                                 </div>
                             </div>
                             <div class="ml-auto">
-<<<<<<< HEAD
                                 <span class="item-total text-lg font-semibold">LKR.<?= number_format($item['price'] * $item['quantity'], 2) ?></span>
-=======
-                                <span class="item-total text-lg font-semibold">LKR <?= number_format($item['price'] * $item['quantity'], 2) ?></span>
->>>>>>> 4d3ac429ecbb8a59c6a3965e83615756a903d48b
                             </div>
                         </li>
                     <?php endforeach; ?>
                 </ul>
-<<<<<<< HEAD
                 <div class="total-amount mt-4 text-xl font-bold">Total Amount: LKR.<?= number_format($total_price, 2) ?></div>
-=======
-                <div class="total-amount mt-4 text-xl font-bold">Total Amount: LKR <?= number_format($total_price, 2) ?></div>
->>>>>>> 4d3ac429ecbb8a59c6a3965e83615756a903d48b
             <?php else: ?>
                 <p>Your cart is empty.</p>
             <?php endif; ?>

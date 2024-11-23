@@ -69,7 +69,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Black overlay for text visibility */
+            background: rgba(0, 0, 0, 0.5); 
             z-index: 1;
         }
 
@@ -174,7 +174,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px; /* Spacing between image and content */
+    gap: 20px; 
     margin-bottom: 50px;
 }
 
@@ -221,7 +221,7 @@ ul.description li {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px; /* Spacing between content and image */
+    gap: 20px; 
     margin-bottom: 50px;
 }
 

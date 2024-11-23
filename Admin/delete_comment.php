@@ -4,7 +4,7 @@ include('session_check.php');
 
 // Get the comment ID from the URL
 $comment_id = $_GET['comment_id'] ?? 0;
-$comment_id = intval($comment_id); // Sanitize input
+$comment_id = intval($comment_id);
 
 // Prepare and execute the delete query
 $sql = "DELETE FROM comments WHERE id = ?";
