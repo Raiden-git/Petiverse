@@ -69,8 +69,8 @@ nav ul li a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .post-container img {
-    max-width: 100%;        
-    height: auto;            
+    max-width: 100%;         /* Ensure image doesn't overflow */
+    height: auto;            /* Keep image proportionate */
     border-radius: 10px;
     margin: 15px 0;
 }
@@ -118,7 +118,7 @@ nav ul li a:hover {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 .comment p {
-    word-wrap: break-word;   
+    word-wrap: break-word;   /* Break long words */
     overflow-wrap: break-word;
     max-width: 100%;
     margin-bottom: 8px;
@@ -160,7 +160,7 @@ form textarea, form button {
 }
 /* General overflow prevention for all sections */
 .post-container, .comment-section {
-    overflow-x: hidden; 
+    overflow-x: hidden; /* Ensure no horizontal scroll due to overflow */
 }
 .category-tag {
     display: inline-block;

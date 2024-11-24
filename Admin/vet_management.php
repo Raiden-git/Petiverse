@@ -46,7 +46,7 @@ $result = mysqli_query($conn, $sql);
 </nav>
 
 <main>
-    <!-- Add functionality for viewing, adding, and managing users here -->
+    
     <h2>Registered Vets</h2>
 
 <table border="1">

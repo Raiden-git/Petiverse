@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['blog_id'])) {
             $stmt = $conn->prepare("DELETE FROM user_blogs WHERE id = ?");
             $stmt->bind_param("i", $blog_id);
             $stmt->execute();
-            header("Location: blog_management.php"); // Redirect after deletion
+            header("Location: blog_management.php"); 
             exit();
         }
 

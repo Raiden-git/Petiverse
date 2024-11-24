@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
     if ($result->num_rows > 0) {
         // Fetch the product details
         $product = $result->fetch_assoc();
-        echo json_encode($product); // Return the product details as JSON
+        echo json_encode($product); 
     } else {
         echo json_encode(array("error" => "Product not found."));
     }

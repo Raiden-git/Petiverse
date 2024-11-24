@@ -14,7 +14,7 @@ if (isset($_POST['category'])) {
 }
 
 // Prepare SQL query based on the category filter
-$sql = "SELECT pet_name, pet_type, description, location, status, date, image, contact_info FROM lost_and_found_pets WHERE pet_name LIKE ? AND approved = 1"; // Only approved pets
+$sql = "SELECT pet_name, pet_type, description, location, status, date, image, contact_info FROM lost_and_found_pets WHERE pet_name LIKE ? AND approved = 1";
 
 if ($categoryFilter !== 'all') {
     $sql .= " AND status = ?";
@@ -84,7 +84,7 @@ $result = $stmt->get_result();
     </style>
 </head>
 <body>
-<?php include './Cus-NavBar/navBar.php'; ?>
+<?php include './Cus-NavBar/navBar.php'; ?> <!-- Corrected path to include navigation bar -->
 
 <section class="pets-section">
     <h2>Lost & Found Pets</h2>

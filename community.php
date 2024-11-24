@@ -24,8 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Insert the post into the database
-    $user_id = $_SESSION['user_id'];  // Assuming this is set when the user logs in
-
+    $user_id = $_SESSION['user_id'];  
     $stmt = $conn->prepare("INSERT INTO posts (title, content, image, category, pet_category, user_id) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sssssi", $title, $content, $image, $category, $pet_category, $user_id);
     $stmt->execute();
@@ -91,9 +90,9 @@ if (!$result) {
           border-radius: 10px !important;
           font-size: 14px !important;
           cursor: pointer;
-          -webkit-appearance: none; 
-          -moz-appearance: none; 
-          appearance: none; 
+          -webkit-appearance: none; /* For Safari and Chrome */
+          -moz-appearance: none; /* For Firefox */
+          appearance: none; /* Standard */
           color: #333 !important;
           width: auto; 
           transition: background-color 0.3s ease;
@@ -116,7 +115,7 @@ if (!$result) {
         top: 0; 
         right: 10px; 
         display: flex;
-        gap: 10px; 
+        gap: 10px; /* Adds spacing between badges */
         padding: 5px 0; 
     }
 
@@ -128,7 +127,7 @@ if (!$result) {
     color: white;
     border-radius: 12px;
     text-align: center;
-    background-color: #4caf50; 
+    background-color: #4caf50; /* Default badge color */
     margin-left: 5px;
     }
 

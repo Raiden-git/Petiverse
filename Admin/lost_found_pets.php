@@ -41,7 +41,7 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Petiverse - Lost & Found Pets Management</title>
     <link rel="stylesheet" href="admin_sidebar.css">
-    <link rel="stylesheet" href="assets/css/admin.css"> <!-- New CSS file for styling -->
+    <link rel="stylesheet" href="assets/css/admin.css"> 
     <script src="logout_js.js"></script>
 </head>
 <body>
@@ -78,7 +78,7 @@ $result = $conn->query($sql);
                     <th>Pet Type</th>
                     <th>Description</th>
                     <th>Location</th>
-                    <th>User</th> <!-- Add this column for displaying the user's name -->
+                    <th>User</th> 
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
@@ -90,7 +90,7 @@ $result = $conn->query($sql);
                         <td><?= htmlspecialchars($row['pet_type']) ?></td>
                         <td><?= htmlspecialchars($row['description']) ?></td>
                         <td><?= htmlspecialchars($row['location']) ?></td>
-                        <td><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) ?></td> <!-- Display user's full name -->
+                        <td><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) ?></td> 
                         <td>
                             <?php 
                             if ($row['approved'] == 0) {

@@ -114,10 +114,10 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Shop - Product Display</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/scrollbar.css">
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script> 
     <link rel="stylesheet" href="./assets/css/shop.css">
 </head>
 <body class="bg-light font-poppins">
@@ -187,30 +187,64 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
             </ul>
         </div>
 
-        <!-- Product Cards -->
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <?php if (!empty($products)): ?>
-                <?php foreach ($products as $product): ?>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="data:image/jpeg;base64,<?= base64_encode($product['photo']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>">
-                            <div class="card-body text-center">
-                                <h5 class="card-title"><?= htmlspecialchars($product['name']) ?></h5>
-                                <p class="card-text text-primary fw-bold">LKR <?= number_format($product['price'], 2) ?></p>
-                                <p class="card-text"><?= htmlspecialchars($product['description']) ?></p>
-                                <form method="POST" action="">
-                                    <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['id']) ?>">
-                                    <button type="button" class="btn btn-primary" onclick="showPaymentModal()">Buy Now</button>
-                                    <button class="btn btn-secondary" name="add_to_cart">Add to Cart</button>
-                                </form>
-                            </div>
-                        </div>
+
+<!-- Product Cards -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <?php if (!empty($products)): ?>
+        <?php foreach ($products as $product): ?>
+            <div class="col">
+                <!-- Card with onclick event to trigger modal -->
+                <div class="card h-100" data-bs-toggle="modal" data-bs-target="#productModal<?= $product['id'] ?>" style="cursor: pointer;">
+                    <img src="data:image/jpeg;base64,<?= base64_encode($product['photo']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>">
+
+                    <div class="card-body text-center">
+                        <h5 class="card-title"><?= htmlspecialchars($product['name']) ?></h5>
+                        <p class="card-text text-primary fw-bold">LKR <?= number_format($product['price'], 2) ?></p>
+            <form method="POST" action="">
+                <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['id']) ?>">
+                <button type="button" class="btn btn-primary" onclick="showPaymentModal()">Buy Now</button>
+                <button class="btn btn-secondary" name="add_to_cart">Add to Cart</button>
+            </form>
                     </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p>No products available.</p>
-            <?php endif; ?>
+                </div>
+            </div>
+
+
+
+      <!-- Product Modal -->
+      <div class="modal fade" id="productModal<?= $product['id'] ?>" tabindex="-1" aria-labelledby="productModalLabel<?= $product['id'] ?>" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel<?= $product['id'] ?>"><?= htmlspecialchars($product['name']) ?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Image Section -->
+                <img src="data:image/jpeg;base64,<?= base64_encode($product['photo']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
+
+                <!-- Details Section -->
+                <div class="details">
+                    <h5><?= htmlspecialchars($product['name']) ?></h5>
+                    <p class="price">LKR <?= number_format($product['price'], 2) ?></p>
+                    <p><?= htmlspecialchars($product['description']) ?></p>
+                </div>
+
+                <form method="POST" action="">
+                <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['id']) ?>">
+                <button type="button" class="btn btn-primary" onclick="showPaymentModal()">Buy Now</button>
+                <button class="btn btn-secondary" name="add_to_cart">Add to Cart</button>
+            </form>
+            </div>
         </div>
+    </div>
+</div>
+
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No products available.</p>
+    <?php endif; ?>
+</div>
 
         <!-- Pagination -->
         <div class="mt-4 d-flex justify-content-center">
@@ -230,6 +264,7 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
         var modal = new bootstrap.Modal(document.getElementById('paymentModal'));
         modal.show();
     }
+   
 </script>
 
 </body>

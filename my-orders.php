@@ -55,16 +55,17 @@ $stmt->close();
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders - Pet Shop</title>
-    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the external CSS -->
 
     <style>
-       
+        /* General Body Styling */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -119,7 +120,7 @@ td img {
     object-fit: cover;
 }
 
-
+/* Hover effect for rows */
 tr:hover {
     background-color: #f1f1f1;
 }
@@ -132,7 +133,7 @@ tr:hover {
     margin-top: 30px;
 }
 
-
+/* Product Image Styling */
 .product-photo {
     max-width: 100px;
     max-height: 100px;
@@ -161,57 +162,46 @@ tr:hover {
 <body>
 <?php include 'Cus-NavBar/navBar.php'; ?>
 
-
 <div class="container">
     <h1>My Orders</h1>
 
     <?php if ($result->num_rows > 0): ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Order Code</th>
-                    <th>Full Name</th>
-                    <th>Delivery Address</th>
-                    <th>Phone Number</th>
-                    <th>Postal Code</th>
-                    <th>Product Name</th>
-                    <th>Product Description</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total Price</th>
-                    <th>Product Photo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                // Output data for each row
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>
-                            <td>" . $row['order_id'] . "</td>
-                            <td>" . $row['order_code'] . "</td>
-                            <td>" . $row['full_name'] . "</td>
-                            <td>" . $row['delivery_address'] . "</td>
-                            <td>" . $row['phone_number'] . "</td>
-                            <td>" . $row['postal_code'] . "</td>
-                            <td>" . $row['product_name'] . "</td>
-                            <td>" . $row['product_description'] . "</td>
-                            <td>" . $row['quantity'] . "</td>
-                            <td>LKR." . number_format($row['price'], 2) . "</td>
-                            <td>LKR." . number_format($row['total_price'], 2) . "</td>";
-                    
-                    // Display the product photo
-                    if ($row['product_photo']) {
-                        echo "<td><img src='data:image/jpeg;base64," . base64_encode($row['product_photo']) . "' alt='" . htmlspecialchars($row['product_name']) . "' class='product-photo'></td>";
-                    } else {
-                        echo "<td>No Image</td>";
-                    }
+        <?php
+        // Group orders by order_id
+        $orders = [];
+        while ($row = $result->fetch_assoc()) {
+            $orders[$row['order_code']][] = $row;
+        }
 
-                    echo "</tr>";
-                }
-                ?>
-            </tbody>
-        </table>
+        foreach ($orders as $order_code => $products):
+            $order_details = $products[0]; // Use the first product to get order-level details
+        ?>
+            <div class="order-card">
+                <h2>Order #<?= htmlspecialchars($order_code) ?></h2>
+                <div class="order-details">
+                    <p><strong>Full Name:</strong> <?= htmlspecialchars($order_details['full_name']) ?></p>
+                    <p><strong>Delivery Address:</strong> <?= htmlspecialchars($order_details['delivery_address']) ?></p>
+                    <p><strong>Phone Number:</strong> <?= htmlspecialchars($order_details['phone_number']) ?></p>
+                    <p><strong>Postal Code:</strong> <?= htmlspecialchars($order_details['postal_code']) ?></p>
+                    <p><strong>Total Price:</strong> LKR. <?= number_format($order_details['total_price'], 2) ?></p>
+                </div>
+                <div class="product-list">
+                    <?php foreach ($products as $product): ?>
+                        <div class="product-item">
+                            <p><strong>Product Name:</strong> <?= htmlspecialchars($product['product_name']) ?></p>
+                            <p><strong>Description:</strong> <?= htmlspecialchars($product['product_description']) ?></p>
+                            <p><strong>Quantity:</strong> <?= htmlspecialchars($product['quantity']) ?></p>
+                            <p><strong>Price:</strong> LKR. <?= number_format($product['price'], 2) ?></p>
+                            <?php if ($product['product_photo']): ?>
+                                <img src="data:image/jpeg;base64,<?= base64_encode($product['product_photo']) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>">
+                            <?php else: ?>
+                                <p>No Image Available</p>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
     <?php else: ?>
         <p class="no-orders">No orders found.</p>
     <?php endif; ?>

@@ -5,7 +5,7 @@ session_start();
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
-    exit();
+    exit(); // Ensure the rest of the script does not run
 }
 
 // Database connection
@@ -50,8 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Ensure the image data is bound correctly
-    $approved = 0;  
-    $user_id = $_SESSION['user_id'];
+    $approved = 0;  // New submissions are not approved, need admin review
+    $user_id = $_SESSION['user_id']; // Get the logged-in user's ID
 
     // Bind parameters (image must use `addslashes` for proper binary handling)
     $stmt->bind_param(
@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-    <?php include './Cus-NavBar/navBar.php'; ?> <!-- Corrected path to include navigation bar -->
+    <?php include './Cus-NavBar/navBar.php'; ?> 
     <h1>Report a Lost or Found Pet</h1>
 
     <form action="submit_pet.php" method="POST" enctype="multipart/form-data">

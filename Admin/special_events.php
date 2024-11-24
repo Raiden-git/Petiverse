@@ -35,7 +35,7 @@ include('session_check.php');
 
 <main>
     <h2>Special Event Management</h2>
-    <!-- Add functionality for viewing, adding, and managing users here -->
+   
 </main>
 </body>
 </html>

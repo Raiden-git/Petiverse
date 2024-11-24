@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Loop through cart items to insert each one into the database
         foreach ($_SESSION['cart'] as $product_id => $quantity) {
-            
+            // Fetch product details from the database
             $sql = "SELECT id, name, price, photo FROM products WHERE id = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("i", $product_id);

@@ -52,9 +52,9 @@
   cursor: pointer;
 }
 .ask-question-btn{
-  /* background-color: #fff6d1;
-  border: 1px solid #e0e0e0;
-  font-weight: bold; */
+  
+  
+  
   background: linear-gradient(135deg, #ff914d, #ff5e62);
     color: #fff;
     border: none;
@@ -157,8 +157,8 @@
 .posts-list .post-content {
   flex: 1;
   overflow: hidden;
-  word-wrap: break-word;  
-  white-space: normal;    
+  word-wrap: break-word;  /* Break long words onto the next line */
+  white-space: normal;    /* Allow text to wrap onto multiple lines */
 }
 
 .posts-list .post-content p {

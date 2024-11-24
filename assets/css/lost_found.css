@@ -149,7 +149,7 @@ h2 {
     border-radius: 8px;
     max-width: 90%;
     max-height: 80%;
-    overflow-y: auto; 
+    overflow-y: auto; /* Add scrolling for overflow */
     position: relative;
 }
 

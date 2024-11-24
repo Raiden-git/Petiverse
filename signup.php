@@ -1,5 +1,5 @@
 <?php
-require 'google-config.php'; // Google Client configuration
+require 'google-config.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Database connection
