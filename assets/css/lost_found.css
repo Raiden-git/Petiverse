@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #F6F4E6; /* Light sand color */
-    color: #5B3D21; /* Dark brown color */
+    background-color: #F6F4E6; 
+    color: #5B3D21; 
     margin: 0;
     padding: 0;
 }
@@ -10,12 +10,12 @@ body {
     padding: 20px;
     max-width: 800px;
     margin: auto;
-    position: relative; /* Allows absolute positioning of submit button */
+    position: relative; 
 }
 
 h2 {
     text-align: center;
-    color: #4E3B2B; /* Medium brown color */
+    color: #4E3B2B; 
     margin-bottom: 20px;
 }
 
@@ -27,14 +27,14 @@ h2 {
 
 .search-form input[type="text"] {
     padding: 10px;
-    border: 1px solid #C4B7A6; /* Lighter brown */
+    border: 1px solid #C4B7A6; 
     border-radius: 5px;
     width: 70%;
 }
 
 .search-form button {
     padding: 10px 15px;
-    background-color: #A89F8D; /* Light brown */
+    background-color: #A89F8D; 
     color: #FFF;
     border: none;
     border-radius: 5px;
@@ -43,12 +43,12 @@ h2 {
 }
 
 .search-form button:hover {
-    background-color: #4CAF50; /* Green on hover */
+    background-color: #4CAF50; 
 }
 
 .submit-btn {
     position: absolute;
-    top: 10px; /* Aligns button with top of section */
+    top: 10px; 
     right: 20px;
     background-color: #af4c4c;
     color: white;
@@ -72,7 +72,7 @@ h2 {
     padding: 5px 16px;
     margin: 0 5px;
     border: none;
-    background-color: #978722; /* Sand color */
+    background-color: #978722; 
     color: #fff;
     font-size: 16px;
     border-radius: 5px;
@@ -86,34 +86,34 @@ h2 {
 }
 
 .category-form .filter-btn.active {
-    background-color: #7b0000; /* Darker shade for the active button */
+    background-color: #7b0000; 
     box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
 }
 
 /* Updated Pets List for Grid Layout */
 .pets-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns */
-    gap: 50px; /* Space between cards */
-    justify-items: center; /* Center items in their grid area */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 50px; 
+    justify-items: center; 
     margin-top: 20px;
 }
 
 .pet-card {
-    width: 100%; /* Make card full width of grid column */
-    background-color: #E8D7C8; /* Light beige */
-    border: 1px solid #C4B7A6; /* Lighter brown */
+    width: 100%; 
+    background-color: #E8D7C8; 
+    border: 1px solid #C4B7A6; 
     border-radius: 8px;
     padding: 15px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition */
-    cursor: pointer; /* Change cursor to pointer */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    cursor: pointer; 
 }
 
 .pet-card:hover {
-    transform: scale(1.05); /* Scale up the card */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
+    transform: scale(1.05); 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
 }
 
 .pet-image {
@@ -149,7 +149,7 @@ h2 {
     border-radius: 8px;
     max-width: 90%;
     max-height: 80%;
-    overflow-y: auto; /* Add scrolling for overflow */
+    overflow-y: auto; 
     position: relative;
 }
 
@@ -173,7 +173,7 @@ h2 {
 }
 
 footer {
-    background-color: #4E3B2B; /* Dark brown */
+    background-color: #4E3B2B; 
     color: #FFF;
     text-align: center;
     padding: 10px 0;

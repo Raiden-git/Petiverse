@@ -69,8 +69,8 @@ nav ul li a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .post-container img {
-    max-width: 100%;         /* Ensure image doesn't overflow */
-    height: auto;            /* Keep image proportionate */
+    max-width: 100%;        
+    height: auto;            
     border-radius: 10px;
     margin: 15px 0;
 }
@@ -81,10 +81,10 @@ nav ul li a:hover {
     margin-bottom: 10px;
 }
 .post-detail h2, .post-detail p {
-    word-wrap: break-word;   /* Break long words if needed */
+    word-wrap: break-word;   
     overflow-wrap: break-word;
-    hyphens: auto;           /* Add hyphen when breaking words */
-    max-width: 100%;         /* Ensure they don't exceed the container */
+    hyphens: auto;           
+    max-width: 100%;        
     margin-bottom: 10px;
     font-size: 16px;
     color: #333;
@@ -118,7 +118,7 @@ nav ul li a:hover {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 .comment p {
-    word-wrap: break-word;   /* Break long words */
+    word-wrap: break-word;   
     overflow-wrap: break-word;
     max-width: 100%;
     margin-bottom: 8px;
@@ -160,7 +160,7 @@ form textarea, form button {
 }
 /* General overflow prevention for all sections */
 .post-container, .comment-section {
-    overflow-x: hidden; /* Ensure no horizontal scroll due to overflow */
+    overflow-x: hidden; 
 }
 .category-tag {
     display: inline-block;
@@ -169,7 +169,7 @@ form textarea, form button {
     font-size: 14px;
     font-weight: bold;
     color: #333;
-    background-color: #DA8359; /* Default pastel color */
+    background-color: #DA8359; 
     margin-right: 5px;
 }
 

@@ -1,6 +1,7 @@
 <?php
 include './db.php';
 
+session_start();
 
 // Handle search and category filter
 $searchQuery = '';
@@ -40,8 +41,8 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lost & Found Pets - Petiverse</title>
-    <link rel="stylesheet" href="assets/css/styles.css"> <!-- General styles -->
-    <link rel="stylesheet" href="./assets/css/lost_found.css"> <!-- Link to new CSS file -->
+    <link rel="stylesheet" href="assets/css/styles.css"> 
+    <link rel="stylesheet" href="./assets/css/lost_found.css"> 
     <style>
         /* Pop-up styles */
         .popup {
@@ -83,7 +84,7 @@ $result = $stmt->get_result();
     </style>
 </head>
 <body>
-<?php include './Cus-NavBar/navBar.php'; ?> <!-- Corrected path to include navigation bar -->
+<?php include './Cus-NavBar/navBar.php'; ?>
 
 <section class="pets-section">
     <h2>Lost & Found Pets</h2>
@@ -154,7 +155,7 @@ $result = $stmt->get_result();
     function openPopup(name, type, description, location, status, date, image, contact) {
         document.getElementById('popup-name').innerText = name;
         document.getElementById('popup-type').innerText = type;
-        document.getElementById('popup-description').innerHTML = description.replace(/\n/g, "<br>"); // Convert newlines to <br>
+        document.getElementById('popup-description').innerHTML = description.replace(/\n/g, "<br>"); 
         document.getElementById('popup-location').innerText = location;
         document.getElementById('popup-status').innerText = status;
         document.getElementById('popup-date').innerText = date;
@@ -162,13 +163,13 @@ $result = $stmt->get_result();
         if (image) {
             document.getElementById('popup-image').src = 'data:image/jpeg;base64,' + image;
         } else {
-            document.getElementById('popup-image').src = 'assets/img/placeholder.jpg'; // Fallback image
+            document.getElementById('popup-image').src = 'assets/img/placeholder.jpg'; 
         }
-        document.getElementById('popup').style.display = 'flex'; // Show popup
+        document.getElementById('popup').style.display = 'flex'; 
     }
 
     function closePopup() {
-        document.getElementById('popup').style.display = 'none'; // Hide popup
+        document.getElementById('popup').style.display = 'none'; 
     }
 </script>
 

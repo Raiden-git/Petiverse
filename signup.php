@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 
-$google_signup_url = $google_client->createAuthUrl(); // Google signup URL
+$google_signup_url = $google_client->createAuthUrl(); 
 ?>
 
 <!DOCTYPE html>

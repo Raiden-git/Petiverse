@@ -196,7 +196,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_blog'])) {
 function openModal(title, content, author, date, photo) {
     document.getElementById('modalTitle').innerText = title;
     document.getElementById('modalContent').innerText = content;
-    document.getElementById('modalContent').style.whiteSpace = 'pre-wrap'; // Preserve line breaks
+    document.getElementById('modalContent').style.whiteSpace = 'pre-wrap'; 
     document.querySelector('.modal-author').innerText = "By: " + author;
     document.querySelector('.modal-date').innerText = "Date: " + date;
 

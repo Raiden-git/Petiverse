@@ -7,7 +7,7 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); // Redirect to login page if not logged in
+    header("Location: login.php"); 
     exit();
 }
 
@@ -16,7 +16,7 @@ $user_id = $_SESSION['user_id'];
 
 // Get the post ID from the URL
 $post_id = $_GET['post_id'] ?? 0;
-$post_id = intval($post_id); // Sanitize input
+$post_id = intval($post_id);
 
 // Fetch the post details
 $sql = "SELECT * FROM posts WHERE id = $post_id AND user_id = $user_id";
@@ -60,11 +60,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Post - Petiverse</title>
     <style>
-        /* General styles */
+       
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9; /* Light gray background */
-    color: #333; /* Dark text for readability */
+    background-color: #f9f9f9; 
+    color: #333; 
     margin: 0;
     padding: 0;
     display: flex;
@@ -75,14 +75,14 @@ body {
 
 h1 {
     font-size: 2.5rem;
-    color: #4CAF50; /* Vibrant green to match the Petiverse theme */
+    color: #4CAF50; 
     text-align: center;
     margin-bottom: 1rem;
 }
 
 /* Form container */
 form {
-    background: linear-gradient(135deg, #6a9bfa, #a0d7f5); /* Gradient matching Petiverse's color palette */
+    background: linear-gradient(135deg, #6a9bfa, #a0d7f5); 
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -93,7 +93,7 @@ form {
 /* Labels */
 label {
     font-weight: bold;
-    color: #fff; /* White text on gradient background */
+    color: #fff; 
     display: block;
     margin-bottom: 0.5rem;
 }
@@ -121,10 +121,10 @@ button[type="submit"] {
     display: block;
     width: 100%;
     padding: 0.8rem;
-    background: #4CAF50; /* Vibrant green button */
+    background: #4CAF50; 
     border: none;
     border-radius: 5px;
-    color: #fff; /* White text */
+    color: #fff; 
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
@@ -132,7 +132,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background: #3a8d41; /* Slightly darker green on hover */
+    background: #3a8d41; 
 }
 
 /* Responsive design */

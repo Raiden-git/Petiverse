@@ -1,0 +1,16 @@
+:root{
+--primary: #DA8359;
+    --primary-dark: #9b6143;
+    --secondary: #818cf8;
+    --success: #22c55e;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+}
+
+body{
+    background: linear-gradient(135deg, #f0f4ff 0%, #fffdf8 100%);
+}

@@ -27,7 +27,7 @@ if ($result === false) {
 if (isset($_GET['category'])) {
     $selected_category = $conn->real_escape_string($_GET['category']);
 } else {
-    $selected_category = 'Food'; // Default to "Food" category
+    $selected_category = 'Food'; 
 }
 
 // Fetch subcategories for the selected category

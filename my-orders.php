@@ -42,11 +42,11 @@ $sql = "SELECT
             products.photo AS product_photo
         FROM COD_orders
         INNER JOIN products ON COD_orders.product_id = products.id
-        WHERE COD_orders.user_id = ?";  // Filter by the logged-in user
+        WHERE COD_orders.user_id = ?";  
 
 // Prepare and execute the query
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $user_id);  // Bind the user ID parameter
+$stmt->bind_param("i", $user_id);  
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -61,10 +61,10 @@ $stmt->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders - Pet Shop</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to the external CSS -->
+    <link rel="stylesheet" href="styles.css"> 
 
     <style>
-        /* General Body Styling */
+       
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -119,7 +119,7 @@ td img {
     object-fit: cover;
 }
 
-/* Hover effect for rows */
+
 tr:hover {
     background-color: #f1f1f1;
 }
@@ -132,7 +132,7 @@ tr:hover {
     margin-top: 30px;
 }
 
-/* Product Image Styling */
+
 .product-photo {
     max-width: 100px;
     max-height: 100px;

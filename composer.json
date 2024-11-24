@@ -1,6 +1,7 @@
 {
     "require": {
         "google/apiclient": "^2.17",
-        "phpmailer/phpmailer": "^6.9"
+        "phpmailer/phpmailer": "^6.9",
+        "stripe/stripe-php": "^16.3"
     }
 }
