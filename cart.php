@@ -22,7 +22,7 @@ if (isset($_POST['product_id']) && isset($_POST['quantity'])) {
     if ($quantity > 0) {
         $_SESSION['cart'][$product_id] = $quantity; 
     } else {
-        unset($_SESSION['cart'][$product_id]);
+        unset($_SESSION['cart'][$product_id]); // Remove item if quantity is 0
     }
 }
 
@@ -96,7 +96,7 @@ if (isset($_SESSION['cart'])) {
 
         // Automatically submit form on quantity change
         function autoSubmitForm(productId) {
-            document.getElementById(`form-${productId}`).submit();
+            document.getElementById(`form-${productId}`).submit(); // Submit the form
         }
 
         // Show modal for payment method selection

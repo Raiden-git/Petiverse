@@ -5,7 +5,7 @@
     right: 20px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 12px; /* Slightly increased gap */
     z-index: 1000;
 }
 
@@ -14,18 +14,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(135deg, #444, #555);
+    background: linear-gradient(135deg, #444, #555); /* Subtle gradient */
     color: #fff;
-    padding: 10px 18px; 
-    border-radius: 8px; 
-    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.4); 
-    min-width: 240px; 
-    max-width: 280px;
-    font-size: 13px; 
+    padding: 10px 18px; /* Reduced padding slightly */
+    border-radius: 8px; /* Rounded corners for a softer look */
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.4); /* Deeper shadow for more depth */
+    min-width: 240px; /* Reduced min-width slightly */
+    max-width: 280px; /* Reduced max-width slightly */
+    font-size: 13px; /* Reduced font size slightly */
     opacity: 0.95;
-    transition: opacity 0.3s ease, transform 0.3s ease; 
-    transform: translateY(10px); 
-    border: 2px solid #f05a24;
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Added smooth transition */
+    transform: translateY(10px); /* Initial offset for smoother entry */
+    border: 2px solid #f05a24; /* Orange border */
 }
 
 /* Apply smooth appearance for notifications */
@@ -38,18 +38,18 @@
     background: none;
     border: none;
     color: #fff;
-    font-size: 16px;
+    font-size: 16px; /* Slightly larger font for the close button */
     cursor: pointer;
     transition: transform 0.2s ease;
 }
 
 .notification button:hover {
-    transform: scale(1.2);
+    transform: scale(1.2); /* Button hover effect */
 }
 
 /* Close All button styling */
 #close-all-btn {
-    display: none;
+    display: none; /* Initially hide the Close All button */
     position: fixed;
     bottom: 10px;
     right: 20px;
@@ -58,7 +58,7 @@
     color: #fff;
     background-color: #f05a24;
     border: none;
-    border-radius: 30px;
+    border-radius: 30px; /* Rounded corners for a softer look */
     cursor: pointer;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4); 
     z-index: 1000;
@@ -68,8 +68,8 @@
 
 /* Close All button hover effect */
 #close-all-btn:hover {
-    background-color: #e04d23; 
-    transform: scale(1.05); 
+    background-color: #e04d23; /* Darker shade when hovered */
+    transform: scale(1.05); /* Slight scaling effect */
     opacity: 1;
 }
 
@@ -90,8 +90,8 @@
 @media (max-width: 480px) {
     .notification {
         max-width: 100%;
-        font-size: 11px; 
-        padding: 8px 14px;
+        font-size: 11px; /* Smaller font size for mobile */
+        padding: 8px 14px; /* Reduced padding */
     }
 
     #close-all-btn {

@@ -90,9 +90,9 @@ if (!$result) {
           border-radius: 10px !important;
           font-size: 14px !important;
           cursor: pointer;
-          -webkit-appearance: none; 
-          -moz-appearance: none;
-          appearance: none; 
+          -webkit-appearance: none; /* For Safari and Chrome */
+          -moz-appearance: none; /* For Firefox */
+          appearance: none; /* Standard */
           color: #333 !important;
           width: auto; 
           transition: background-color 0.3s ease;
@@ -115,7 +115,7 @@ if (!$result) {
         top: 0; 
         right: 10px; 
         display: flex;
-        gap: 10px;
+        gap: 10px; /* Adds spacing between badges */
         padding: 5px 0; 
     }
 
@@ -127,7 +127,7 @@ if (!$result) {
     color: white;
     border-radius: 12px;
     text-align: center;
-    background-color: #4caf50;
+    background-color: #4caf50; /* Default badge color */
     margin-left: 5px;
     }
 

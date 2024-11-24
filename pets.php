@@ -1,6 +1,7 @@
 <?php
 include './db.php';
 
+session_start();
 
 // Handle search and category filter
 $searchQuery = '';
@@ -83,7 +84,7 @@ $result = $stmt->get_result();
     </style>
 </head>
 <body>
-<?php include './Cus-NavBar/navBar.php'; ?> 
+<?php include './Cus-NavBar/navBar.php'; ?> <!-- Corrected path to include navigation bar -->
 
 <section class="pets-section">
     <h2>Lost & Found Pets</h2>
@@ -154,7 +155,7 @@ $result = $stmt->get_result();
     function openPopup(name, type, description, location, status, date, image, contact) {
         document.getElementById('popup-name').innerText = name;
         document.getElementById('popup-type').innerText = type;
-        document.getElementById('popup-description').innerHTML = description.replace(/\n/g, "<br>"); // Convert newlines to <br>
+        document.getElementById('popup-description').innerHTML = description.replace(/\n/g, "<br>"); 
         document.getElementById('popup-location').innerText = location;
         document.getElementById('popup-status').innerText = status;
         document.getElementById('popup-date').innerText = date;

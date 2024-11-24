@@ -4,9 +4,8 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    // Redirect to login page if not logged in
     header("Location: login.php");
-    exit(); 
+    exit(); // Ensure the rest of the script does not run
 }
 
 // Database connection
@@ -36,12 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contact_info = $_POST['contact_info'];
 
     // Handle image upload
-    $image = null; // Default value if no image is provided
+    $image = null; 
     if (isset($_FILES['pet_image']) && $_FILES['pet_image']['error'] == 0) {
         $image = file_get_contents($_FILES['pet_image']['tmp_name']);
     }
 
-    // Insert data into the lost_and_found_pets table with 'approved' set to 0 (pending approval)
     $sql = "INSERT INTO lost_and_found_pets (pet_name, pet_type, description, location, status, contact_info, image, approved, user_id) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
@@ -52,8 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Ensure the image data is bound correctly
-    $approved = 0; 
-    $user_id = $_SESSION['user_id']; 
+    $approved = 0;  // New submissions are not approved, need admin review
+    $user_id = $_SESSION['user_id']; // Get the logged-in user's ID
 
     // Bind parameters (image must use `addslashes` for proper binary handling)
     $stmt->bind_param(

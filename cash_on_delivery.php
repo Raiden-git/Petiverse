@@ -28,8 +28,8 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 
         if ($result && $item = $result->fetch_assoc()) {
             $item['quantity'] = $quantity;
-            $cart_items[] = $item; // Add item to cart items array
-            $total_price += $item['price'] * $quantity; // Calculate total price
+            $cart_items[] = $item; 
+            $total_price += $item['price'] * $quantity; 
         }
     }
 

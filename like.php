@@ -9,9 +9,9 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$type = $_POST['type'];  
-$id = intval($_POST['id']); 
-$action = $_POST['action']; 
+$type = $_POST['type'];  // 'post' or 'comment'
+$id = intval($_POST['id']); // Post ID or Comment ID
+$action = $_POST['action']; // 'like' or 'dislike'
 
 // Determine the table based on the type
 $table = ($type === 'post') ? 'posts' : 'comments';

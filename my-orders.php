@@ -62,7 +62,102 @@ $stmt->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders - Pet Shop</title>
-    <link rel="stylesheet" href="./assets/css/my_oders.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the external CSS -->
+
+    <style>
+        /* General Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Container for the content */
+.container {
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+h1 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+td img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+/* Hover effect for rows */
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* No orders message */
+.no-orders {
+    text-align: center;
+    font-size: 18px;
+    color: #777;
+    margin-top: 30px;
+}
+
+/* Product Image Styling */
+.product-photo {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    td img {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+    </style>
 </head>
 <body>
 <?php include 'Cus-NavBar/navBar.php'; ?>

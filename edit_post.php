@@ -16,7 +16,7 @@ $user_id = $_SESSION['user_id'];
 
 // Get the post ID from the URL
 $post_id = $_GET['post_id'] ?? 0;
-$post_id = intval($post_id); 
+$post_id = intval($post_id); // Sanitize input
 
 // Fetch the post details
 $sql = "SELECT * FROM posts WHERE id = $post_id AND user_id = $user_id";
@@ -60,11 +60,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Post - Petiverse</title>
     <style>
-        /* General styles */
+       
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: #f9f9f9; /* Light gray background */
+    color: #333; /* Dark text for readability */
     margin: 0;
     padding: 0;
     display: flex;
@@ -82,7 +82,8 @@ h1 {
 
 /* Form container */
 form {
-    background: linear-gradient(135deg, #6a9bfa, #a0d7f5); 
+    background: linear-gradient(135deg, #6a9bfa, #a0d7f5); /* Gradient matching Petiverse's color palette */
+    padding: 2rem;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 500px;
@@ -92,7 +93,7 @@ form {
 /* Labels */
 label {
     font-weight: bold;
-    color: #fff;
+    color: #fff; /* White text on gradient background */
     display: block;
     margin-bottom: 0.5rem;
 }
@@ -131,7 +132,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background: #3a8d41;
+    background: #3a8d41; /* Slightly darker green on hover */
 }
 
 /* Responsive design */
