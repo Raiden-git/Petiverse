@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Petiverse - Admin Panel</title>
+    <title>Petiverse - COD Canceled Orders</title>
     <link rel="stylesheet" href="admin_sidebar.css">
     
     <!-- Font Awesome for icons -->
@@ -151,7 +151,7 @@ button.delete-btn:hover {
 </head>
 <body>
 <header>
-    <h1>Cancel Oders </h1>
+    <h1>COD Canceled Oders </h1>
 </header>
 
 <nav>
@@ -261,7 +261,7 @@ function display_orders($result, $status) {
                 // Close the previous container
                 if ($current_order_code !== null) {
                     echo "</tbody></table>";
-                    echo "<p><strong>Total Amount:</strong> $" . number_format($current_order_total, 2) . "</p>";
+                    echo "<p><strong>Total Amount:</strong> LKR ." . number_format($current_order_total, 2) . "</p>";
                     echo "<div class='order-actions'>
                             <form method='POST'>
                                 <input type='hidden' name='order_code' value='" . $current_order_code . "'>
@@ -303,7 +303,7 @@ function display_orders($result, $status) {
 
             echo "<tr>
                     <td>" . $row['product_name'] . "</td>
-                    <td>$" . number_format($row['product_price'], 2) . "</td>
+                    <td>LKR ." . number_format($row['product_price'], 2) . "</td>
                     <td>" . $row['product_quantity'] . "</td>";
 
             if ($row['product_photo']) {
@@ -312,7 +312,7 @@ function display_orders($result, $status) {
                 echo "<td>No Image</td>";
             }
 
-            echo "<td>$" . number_format($subtotal, 2) . "</td>";
+            echo "<td>LKR ." . number_format($subtotal, 2) . "</td>";
             echo "</tr>";
 
             // Update current order code
@@ -321,7 +321,7 @@ function display_orders($result, $status) {
 
         // Close the last container
         echo "</tbody></table>";
-        echo "<p><strong>Total Amount:</strong> $" . number_format($current_order_total, 2) . "</p>";
+        echo "<p><strong>Total Amount:</strong> LKR ." . number_format($current_order_total, 2) . "</p>";
         echo "<div class='order-actions'>
                 <form method='POST'>
                     <input type='hidden' name='order_code' value='" . $current_order_code . "'>

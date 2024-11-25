@@ -8,8 +8,8 @@ include('../db.php');
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Petiverse - COD Oder Details</title>
-    <link rel="stylesheet" href="admin_sidebar.css">
+    <title>Petiverse - Oder Details</title>
+    <link rel="stylesheet" href="./moderator_sidebar.css">
     <script src="logout_js.js"></script>
     <style>
       
@@ -138,24 +138,22 @@ strong {
 
 
     </style>
-
+    </style>
 </head>
 <body>
 <header>
-    <h1>Cash On delivery Oder Management</h1>
+    <h1>Oder Mana</h1>
 </header>
 
 <nav>
     <ul>
-        <li><a href="dashboard.php">Home</a></li>
-        <li><a href="user_management.php">User Management</a></li>
-        <li><a href="shop_management.php">Shop Management</a></li>
+    <li><a href="moderator_dashboard.php">Home</a></li>
+        <li><a href="Moderator_shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
-        <li><a href="moderator_management.php">Moderator Management</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
 </nav>
@@ -305,7 +303,7 @@ if ($result->num_rows > 0) {
 
         echo "<tr>
                 <td>" . $row['product_name'] . "</td>
-                <td>LKR ." . number_format($row['product_price'], 2) . "</td>
+                <td>$" . number_format($row['product_price'], 2) . "</td>
                 <td>" . $row['product_quantity'] . "</td>";
 
         if ($row['product_photo']) {
@@ -314,7 +312,7 @@ if ($result->num_rows > 0) {
             echo "<td>No Image</td>";
         }
 
-        echo "<td>LKR ." . number_format($subtotal, 2) . "</td>";
+        echo "<td>$" . number_format($subtotal, 2) . "</td>";
         echo "</tr>";
 
         // Update current order code
@@ -323,7 +321,7 @@ if ($result->num_rows > 0) {
 
     // Close the last container
     echo "</tbody></table>";
-    echo "<p><strong>Total Amount:</strong> LKR ." . number_format($current_order_total, 2) . "</p>";
+    echo "<p><strong>Total Amount:</strong> $" . number_format($current_order_total, 2) . "</p>";
     echo "<form method='POST'>
             <input type='hidden' name='order_code' value='" . $current_order_code . "'>
             <input type='hidden' name='status' value='confirmed'>

@@ -32,28 +32,18 @@ if (isset($_POST['remove_item'])) {
     unset($_SESSION['cart'][$product_id]); 
 }
 
-// Handle checkout action (optional)
-if (isset($_POST['payment_method'])) {
-    $payment_method = $_POST['payment_method'];
-
-    // Redirect to the respective payment method page
-    if ($payment_method === 'online') {
-        header('Location: online_payment.php');
-        exit;
-    } elseif ($payment_method === 'cod') {
-        header('Location: cash_on_delivery.php');
-        exit;
-    }
-}
-
 // Display the cart
 $cart_items = [];
 $total_price = 0; 
 if (isset($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $product_id => $quantity) {
-        $sql = "SELECT id, name, description, price, photo FROM products WHERE id = '$product_id'";
-        $result = $conn->query($sql);
-        if ($result) {
+        $sql = "SELECT id, name, description, price, photo FROM products WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $product_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
             $cart_item = $result->fetch_assoc();
             $cart_item['quantity'] = $quantity;
             $cart_items[] = $cart_item;
@@ -73,14 +63,13 @@ if (isset($_SESSION['cart'])) {
     <title>Pet Shop - Cart</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/cart.css">
-    <link rel="stylesheet" href="assets/css/scrollbar.css">
+    <link rel="stylesheet" href="./assets/css/cart.css">
 
     <script>
         function updatePrice(productId, price) {
             const quantity = document.getElementById(`quantity-${productId}`).value;
             const totalPrice = (price * quantity).toFixed(2);
-            document.getElementById(`total-price-${productId}`).innerText = `$${totalPrice}`;
+            document.getElementById(`total-price-${productId}`).innerText = `LKR ${totalPrice}`;
             calculateTotal(); 
         }
 
@@ -88,34 +77,32 @@ if (isset($_SESSION['cart'])) {
             let total = 0;
             const cartItems = document.querySelectorAll('.cart-item');
             cartItems.forEach(item => {
-                const itemTotal = parseFloat(item.querySelector('.item-total').innerText.replace('$', ''));
+                const itemTotal = parseFloat(item.querySelector('.item-total').innerText.replace('LKR ', ''));
                 total += itemTotal;
             });
-            document.getElementById('grand-total').innerText = `$${total.toFixed(2)}`;
+            document.getElementById('grand-total').innerText = `LKR ${total.toFixed(2)}`;
         }
 
-        // Automatically submit form on quantity change
         function autoSubmitForm(productId) {
             document.getElementById(`form-${productId}`).submit(); // Submit the form
         }
 
-        // Show modal for payment method selection
         function showPaymentOptions() {
             document.getElementById('paymentModal').classList.remove('hidden');
         }
 
-        // Choose payment method and submit the form
         function choosePaymentMethod(method) {
-            document.getElementById('payment_method').value = method;
-            document.getElementById('checkoutForm').submit();
+            if (method === 'online') {
+                document.getElementById('onlinePaymentForm').submit();
+            } else {
+                document.getElementById('codForm').submit();
+            }
         }
 
-        // Close the modal
         function closeModal() {
             document.getElementById('paymentModal').classList.add('hidden');
         }
     </script>
-
 </head>
 <body>
 
@@ -128,9 +115,7 @@ if (isset($_SESSION['cart'])) {
 
         <div class="space-y-4">
             <?php foreach ($cart_items as $item): ?>
-
                 <div class="cart-item flex items-center">
-                    <!-- Convert binary data to base64 for displaying as an image -->
                     <img src="data:image/jpeg;base64,<?= base64_encode($item['photo']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="w-24 h-24 object-cover rounded-md mr-4">
                     <div>
                         <h5 class="text-lg font-semibold"><?= htmlspecialchars($item['name']) ?></h5>
@@ -144,7 +129,6 @@ if (isset($_SESSION['cart'])) {
                         <button class="bg-red-600 text-white px-4 py-1 rounded-md hover:bg-red-500 transition" name="remove_item">Remove</button>
                     </form>
                 </div>
-
             <?php endforeach; ?>
         </div>
 
@@ -158,9 +142,16 @@ if (isset($_SESSION['cart'])) {
             <button onclick="showPaymentOptions()" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-500 transition">Proceed to Checkout</button>
         </div>
         
-        <!-- Checkout Form for Submitting Payment Method -->
-        <form id="checkoutForm" method="POST" action="" class="hidden">
-            <input type="hidden" id="payment_method" name="payment_method" value="">
+        <!-- Online Payment Form -->
+        <form id="onlinePaymentForm" method="POST" action="online_payment_user_details.php" class="hidden">
+            <input type="hidden" name="cart_data" value='<?= json_encode($cart_items) ?>'>
+            <input type="hidden" name="total_price" value="<?= $total_price ?>">
+        </form>
+
+        <!-- COD Form -->
+        <form id="codForm" method="POST" action="cash_on_delivery.php" class="hidden">
+            <input type="hidden" name="cart_data" value='<?= json_encode($cart_items) ?>'>
+            <input type="hidden" name="total_price" value="<?= $total_price ?>">
         </form>
 
     <?php else: ?>
@@ -168,14 +159,10 @@ if (isset($_SESSION['cart'])) {
     <?php endif; ?>
 </div>
 
-
-
 <!-- Modal for payment method selection -->
 <div id="paymentModal" class="fixed inset-0 flex items-center justify-center modal-bg hidden">
     <div class="modal-container p-8 shadow-lg">
-        <!-- Close icon -->
         <span class="close-icon" onclick="closeModal()">❌</span>
-        
         <div class="modal-header text-center mb-4">
             <h2 class="text-xl font-semibold">Select Payment Method</h2>
         </div>
