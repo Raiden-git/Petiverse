@@ -1,3 +1,4 @@
+
 <?php
 include('../db.php');
 include('session_check.php');
@@ -10,6 +11,16 @@ $new_orders_count = 0;
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $new_orders_count = $row['new_orders_count'];
+}
+
+// Fetch the number of new Online Payment orders from the database
+$sql_online_payment = "SELECT COUNT(*) AS new_online_payment_count FROM online_payment_orders WHERE order_status = 'pending'";
+$result_online_payment = $conn->query($sql_online_payment);
+$new_online_payment_count = 0;
+
+if ($result_online_payment->num_rows > 0) {
+    $row_online_payment = $result_online_payment->fetch_assoc();
+    $new_online_payment_count = $row_online_payment['new_online_payment_count'];
 }
 ?>
 
@@ -27,7 +38,8 @@ if ($result->num_rows > 0) {
             return confirm("Do you really want to log out?");
         }
     </script>
-      <style>
+    <style>
+             
         /* Notification styling */
         .notification {
             display: flex;
@@ -42,7 +54,7 @@ if ($result->num_rows > 0) {
             transition: transform 0.2s, box-shadow 0.2s;
             margin-top: 15px;
             width: 550px;
-            margin-bottom: 100px;
+           
         }
 
         .notification:hover {
@@ -79,9 +91,12 @@ if ($result->num_rows > 0) {
             text-decoration: none;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 50px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s, box-shadow 0.3s;
+            margin-right: 40px;
+            margin-left: 150px;
+            margin-bottom: 70px;
         }
 
         .action-button:hover {
@@ -95,6 +110,7 @@ if ($result->num_rows > 0) {
         }
     </style>
 
+    
 </head>
 <body>
 <header>
@@ -124,8 +140,18 @@ if ($result->num_rows > 0) {
 <main>
     <h2>Welcome, <?php echo $_SESSION['username']; ?></h2>
 
+    <!-- Button for COD managing orders -->
+    <a href="admin_order_details.php" class="action-button">
+        <i class="fas fa-truck"></i> Go to Cash On Delivery Orders
+    </a>
 
-    
+    <!-- Button for managing Online orders -->
+    <a href="online_payment_orders.php" class="action-button">
+        <i class="fas fa-credit-card"></i> Online Payment Orders
+    </a>
+
+    <h2>Order Notification</h2>
+
     <!-- Notification for new COD orders -->
     <?php if ($new_orders_count > 0): ?>
         <a href="admin_order_details.php" class="notification">
@@ -136,10 +162,15 @@ if ($result->num_rows > 0) {
         </a>
     <?php endif; ?>
 
-    <!-- Button for managing orders -->
-    <a href="admin_order_details.php" class="action-button">
-        <i class="fas fa-list"></i> Go to Cash On Delivery Orders
-    </a>
+    <!-- Notification for new Online Payment orders -->
+    <?php if ($new_online_payment_count > 0): ?>
+        <a href="online_payment_orders.php" class="notification">
+            <i class="fas fa-credit-card"></i> <!-- Credit card icon for online payment -->
+            New Card Payment Order(s) - 
+            <span class="notification-count"><?php echo $new_online_payment_count; ?></span>
+            <?php echo ($new_online_payment_count > 1) ? 'orders' : 'order'; ?> pending.
+        </a>
+    <?php endif; ?>
 
 </main>
 </body>

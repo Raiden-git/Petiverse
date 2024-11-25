@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Petiverse - COD Comfirmed Orders </title>
-    <link rel="stylesheet" href="admin_sidebar.css">
+    <title>Petiverse - online payment Confirmed orders</title>
+    <link rel="stylesheet" href="./moderator_sidebar.css">
     
     <!-- Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -15,77 +14,72 @@
     </script>
       <style>
 
-    .order-heading {
-        text-align: center;
-        color: #333;
-    }
-    .order-container {
-        border: 1px solid #ccc;
-        background-color: #fff;
-        margin: 10px auto;
-        padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        max-width: 800px;
-    }
-    .product-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-    }
-    .product-table th, .product-table td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-    }
-    .product-photo {
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-        border-radius: 5px;
-    }
-    .delete-form {
-        text-align: right;
-        margin-top: 10px;
-    }
-    .delete-button {
-        background-color: #dc3545;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        font-size: 14px;
-    }
-    .delete-button:hover {
-        background-color: #c82333;
-    }
-      
-    </style>
-
+.order-heading {
+    text-align: center;
+    color: #333;
+}
+.order-container {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin: 10px auto;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+}
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.product-table th, .product-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.product-photo {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.delete-form {
+    text-align: right;
+    margin-top: 10px;
+}
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.delete-button:hover {
+    background-color: #c82333;
+}
+  
+</style>
 </head>
 <body>
 <header>
-    <h1>COD Comfirmed Oders </h1>
+    <h1>Confirmed Online Payment Orders</h1>
 </header>
 
 <nav>
     <ul>
-        <li><a href="dashboard.php">Home</a></li>
-        <li><a href="user_management.php">User Management</a></li>
-        <li><a href="shop_management.php">Shop Management</a></li>
+    <li><a href="moderator_dashboard.php">Home</a></li>
+        <li><a href="Moderator_shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
-        <li><a href="moderator_management.php">Moderator Management</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
 </nav>
-
 <main>
-    
 
 <?php
 // Start a session to store flash messages
@@ -110,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_order'])) {
     $order_code = $_POST['order_code']; // Order code received from the form
 
     // Delete the order from the database (admin-side only)
-    $delete_sql = "DELETE FROM COD_orders WHERE order_id = ?";
+    $delete_sql = "DELETE FROM online_payment_orders WHERE order_id = ?";
     $stmt = $conn->prepare($delete_sql);
     $stmt->bind_param("s", $order_code);
 
@@ -126,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_order'])) {
     $stmt->close();
 
     // Redirect to the same page to display the message
-    header("Location: confirmed_orders.php");
+    header("Location: online_payment_confirmed_orders.php");
     exit;
 }
 
@@ -139,26 +133,26 @@ if (isset($_SESSION['message'])) {
     unset($_SESSION['message_type']);
 }
 
-// SQL query to fetch confirmed orders
+// SQL query to fetch confirmed online payment orders
 $confirmed_sql = "SELECT 
-                    COD_orders.order_id AS order_code,
-                    COD_orders.full_name,
-                    COD_orders.delivery_address,
-                    COD_orders.phone_number,
-                    COD_orders.postal_code,
-                    COD_orders.order_status,
-                    COD_orders.order_status_message,
-                    SUM(COD_orders.quantity * products.price) AS total_amount,
+                    online_payment_orders.order_id AS order_code,
+                    online_payment_orders.full_name,
+                    online_payment_orders.delivery_address,
+                    online_payment_orders.phone_number,
+                    online_payment_orders.postal_code,
+                    online_payment_orders.order_status,
+                    online_payment_orders.order_status_message,
+                    SUM(online_payment_orders.quantity * products.price) AS total_amount,
                     products.name AS product_name,
                     products.description AS product_description,
                     products.photo AS product_photo,
-                    COD_orders.quantity AS product_quantity,
+                    online_payment_orders.quantity AS product_quantity,
                     products.price AS product_price
-                FROM COD_orders
-                INNER JOIN products ON COD_orders.product_id = products.id
-                WHERE COD_orders.order_status = 'confirmed'
-                GROUP BY COD_orders.order_id, COD_orders.product_id
-                ORDER BY COD_orders.order_id";
+                FROM online_payment_orders
+                INNER JOIN products ON online_payment_orders.product_id = products.id
+                WHERE online_payment_orders.order_status = 'confirmed'
+                GROUP BY online_payment_orders.order_id, online_payment_orders.product_id
+                ORDER BY online_payment_orders.order_id";
 
 // Execute the query
 $confirmed_result = $conn->query($confirmed_sql);
@@ -177,7 +171,7 @@ function display_orders($result, $status) {
                 // Close the previous container
                 if ($current_order_code !== null) {
                     echo "</tbody></table>";
-                    echo "<p><strong>Total Amount:</strong> LKR ." . number_format($current_order_total, 2) . "</p>";
+                    echo "<p><strong>Total Amount:</strong> $" . number_format($current_order_total, 2) . "</p>";
                     echo "<form method='POST' class='delete-form'>
                             <input type='hidden' name='order_code' value='" . $current_order_code . "'>
                             <button type='submit' name='delete_order' class='delete-button'>Delete Order</button>
@@ -256,46 +250,3 @@ $conn->close();
 </main>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
