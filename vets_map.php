@@ -353,7 +353,7 @@ ul.description li {
         <p class="description">
             Are you a certified vet looking to offer your services to a wider community? Join our platform and connect with pet owners across the country. We provide all the tools you need to manage appointments, consultations, and offer your expertise to those who need it most.
         </p>
-        <a href="vet_registration.php" class="btn">Join as a Veterinarian</a>
+        <a href="vet_register_form.php" class="btn">Join as a Veterinarian</a>
     </div>
 
     <!-- Right side: Image -->
