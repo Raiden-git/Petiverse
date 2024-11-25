@@ -1,6 +1,6 @@
 <?php
-require 'vendor/autoload.php'; // Include Stripe PHP library
-require 'db.php'; // Include your database connection
+require 'vendor/autoload.php'; 
+require 'db.php'; 
 
 session_start();
 if (!isset($_SESSION['user_id'])) {

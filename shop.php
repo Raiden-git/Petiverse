@@ -124,21 +124,15 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
 
 <?php include 'Cus-NavBar/navBar.php'; ?>
 
-<!-- Fixed Cart Icon Button at the Bottom of the Page -->
-<a href="cart.php" class="cart-icon-button">
-    <box-icon name="cart" type="solid" size="lg"></box-icon>
-    <?php if ($total_cart_items > 0): ?>
-        <span class="cart-badge"><?= $total_cart_items ?></span>
-    <?php endif; ?>
-</a>
+
 
 
 <!-- Search Bar -->
 <div class="mb-6 container">
     <form method="GET" action="" class="d-flex">
         <input type="text" name="search_query" placeholder="Search for products..." 
-               value="<?= htmlspecialchars($search_query) ?>" class="form-control me-2">
-        <button type="submit" class="btn btn-primary">Search</button>
+               value="<?= htmlspecialchars($search_query) ?>" class="searchbar form-control me-2">
+        <button type="submit" class="searchbtn btn-primary">Search</button>
     </form>
 </div>
 
@@ -202,8 +196,8 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                         <p class="card-text text-primary fw-bold">LKR <?= number_format($product['price'], 2) ?></p>
             <form method="POST" action="">
                 <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['id']) ?>">
-                <button type="button" class="btn btn-primary" onclick="showPaymentModal()">Buy Now</button>
-                <button class="btn btn-secondary" name="add_to_cart">Add to Cart</button>
+                <button type="button" class="buynowbtn btn-primary" onclick="showPaymentModal()">Buy Now</button>
+                <button class="addcartbtn btn-secondary" name="add_to_cart">Add to Cart</button>
             </form>
                     </div>
                 </div>
@@ -232,8 +226,8 @@ $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
 
                 <form method="POST" action="">
                 <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['id']) ?>">
-                <button type="button" class="btn btn-primary" onclick="showPaymentModal()">Buy Now</button>
-                <button class="btn btn-secondary" name="add_to_cart">Add to Cart</button>
+                <button type="button" class="buynowbtn btn-primary" onclick="showPaymentModal()">Buy Now</button>
+                <button class="addcartbtn btn-secondary" name="add_to_cart">Add to Cart</button>
             </form>
             </div>
         </div>

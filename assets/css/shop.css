@@ -237,9 +237,16 @@ body
 
 
 
+
+
+
+
+
+
 .container .shop-intro h2{
     padding-top:20px ;
 color: #e2975a;
+
 
 }
 
@@ -300,6 +307,105 @@ font-size: 18px;
 
 
 
+.buynowbtn{
+    
+    background: linear-gradient(to bottom right, #d0bc59, #FF9A5A);
+    border: 0;
+    border-radius: 50px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 2.5;
+    outline: transparent;
+    padding: 0 1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    margin-right: 20px;
+}
+
+
+  .buynowbtn:not([disabled]):hover {
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+    color: black;
+  }
+
+.addcartbtn{
+    
+    background: linear-gradient(to bottom right, #d0bc59, #FF9A5A);
+    border: 0;
+    border-radius: 50px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 2.5;
+    outline: transparent;
+    padding: 0 1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+}
+
+.addcartbtn:not([disabled]):hover {
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+    color: black;
+  }
+
+
+  .searchbtn{
+    background: linear-gradient(to bottom right,#dac259, #FF9A5A);
+    border: 0;
+    border-radius: 50px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 2.5;
+    outline: transparent;
+    padding: 0 1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    width: 200px;
+    
+  }
+
+  .searchbtn:not([disabled]):hover {
+    box-shadow: 0 0 .55rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+    color: black;
+  }
+
+
+  .searchbar{
+    background-color: rgb(255, 255, 255);
+    color: black;
+    width: 1100px;
+  }
+
+
+
+
+
 
 
 
@@ -338,14 +444,14 @@ font-size: 18px;
 .modal-body {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Space between image and details */
+    gap: 20px; 
 }
 
 .modal-body img {
-    flex: 1 1 40%; /* Image takes 40% of the modal body width */
-    max-width: 100%; /* Ensure the image stays responsive */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 8px; /* Optional: Add rounded corners */
+    flex: 1 1 40%; 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px; 
 }
 
 .modal-body .details {
@@ -366,7 +472,16 @@ font-size: 18px;
 }
 
 .modal-body .details .price {
-    color: #007bff; /* Bootstrap primary color */
+    color: #ff0000; /* Bootstrap primary color */
     font-weight: bold;
     font-size: 1.25rem;
 }
+
+
+
+
+
+
+
+
+
