@@ -89,18 +89,13 @@ nav ul li:hover .dropdown-menu {
         <li><a href="dashboard.php">Home</a></li>
         <li><a href="user_management.php">User Management</a></li>
         <li><a href="shop_management.php">Shop Management</a></li>
-        <li class="dropdown">
-            <a href="community_controls.php" class="dropdown-toggle">Community Controls</a>
-            <ul class="dropdown-menu">
-                <li><a href="#posts-section">Manage Posts</a></li>
-                <li><a href="#comments-section">Manage Comments</a></li>
-            </ul>
-        </li>
+        <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
+        <li><a href="petselling.php">Pet selling</a><li>
         <li><a href="view_feedback.php">Feedbacks</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>

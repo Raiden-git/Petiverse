@@ -10,7 +10,11 @@ body {
     padding: 20px;
     max-width: 800px;
     margin: auto;
+<<<<<<< HEAD
+    position: relative; /* Allows absolute positioning of submit and my posts buttons */
+=======
     position: relative; 
+>>>>>>> 8e174373cfe696749201fd38eb04ef54c15e6dfb
 }
 
 h2 {
@@ -46,19 +50,42 @@ h2 {
     background-color: #4CAF50; 
 }
 
+<<<<<<< HEAD
+.submit-btn,
+.my-posts-btn {
+    display: inline-block;
+    padding: 8px 16px;
+=======
 .submit-btn {
     position: absolute;
     top: 10px; 
     right: 20px;
+>>>>>>> 8e174373cfe696749201fd38eb04ef54c15e6dfb
     background-color: #af4c4c;
     color: white;
-    padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    position: absolute; /* Both buttons positioned relative to the pets-section */
+    right: -250px; /* Move the buttons 85px (2cm) to the right */
+    
+}
+
+
+.submit-btn {
+    top: 10px; /* Position the 'Report a Pet' button near the top */
+}
+
+.my-posts-btn {
+    top: 70px; /* Position the 'My Posts' button just below the 'Report a Pet' button */
+}
+
+.submit-btn:hover,
+.my-posts-btn:hover {
+    background-color: #9e3d3d; /* Slightly darker shade on hover */
 }
 
 /* Filter button styling */

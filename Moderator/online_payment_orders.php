@@ -1,15 +1,12 @@
 <?php
-
 include('../db.php');
-
 ?>
-
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Petiverse - COD Oder Details</title>
-    <link rel="stylesheet" href="admin_sidebar.css">
+    <title>Petiverse - Online Payment Orders</title>
+    <link rel="stylesheet" href="./moderator_sidebar.css">
     <script src="logout_js.js"></script>
     <style>
       
@@ -138,37 +135,31 @@ strong {
 
 
     </style>
-
 </head>
 <body>
 <header>
-    <h1>Cash On delivery Oder Management</h1>
+    <h1>Online Payment Order Management</h1>
 </header>
 
 <nav>
     <ul>
-        <li><a href="dashboard.php">Home</a></li>
-        <li><a href="user_management.php">User Management</a></li>
-        <li><a href="shop_management.php">Shop Management</a></li>
+    <li><a href="moderator_dashboard.php">Home</a></li>
+        <li><a href="Moderator_shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
-        <li><a href="moderator_management.php">Moderator Management</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
 </nav>
-
 <main>
+<a href="./online_payment_confirmed_orders.php" class="confirm"><button>Confirm orders</button></a>
+<a href="./online_payment_cancelled_orders.php"><button>Cancelled orders</button></a>
 
-<a href="./confirmed_orders.php" class="confirm"><button>Confirm orders</button></a>
-<a href="./cancelled_orders.php"><button>cancelled orders</button></a>
+<h2>Order Details</h2>
 
-    <h2>Oder Details</h2>
-
-
-    <?php
+<?php
 // Start a session to store flash messages
 session_start();
 
@@ -197,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
         : "Your order has been cancelled.";
 
     // Update the order status and message in the database
-    $update_sql = "UPDATE COD_orders SET order_status = ?, order_status_message = ? WHERE order_id = ?";
+    $update_sql = "UPDATE online_payment_orders SET order_status = ?, order_status_message = ? WHERE order_id = ?";
     $stmt = $conn->prepare($update_sql);
     $stmt->bind_param("sss", $new_status, $status_message, $order_code);
 
@@ -213,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
     $stmt->close();
 
     // Redirect to the same page to display the message and updated list
-    header("Location: admin_order_details.php");
+    header("Location: online_payment_orders.php");
     exit;
 }
 
@@ -228,24 +219,24 @@ if (isset($_SESSION['message'])) {
 
 // SQL query to fetch only pending orders (not confirmed or cancelled)
 $sql = "SELECT 
-            COD_orders.order_id AS order_code,
-            COD_orders.full_name,
-            COD_orders.delivery_address,
-            COD_orders.phone_number,
-            COD_orders.postal_code,
-            COD_orders.order_status,
-            COD_orders.order_status_message,
-            SUM(COD_orders.quantity * products.price) AS total_amount,
+            online_payment_orders.order_id AS order_code,
+            online_payment_orders.full_name,
+            online_payment_orders.delivery_address,
+            online_payment_orders.phone_number,
+            online_payment_orders.postal_code,
+            online_payment_orders.order_status,
+            online_payment_orders.order_status_message,
+            SUM(online_payment_orders.quantity * products.price) AS total_amount,
             products.name AS product_name,
             products.description AS product_description,
             products.photo AS product_photo,
-            COD_orders.quantity AS product_quantity,
+            online_payment_orders.quantity AS product_quantity,
             products.price AS product_price
-        FROM COD_orders
-        INNER JOIN products ON COD_orders.product_id = products.id
-        WHERE COD_orders.order_status NOT IN ('confirmed', 'cancelled')  -- Exclude confirmed/cancelled orders
-        GROUP BY COD_orders.order_id, COD_orders.product_id
-        ORDER BY COD_orders.order_id";
+        FROM online_payment_orders
+        INNER JOIN products ON online_payment_orders.product_id = products.id
+        WHERE online_payment_orders.order_status NOT IN ('confirmed', 'cancelled')  -- Exclude confirmed/cancelled orders
+        GROUP BY online_payment_orders.order_id, online_payment_orders.product_id
+        ORDER BY online_payment_orders.order_id";
 
 $result = $conn->query($sql);
 
@@ -259,7 +250,7 @@ if ($result->num_rows > 0) {
             // Close the previous container
             if ($current_order_code !== null) {
                 echo "</tbody></table>";
-                echo "<p><strong>Total Amount:</strong> $" . number_format($current_order_total, 2) . "</p>";
+                echo "<p><strong>Total Amount:</strong> LKR ." . number_format($current_order_total, 2) . "</p>";
                 echo "<form method='POST'>
                         <input type='hidden' name='order_code' value='" . $current_order_code . "'>
                         <input type='hidden' name='status' value='confirmed'>
@@ -342,41 +333,6 @@ if ($result->num_rows > 0) {
 // Close the database connection
 $conn->close();
 ?>
-
-
-   
 </main>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
