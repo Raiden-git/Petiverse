@@ -7,7 +7,7 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); // Redirect to login page if not logged in
+    header("Location: login.php"); 
     exit();
 }
 
@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Post - Petiverse</title>
     <style>
-        /* General styles */
+       
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f9f9f9; /* Light gray background */
@@ -75,7 +75,7 @@ body {
 
 h1 {
     font-size: 2.5rem;
-    color: #4CAF50; /* Vibrant green to match the Petiverse theme */
+    color: #4CAF50; 
     text-align: center;
     margin-bottom: 1rem;
 }
@@ -121,10 +121,10 @@ button[type="submit"] {
     display: block;
     width: 100%;
     padding: 0.8rem;
-    background: #4CAF50; /* Vibrant green button */
+    background: #4CAF50; 
     border: none;
     border-radius: 5px;
-    color: #fff; /* White text */
+    color: #fff; 
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;

@@ -5,7 +5,7 @@ include('../db.php');
 include('session_check.php');
 
 // Admin user information
-$admin_user_id = 1; // Assuming 1 is the admin's user ID
+$admin_user_id = 1; 
 $admin_user_name = "admin";
 
 // Handle Add, Edit, and Delete Actions
@@ -21,8 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $photo = file_get_contents($_FILES['photo']['tmp_name']);
         }
 
-        $status = "approved"; // Admin blogs are auto-approved
-
+        $status = "approved"; 
         $stmt = $conn->prepare("INSERT INTO user_blogs (user_id, user_name, title, content, category, photo, status) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("issssss", $admin_user_id, $admin_user_name, $title, $content, $category, $photo, $status);
         $stmt->execute();
@@ -85,32 +84,32 @@ $result = $stmt->get_result();
  
 /* Style for Delete Button */
 form button[name="delete_blog"] {
-    background-color: #e74c3c; /* Red background for delete button */
-    color: white; /* White text */
-    border: none; /* Remove border */
-    padding: 10px 15px; /* Padding for button */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    font-weight: bold; /* Bold text */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
+    background-color: #e74c3c; 
+    color: white; 
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-weight: bold;
+    transition: background-color 0.3s ease; 
 }
 
 form button[name="delete_blog"]:hover {
-    background-color: #c0392b; /* Darker red on hover */
+    background-color: #c0392b;
 }
 
 /* Style for Edit Blog Popup Section */
 #editForm {
-    position: fixed; /* Fixed position for popup */
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Centering trick */
-    background-color: #f9f9f9; /* Light background */
-    border: 1px solid #ddd; /* Light border */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-    padding: 20px; /* Padding inside popup */
-    z-index: 1000; /* Above all elements */
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    background-color: #f9f9f9; 
+    border: 1px solid #ddd; 
+    border-radius: 10px; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+    padding: 20px; 
+    z-index: 1000;
     height: 500px;
 }
 
@@ -118,13 +117,13 @@ form button[name="delete_blog"]:hover {
 #editForm input[type="text"],
 #editForm textarea,
 #editForm select {
-    width: 100%; /* Full width */
-    padding: 10px; /* Inner padding */
-    margin-bottom: 20px; /* Spacing between fields */
-    border: 1px solid #ccc; /* Light border */
-    border-radius: 5px; /* Rounded corners */
-    box-sizing: border-box; /* Include padding in width */
-    font-size: 16px; /* Larger font size */
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    box-sizing: border-box; 
+    font-size: 16px; 
     margin-bottom: 40px;
 }
 
@@ -142,59 +141,59 @@ form button[name="delete_blog"]:hover {
 
 /* Style for buttons in Edit Form */
 #editForm button {
-    background-color: #3498db; /* Blue background */
-    color: white; /* White text */
-    border: none; /* Remove border */
-    padding: 10px 20px; /* Padding for button */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    font-weight: bold; /* Bold text */
-    margin-right: 10px; /* Space between buttons */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
+    background-color: #3498db;
+    color: white; 
+    border: none; 
+    padding: 10px 20px;  
+    border-radius: 5px;
+    cursor: pointer; 
+    font-weight: bold; 
+    margin-right: 10px; 
+    transition: background-color 0.3s ease; 
 }
 
 #editForm button:hover {
-    background-color: #2980b9; /* Darker blue on hover */
+    background-color: #2980b9;
 }
 
 /* Style for Cancel Button */
 #editForm button[type="button"] {
-    background-color: #7f8c8d; /* Gray background for cancel button */
+    background-color: #7f8c8d; 
 }
 
 #editForm button[type="button"]:hover {
-    background-color: #5a6a6b; /* Darker gray on hover */
+    background-color: #5a6a6b; 
 }
 
 /* Background overlay for Edit Form */
 body::before {
     content: '';
-    display: none; /* Hidden by default */
-    position: fixed; /* Fixed position for overlay */
+    display: none; 
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    z-index: 999; /* Below popup but above everything else */
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 999; 
 }
 
 
 body.editing::before {
-    display: block; /* Show overlay */
+    display: block; 
 }
 
 
 
 .blog-container .editbtn {
-    background-color: #e74c3c; /* Red background for delete button */
-    color: white; /* White text */
-    border: none; /* Remove border */
-    padding: 10px 15px; /* Padding for button */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    font-weight: bold; /* Bold text */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
+    background-color: #e74c3c; 
+    color: white;
+    border: none; 
+    padding: 10px 15px;
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    transition: background-color 0.3s ease;
 
 }
 </style>

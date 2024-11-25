@@ -69,7 +69,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Black overlay for text visibility */
+            background: rgba(0, 0, 0, 0.5); 
             z-index: 1;
         }
 
@@ -174,7 +174,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px; /* Spacing between image and content */
+    gap: 20px; 
     margin-bottom: 50px;
 }
 
@@ -221,7 +221,7 @@ ul.description li {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px; /* Spacing between content and image */
+    gap: 20px; 
     margin-bottom: 50px;
 }
 
@@ -287,7 +287,7 @@ ul.description li {
     <div class="hero-content">
         <h1 class="herotxt">Top-Notch Veterinary Care</h1>
         <p>Providing high-quality veterinary services for your beloved pets.</p>
-        <a href="registered_vets.php" class="btn">Find a Veterinarian</a>
+        <a href="vet_listing.php" class="btn">Find a Veterinarian</a>
     </div>
 </div>
 
@@ -339,7 +339,7 @@ ul.description li {
         <p class="description">
         Our network of certified and experienced veterinarians is dedicated to providing top-quality care for your pets. From routine check-ups to specialized treatments, trust our experts for your pet's health and well-being.
         </p>
-        <a href="registered_vets.php" class="btn">View All Veterinarians</a>
+        <a href="vet_listing.php" class="btn">View All Veterinarians</a>
     </div>
 </div>
 
@@ -423,7 +423,7 @@ ul.description li {
                     <p><strong>Experience:</strong> ${vet.experience} years</p>
                     <p><strong>Clinic:</strong> ${vet.clinic_name}</p>
                     <p><strong>Fee:</strong> Rs.${vet.consultation_fee}</p>
-                    <a href="book_appointment.php?vet_id=${vet.id}" class="btn">Make an Appointment</a>
+                    <a href="vet_profile.php?id=${vet.id}" class="btn">Make an Appointment</a>
                 </div>
             `;
 

@@ -10,6 +10,7 @@ $stmtUserPosts->bind_param("i", $userId);
 $stmtUserPosts->execute();
 $resultUserPosts = $stmtUserPosts->get_result();
 
+session_start();
 
 // Handle search and category filter
 $searchQuery = '';
@@ -22,7 +23,7 @@ if (isset($_POST['category'])) {
 }
 
 // Prepare SQL query based on the category filter
-$sql = "SELECT pet_name, pet_type, description, location, status, date, image, contact_info FROM lost_and_found_pets WHERE pet_name LIKE ? AND approved = 1"; // Only approved pets
+$sql = "SELECT pet_name, pet_type, description, location, status, date, image, contact_info FROM lost_and_found_pets WHERE pet_name LIKE ? AND approved = 1";
 
 if ($categoryFilter !== 'all') {
     $sql .= " AND status = ?";
@@ -48,9 +49,15 @@ $result = $stmt->get_result();
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Lost And Found</title>
     <link rel="stylesheet" href="assets/css/styles.css"> <!-- General styles -->
     <link rel="stylesheet" href="./assets/css/lost_found.css"> <!-- Link to new CSS file -->
+=======
+    <title>Lost & Found Pets - Petiverse</title>
+    <link rel="stylesheet" href="assets/css/styles.css"> 
+    <link rel="stylesheet" href="./assets/css/lost_found.css"> 
+>>>>>>> 8e174373cfe696749201fd38eb04ef54c15e6dfb
     <style>
         /* Pop-up styles */
         .popup {
@@ -166,7 +173,7 @@ $result = $stmt->get_result();
     function openPopup(name, type, description, location, status, date, image, contact) {
         document.getElementById('popup-name').innerText = name;
         document.getElementById('popup-type').innerText = type;
-        document.getElementById('popup-description').innerHTML = description.replace(/\n/g, "<br>"); // Convert newlines to <br>
+        document.getElementById('popup-description').innerHTML = description.replace(/\n/g, "<br>"); 
         document.getElementById('popup-location').innerText = location;
         document.getElementById('popup-status').innerText = status;
         document.getElementById('popup-date').innerText = date;
@@ -174,13 +181,13 @@ $result = $stmt->get_result();
         if (image) {
             document.getElementById('popup-image').src = 'data:image/jpeg;base64,' + image;
         } else {
-            document.getElementById('popup-image').src = 'assets/img/placeholder.jpg'; // Fallback image
+            document.getElementById('popup-image').src = 'assets/img/placeholder.jpg'; 
         }
-        document.getElementById('popup').style.display = 'flex'; // Show popup
+        document.getElementById('popup').style.display = 'flex'; 
     }
 
     function closePopup() {
-        document.getElementById('popup').style.display = 'none'; // Hide popup
+        document.getElementById('popup').style.display = 'none'; 
     }
 </script>
 

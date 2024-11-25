@@ -127,7 +127,7 @@ body {
     outline: none;
     margin-bottom: 20px;
     background: #f9f9f9;
-    appearance: none; /* Removes default styling for consistent appearance across browsers */
+    appearance: none; 
     cursor: pointer;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -140,7 +140,7 @@ body {
 
 /* Optional Styling for Select Dropdown Arrow */
 .edit-post-container select::-ms-expand {
-    display: none; /* Hide the default dropdown arrow for Internet Explorer */
+    display: none; 
 }
 
 /* Optional Styling for the Options */

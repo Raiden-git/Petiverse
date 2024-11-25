@@ -274,6 +274,7 @@ $conn->close();
        
 
         <form method="POST" enctype="multipart/form-data" action="shop_management.php">
+            <h1>Add new Product</h1>
     <div class="mb-3">
         <label for="category" class="form-label">Category</label>
         <select id="category" name="category" class="form-control" required>
@@ -319,7 +320,7 @@ $conn->close();
 
 
 <!-- List of Existing Products -->
-<h2 class="mt-5">Existing Products</h2>
+<h2 class="mt-5">Added Products</h2>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -484,14 +485,13 @@ $conn->close();
 // Function to load subcategories based on the selected main category
 function loadSubcategories(mainCategory, selectedSubcategory = null) {
     $.ajax({
-        url: 'shop_management.php', // URL to fetch subcategories
-        type: 'POST',
-        data: { main_category: mainCategory }, // Send the selected main category
+        url: 'shop_management.php', 
+        data: { main_category: mainCategory }, 
         success: function(response) {
             let subcategories = JSON.parse(response);
             let subcategorySelect = $('#edit_subcategory');
             
-            subcategorySelect.empty(); // Clear existing subcategories
+            subcategorySelect.empty(); 
             subcategorySelect.append('<option value="">Select Subcategory</option>');
             
             // Append fetched subcategories

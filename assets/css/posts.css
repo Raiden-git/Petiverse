@@ -81,10 +81,10 @@ nav ul li a:hover {
     margin-bottom: 10px;
 }
 .post-detail h2, .post-detail p {
-    word-wrap: break-word;   /* Break long words if needed */
+    word-wrap: break-word;   
     overflow-wrap: break-word;
-    hyphens: auto;           /* Add hyphen when breaking words */
-    max-width: 100%;         /* Ensure they don't exceed the container */
+    hyphens: auto;           
+    max-width: 100%;        
     margin-bottom: 10px;
     font-size: 16px;
     color: #333;
@@ -169,7 +169,7 @@ form textarea, form button {
     font-size: 14px;
     font-weight: bold;
     color: #333;
-    background-color: #DA8359; /* Default pastel color */
+    background-color: #DA8359; 
     margin-right: 5px;
 }
 

@@ -24,8 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Insert the post into the database
-    $user_id = $_SESSION['user_id'];  // Assuming this is set when the user logs in
-
+    $user_id = $_SESSION['user_id'];  
     $stmt = $conn->prepare("INSERT INTO posts (title, content, image, category, pet_category, user_id) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sssssi", $title, $content, $image, $category, $pet_category, $user_id);
     $stmt->execute();
@@ -74,7 +73,7 @@ if (!$result) {
   border-radius: 10px;
   padding: 15px;
   position: relative;
-  max-width: 100%; /* Ensures post container doesn't expand beyond layout */
+  max-width: 100%; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
     text-decoration: none;
@@ -95,7 +94,7 @@ if (!$result) {
           -moz-appearance: none; /* For Firefox */
           appearance: none; /* Standard */
           color: #333 !important;
-          width: auto; /* Ensure it doesn't shrink */
+          width: auto; 
           transition: background-color 0.3s ease;
         }
         #categoryFilter:hover, #animalFilter:hover {
@@ -108,13 +107,13 @@ if (!$result) {
         }
 
         .post-badges-container {
-    position: relative; /* Enables absolute positioning inside this container */
-    padding: 10px; /* Adjust padding to accommodate badges */
+    position: relative; 
+    padding: 10px; 
 }
         .post-badges {
         position: absolute;
-        top: 0; /* Adjust distance from the top */
-        right: 10px; /* Adjust distance from the right */
+        top: 0; 
+        right: 10px; 
         display: flex;
         gap: 10px; /* Adds spacing between badges */
         padding: 5px 0; 
@@ -200,8 +199,8 @@ if (!$result) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $fullContent = htmlspecialchars($row['content']);
-            $shortContent = substr($fullContent, 0, 160); // Truncate to 100 characters
-            $isTruncated = strlen($fullContent) > 160; // Check if truncation is needed
+            $shortContent = substr($fullContent, 0, 160); 
+            $isTruncated = strlen($fullContent) > 160; 
 
             echo '<a href="post_detail.php?post_id=' . $row['id'] . '" class="post">';
             if (!empty($row['image'])) {

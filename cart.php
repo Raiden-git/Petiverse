@@ -20,7 +20,7 @@ if (isset($_POST['product_id']) && isset($_POST['quantity'])) {
     $quantity = $_POST['quantity'];
 
     if ($quantity > 0) {
-        $_SESSION['cart'][$product_id] = $quantity; // Update quantity
+        $_SESSION['cart'][$product_id] = $quantity; 
     } else {
         unset($_SESSION['cart'][$product_id]); // Remove item if quantity is 0
     }
@@ -29,7 +29,7 @@ if (isset($_POST['product_id']) && isset($_POST['quantity'])) {
 // Handle removal of items
 if (isset($_POST['remove_item'])) {
     $product_id = $_POST['product_id'];
-    unset($_SESSION['cart'][$product_id]); // Remove item from cart
+    unset($_SESSION['cart'][$product_id]); 
 }
 
 // Handle checkout action (optional)
@@ -48,7 +48,7 @@ if (isset($_POST['payment_method'])) {
 
 // Display the cart
 $cart_items = [];
-$total_price = 0; // Initialize total price
+$total_price = 0; 
 if (isset($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $product_id => $quantity) {
         $sql = "SELECT id, name, description, price, photo FROM products WHERE id = '$product_id'";
@@ -81,7 +81,7 @@ if (isset($_SESSION['cart'])) {
             const quantity = document.getElementById(`quantity-${productId}`).value;
             const totalPrice = (price * quantity).toFixed(2);
             document.getElementById(`total-price-${productId}`).innerText = `$${totalPrice}`;
-            calculateTotal(); // Recalculate total on quantity change
+            calculateTotal(); 
         }
 
         function calculateTotal() {
@@ -190,6 +190,5 @@ if (isset($_SESSION['cart'])) {
 </html>
 
 <?php
-// Close the database connection
 $conn->close();
 ?>

@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 
-$google_login_url = $google_client->createAuthUrl(); // Google login URL
+$google_login_url = $google_client->createAuthUrl();
 
 ?>
 

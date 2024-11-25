@@ -107,6 +107,7 @@ th, td {
 </nav>
 
 <main>
+<<<<<<< HEAD
     <h2>Add Special Event</h2>
     <form method="POST" enctype="multipart/form-data">
         <label for="title">Event Title:</label>
@@ -153,6 +154,10 @@ th, td {
             ?>
         </tbody>
     </table>
+=======
+    <h2>Special Event Management</h2>
+   
+>>>>>>> 8e174373cfe696749201fd38eb04ef54c15e6dfb
 </main>
 </body>
 </html>

@@ -58,7 +58,7 @@ if ($result) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Petiverse - Lost & Found Pets Management</title>
     <link rel="stylesheet" href="admin_sidebar.css">
-    <link rel="stylesheet" href="assets/css/admin.css"> <!-- New CSS file for styling -->
+    <link rel="stylesheet" href="assets/css/admin.css"> 
     <script src="logout_js.js"></script>
 
     <style>
@@ -182,7 +182,11 @@ if ($result) {
                     <th>Pet Type</th>
                     <th>Description</th>
                     <th>Location</th>
+<<<<<<< HEAD
                     <th>User</th>
+=======
+                    <th>User</th> 
+>>>>>>> 8e174373cfe696749201fd38eb04ef54c15e6dfb
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
@@ -194,8 +198,12 @@ if ($result) {
                         <td><?= htmlspecialchars($row['pet_type']) ?></td>
                         <td><?= htmlspecialchars($row['description']) ?></td>
                         <td><?= htmlspecialchars($row['location']) ?></td>
+<<<<<<< HEAD
                         <td><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) ?></td>
                         <td><span class="status pending">Pending Approval</span></td>
+=======
+                        <td><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) ?></td> 
+>>>>>>> 8e174373cfe696749201fd38eb04ef54c15e6dfb
                         <td>
                             <a href="?approve=true&pet_id=<?= $row['id'] ?>" class="btn approve">Approve</a>
                             <a href="?reject=true&pet_id=<?= $row['id'] ?>" class="btn reject">Reject</a>

@@ -76,12 +76,6 @@ $moderators = $conn->query("SELECT * FROM moderator");
   <link rel="stylesheet" href="admin_sidebar.css">
   <style>
 
-/* admin_sidebar.css */
-
-
-
-
-
 
 
 /* Main Content */

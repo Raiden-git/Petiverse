@@ -52,9 +52,9 @@
   cursor: pointer;
 }
 .ask-question-btn{
-  /* background-color: #fff6d1;
-  border: 1px solid #e0e0e0;
-  font-weight: bold; */
+  
+  
+  
   background: linear-gradient(135deg, #ff914d, #ff5e62);
     color: #fff;
     border: none;
@@ -127,19 +127,19 @@
   justify-content: space-between;
   align-items: flex-start;
   background-color: #ffffff;
-  border: 1px solid #e0e0e0; /* Light border for separation */
+  border: 1px solid #e0e0e0; 
   border-radius: 15px;
   margin-bottom: 5px;
   padding: 15px;
   position: relative;
-  max-width: 100%; /* Ensures post container doesn't expand beyond layout */
+  max-width: 100%; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
     transition: all 0.5s ease;
 }
 .post:hover {
-  transform: translateY(-3px); /* Lift on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  transform: translateY(-3px); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
 }
 
 .post img {
@@ -162,9 +162,9 @@
 }
 
 .posts-list .post-content p {
-  max-height: 80px;  /* Set a height limit if needed */
-  overflow-y: auto;  /* Allows scrolling if text is too long */
-  margin: 0;         /* Remove extra spacing */
+  max-height: 80px;  
+  overflow-y: auto; 
+  margin: 0;         
 }
 
 
@@ -181,7 +181,7 @@
 }
 .post-username {
   font-weight: bold;
-  color: #008080; /* #2c3e50; */
+  color: #008080; 
   font-size: 16px;
   margin-bottom: 15px;
 }
@@ -292,7 +292,6 @@
 }
 
 @media (max-width: 480px) {
-  /* Fine-tune for extra small screens */
   .filter-bar select,
   .filter-bar input[type="text"],
   .filter-bar button {

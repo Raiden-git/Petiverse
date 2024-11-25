@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Fetch vet data including more details
-$sql = "SELECT id, name, qualification, experience, clinic_name, consultation_fee, latitude, longitude FROM vets";
+$sql = "SELECT id, name, qualification, experience, clinic_name, consultation_fee, services, latitude, longitude FROM vets";
 $result = mysqli_query($conn, $sql);
 $vets = [];
 
@@ -92,7 +92,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <strong>Services:</strong> <?= htmlspecialchars($vet['services']) ?><br>
                 <strong>More Info:</strong> This is where additional details about the vet can go.<br><br>
                 <!-- Make an Appointment Button -->
-                <a href="book_appointment.php?vet_id=<?= $vet['id'] ?>" class="appointment-btn">Make an Appointment</a>
+                <a href="vet_profile.php?vet_id=<?= $vet['id'] ?>" class="appointment-btn">Make an Appointment</a>
             </td>
         </tr>
         <?php endforeach; ?>
@@ -121,7 +121,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     detailsRow.style.display = 'none';
                 } else {
                     detailsRow.style.display = 'table-row';
-                    expandedRow = detailsRow;  // Keep track of the expanded row
+                    expandedRow = detailsRow;  
                 }
             });
         });

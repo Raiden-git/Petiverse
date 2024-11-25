@@ -21,7 +21,7 @@
         }
 
         body {
-            background-color: #FCFAEE; /* Background color */
+            background-color: #FCFAEE; 
             color: #333;
         }
 
@@ -52,7 +52,7 @@
 
         .about-header h1 {
             font-size: 2.5rem;
-            color: #DA8359; /* Title color */
+            color: #DA8359; 
         }
 
         .about-header p {
@@ -63,7 +63,7 @@
         /* Section Titles */
         .about-section h2 {
             font-size: 1.8rem;
-            color: #DA8359; /* Section title color */
+            color: #DA8359; 
             margin-bottom: 10px;
         }
 
@@ -142,7 +142,7 @@
         }
 
         .contact-details a {
-            color: #DA8359; /* Contact link color */
+            color: #DA8359; 
             text-decoration: none;
         }
 
@@ -156,13 +156,13 @@
 
         .social-media-links li a {
             font-size: 1.1rem;
-            color: #DA8359; /* Social media link color */
+            color: #DA8359; 
             text-decoration: none;
             transition: color 0.3s;
         }
 
         .social-media-links li a:hover {
-            color: #A5B68D; /* Hover color */
+            color: #A5B68D; 
         }
 
         /* Feedback Form */
@@ -195,7 +195,7 @@
 
         .feedback-form input:focus,
         .feedback-form textarea:focus {
-            border-color: #DA8359; /* Focus border color */
+            border-color: #DA8359; 
             outline: none;
         }
 
@@ -205,7 +205,7 @@
             gap: 5px;
             margin-top: 15px;
             padding: 10px 15px;
-            background-color: #DA8359; /* Button color */
+            background-color: #DA8359; 
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -215,7 +215,7 @@
         }
 
         .feedback-form button:hover {
-            background-color: #A5B68D; /* Button hover color */
+            background-color: #A5B68D; 
         }
 
         /* Responsive Design */
