@@ -158,16 +158,16 @@ session_start(); // Start the session to check login status
 
 /* Additional CSS for notification images */
 .notification img {
-            width: 80px; /* Set width */
-            height: 80px; /* Set height */
-            object-fit: cover; /* Maintain aspect ratio while filling the box */
-            margin-right: 10px; /* Space between image and text */
-            border-radius: 5px; /* Optional: rounded corners */
+            width: 80px;
+            height: 80px; 
+            object-fit: cover;
+            margin-right: 10px; 
+            border-radius: 5px;
         }
         .notification {
-            display: flex; /* Flexbox to align image and text */
-            align-items: center; /* Center items vertically */
-            margin-bottom: 10px; /* Space between notifications */
+            display: flex;
+            align-items: center; 
+            margin-bottom: 10px; 
         }
         .status {
             font-weight: bold;
@@ -175,7 +175,7 @@ session_start(); // Start the session to check login status
             color: #d9534f; 
         }
         .status.found {
-            color: #5cb85c; /* Color for found status */
+            color: #5cb85c;
         }
 
 
@@ -244,7 +244,7 @@ session_start(); // Start the session to check login status
             echo '<p><strong>Pet Name:</strong> ' . htmlspecialchars($row['pet_name']) . ' <span class="status ' . $status_class . '">' . $status_text . '</span></p>';
             echo '<p><strong>Location:</strong> ' . htmlspecialchars($row['location']) . '</p>';
             echo '<p><strong>Date:</strong> ' . htmlspecialchars($row['date']) . '</p>';
-            echo '</div>'; // Close wrapper
+            echo '</div>'; 
             echo '<button onclick="closeNotification(this)">✕</button>';
             echo '</div>';
         }
