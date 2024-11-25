@@ -128,6 +128,11 @@ if ($result_online_payment->num_rows > 0) {
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
+<<<<<<< HEAD
+        <li><a href="petselling.php">Pet selling</a><li>
+        
+=======
+>>>>>>> 8e174373cfe696749201fd38eb04ef54c15e6dfb
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
 </nav>
