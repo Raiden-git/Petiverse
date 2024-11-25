@@ -1,38 +1,55 @@
 <?php
-include('../db.php');
-include('session_check.php');
+include('../db.php'); // Include the database connection
+include('session_check.php'); // Include session check for admin
 
-// Database connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+// Approve or Reject Pet Submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['action']) && isset($_POST['pet_id'])) {
+        $pet_id = intval($_POST['pet_id']); // Ensure it's an integer
+        $action = $_POST['action']; // Action can be 'approve' or 'reject'
+
+        if ($action === 'approve') {
+            $sql = "UPDATE lost_and_found_pets SET approved = 1 WHERE id = ?";
+        } elseif ($action === 'reject') {
+            $sql = "UPDATE lost_and_found_pets SET approved = -1 WHERE id = ?";
+        } else {
+            echo "Invalid action!";
+            exit;
+        }
+
+        $stmt = $conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("i", $pet_id);
+            $stmt->execute();
+            $stmt->close();
+        } else {
+            echo "Failed to execute action: " . $conn->error;
+            exit;
+        }
+    }
 }
 
-// Approve or reject pet submission
-if (isset($_GET['approve']) && isset($_GET['pet_id'])) {
-    $pet_id = $_GET['pet_id'];
-    $sql = "UPDATE lost_and_found_pets SET approved = 1 WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $pet_id);
-    $stmt->execute();
-    $stmt->close();
-}
-
-if (isset($_GET['reject']) && isset($_GET['pet_id'])) {
-    $pet_id = $_GET['pet_id'];
-    $sql = "UPDATE lost_and_found_pets SET approved = -1 WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $pet_id);
-    $stmt->execute();
-    $stmt->close();
-}
-
-// Fetch all pets (pending, approved, rejected) with user info
+// Fetch all pets with user information
 $sql = "SELECT p.*, u.first_name, u.last_name, u.email 
         FROM lost_and_found_pets p 
         LEFT JOIN users u ON p.user_id = u.id";
 $result = $conn->query($sql);
+
+// Separate approved and pending pets
+$approved_pets = [];
+$pending_pets = [];
+
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        if ($row['approved'] == 1) {
+            $approved_pets[] = $row;
+        } elseif ($row['approved'] == 0) {
+            $pending_pets[] = $row;
+        }
+    }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +60,90 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="admin_sidebar.css">
     <link rel="stylesheet" href="assets/css/admin.css"> <!-- New CSS file for styling -->
     <script src="logout_js.js"></script>
+
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f9f9f9;
+    }
+
+    h2 {
+        color: #333;
+    }
+
+    .table-container {
+        margin-top: 20px;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #fafafa;
+    }
+
+    .status {
+        padding: 5px 10px;
+        border-radius: 3px;
+    }
+
+    .status.pending {
+        background-color: #ffcc00;
+        color: white;
+    }
+
+    .status.approved {
+        background-color: #4caf50;
+        color: white;
+    }
+
+    .btn {
+        padding: 5px 10px;
+        text-decoration: none;
+        border-radius: 3px;
+        color: white;
+    }
+
+    .btn.approve {
+        background-color: #4caf50;
+    }
+
+    .btn.reject {
+        background-color: #f44336;
+    }
+
+    .btn.edit {
+        background-color: #2196F3;
+    }
+
+    .btn.delete {
+        background-color: #f44336;
+    }
+
+    .btn:hover {
+        opacity: 0.8;
+    }
+
+    form {
+        display: inline;
+    }
+</style>
 </head>
 <body>
 
@@ -63,6 +164,7 @@ $result = $conn->query($sql);
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
+        <li><a href="petselling.php">Pet selling</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
 </nav>
@@ -70,6 +172,8 @@ $result = $conn->query($sql);
 <main>
     <h2>Manage Lost & Found Pets</h2>
 
+    <!-- Pending Pets Table -->
+    <h3>Pending Approval</h3>
     <div class="table-container">
         <table>
             <thead>
@@ -78,45 +182,75 @@ $result = $conn->query($sql);
                     <th>Pet Type</th>
                     <th>Description</th>
                     <th>Location</th>
-                    <th>User</th> <!-- Add this column for displaying the user's name -->
+                    <th>User</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php while ($row = $result->fetch_assoc()): ?>
+                <?php foreach ($pending_pets as $row): ?>
                     <tr>
                         <td><?= htmlspecialchars($row['pet_name']) ?></td>
                         <td><?= htmlspecialchars($row['pet_type']) ?></td>
                         <td><?= htmlspecialchars($row['description']) ?></td>
                         <td><?= htmlspecialchars($row['location']) ?></td>
-                        <td><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) ?></td> <!-- Display user's full name -->
+                        <td><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) ?></td>
+                        <td><span class="status pending">Pending Approval</span></td>
                         <td>
-                            <?php 
-                            if ($row['approved'] == 0) {
-                                echo "<span class='status pending'>Pending Approval</span>";
-                            } elseif ($row['approved'] == 1) {
-                                echo "<span class='status approved'>Approved</span>";
-                            } else {
-                                echo "<span class='status rejected'>Rejected</span>";
-                            }
-                            ?>
-                        </td>
-                        <td>
-                            <?php if ($row['approved'] == 0): ?>
-                                <a href="?approve=true&pet_id=<?= $row['id'] ?>" class="btn approve">Approve</a>
-                                <a href="?reject=true&pet_id=<?= $row['id'] ?>" class="btn reject">Reject</a>
-                            <?php elseif ($row['approved'] == 1): ?>
-                                <span class="btn disabled">Already Approved</span>
-                            <?php else: ?>
-                                <span class="btn disabled">Already Rejected</span>
-                            <?php endif; ?>
+                            <a href="?approve=true&pet_id=<?= $row['id'] ?>" class="btn approve">Approve</a>
+                            <a href="?reject=true&pet_id=<?= $row['id'] ?>" class="btn reject">Reject</a>
+                            <a href="edit_ad.php?pet_id=<?= $row['id'] ?>" class="btn edit">Edit</a>
+                            <form method="POST" action="delete_ad.php">
+                            <input type="hidden" name="pet_id" value="<?= htmlspecialchars($row['id']) ?>">
+                            <button type="submit" class="btn delete" onclick="return confirm('Are you sure you want to delete this pet?');">Delete</button>
+                            </form>
+
                         </td>
                     </tr>
-                <?php endwhile; ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
+
+    <!-- Approved Pets Table -->
+    <h3>Approved Pets</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Pet Name</th>
+                    <th>Pet Type</th>
+                    <th>Description</th>
+                    <th>Location</th>
+                    <th>User</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($approved_pets as $row): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($row['pet_name']) ?></td>
+                        <td><?= htmlspecialchars($row['pet_type']) ?></td>
+                        <td><?= htmlspecialchars($row['description']) ?></td>
+                        <td><?= htmlspecialchars($row['location']) ?></td>
+                        <td><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) ?></td>
+                        <td><span class="status approved">Approved</span></td>
+                        <td>
+                            <a href="edit_ad.php?id=<?= $row['id'] ?>" class="btn edit">Edit</a>
+                        <form method="POST" action="delete_ad.php">
+                            <!-- Replace $row['id'] with the actual variable holding the ID -->
+                            <input type="hidden" name="pet_id" value="<?= htmlspecialchars($row['id']) ?>">
+                            <button type="submit" class="btn delete" onclick="return confirm('Are you sure you want to delete this pet?');">Delete</button>
+                        </form>
+
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
 </main>
 
 </body>

@@ -1,5 +1,14 @@
 <?php
 include './db.php';
+session_start();
+
+
+// Fetch user-specific posts
+$sqlUserPosts = "SELECT id, pet_name, pet_type, description, location, status, date, image FROM lost_and_found_pets WHERE id = ? AND approved = 1 ORDER BY date DESC";
+$stmtUserPosts = $conn->prepare($sqlUserPosts);
+$stmtUserPosts->bind_param("i", $userId);
+$stmtUserPosts->execute();
+$resultUserPosts = $stmtUserPosts->get_result();
 
 
 // Handle search and category filter
@@ -19,7 +28,7 @@ if ($categoryFilter !== 'all') {
     $sql .= " AND status = ?";
 }
 
-$sql .= " ORDER BY date DESC LIMIT 10";
+$sql .= " ORDER BY date DESC";
 
 $stmt = $conn->prepare($sql);
 $searchParam = "%" . $searchQuery . "%";
@@ -37,9 +46,9 @@ $result = $stmt->get_result();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lost & Found Pets - Petiverse</title>
+    <title>Lost And Found</title>
     <link rel="stylesheet" href="assets/css/styles.css"> <!-- General styles -->
     <link rel="stylesheet" href="./assets/css/lost_found.css"> <!-- Link to new CSS file -->
     <style>
@@ -80,7 +89,8 @@ $result = $stmt->get_result();
             border-radius: 5px;
             padding: 5px 10px;
         }
-    </style>
+
+</style>
 </head>
 <body>
 <?php include './Cus-NavBar/navBar.php'; ?> <!-- Corrected path to include navigation bar -->
@@ -90,6 +100,8 @@ $result = $stmt->get_result();
 
     <!-- Submit Pet Button -->
     <a href="submit_pet.php" class="submit-btn">Report a pet</a>
+    <a href="Lost_found_myposts.php" class="my-posts-btn">My Posts</a>
+        
 
     <form method="POST" class="search-form">
         <input type="text" name="search" placeholder="Search for pets..." value="<?php echo htmlspecialchars($searchQuery); ?>">

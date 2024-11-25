@@ -1,0 +1,287 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+/* Header Section */
+header {
+    padding: 1rem;
+    background-color: #c69400;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #000000;
+    color: #c88200;
+}
+
+header h1 {
+    color: black;
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.post-ad-btn {
+    padding: 0.5rem 1rem;
+    background-color: #7e2800;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.post-ad-btn:hover {
+    background-color: #762000;
+}
+
+/* Filter Bar */
+.filter-bar {
+    padding: 1rem;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+}
+
+.filter-bar form {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-bar input[type="text"],
+.filter-bar select {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 200px;
+}
+
+.filter-bar button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-bar button:hover {
+    background-color: #218838;
+}
+
+/* Ad Listing Grid */
+.ad-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #fafafa;
+}
+
+/* Pet Card */
+.ad-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.ad-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ad-card img {
+    max-width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.ad-card:hover img {
+    transform: scale(1.05);
+}
+
+.ad-card h3 {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.ad-card p {
+    margin: 0.3rem 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Popup Modal */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup.active {
+    display: flex;
+}
+
+.popup-content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 800px;
+    text-align: center;
+    position: relative;
+    animation: popup-show 0.3s ease;
+}
+
+/* Animation for popup content */
+@keyframes popup-show {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Image Slider Container */
+.popup-slider {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 400px; /* Set a fixed height for the container */
+}
+
+.popup-slider-images {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.popup-slider-images img {
+    max-width: 100%;
+    max-height: 100%; /* Ensure the images do not exceed the container height */
+    object-fit: contain; /* Maintain the aspect ratio of the image */
+    margin: 0 5px;
+}
+
+.popup-content h3 {
+    margin: 0.5rem 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.popup-content p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Navigation Buttons for Image Slider */
+.popup-content .prev-btn,
+.popup-content .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 2rem;
+    padding: 0.5rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+}
+
+.popup-content .prev-btn:hover,
+.popup-content .next-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.popup-content .prev-btn {
+    left: 10px;
+}
+
+.popup-content .next-btn {
+    right: 10px;
+}
+
+/* Button Styling Inside Popup */
+.popup-content .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.popup-content .close-btn:hover {
+    color: #e74c3c;
+}
+
+/* Button Styling Inside Popup */
+.popup-content .action-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    margin: 0.5rem;
+}
+
+.popup-content .approve-btn {
+    background-color: #28a745;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.popup-content .approve-btn:hover {
+    background-color: #218838;
+}
+
+.popup-content .reject-btn {
+    background-color: #dc3545;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.popup-content .reject-btn:hover {
+    background-color: #c82333;
+}
+
+.slider-image {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    margin: auto;
+}

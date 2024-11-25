@@ -265,7 +265,7 @@ nav a:hover {
             <li><a href="community.php">Community</a></li>
             <li><a href="blog.php">Blog</a></li>
             <li><a href="./pets.php">Lost & Found Pets</a></li>
-            <li><a href="#" >Pet Selling</a></li>
+            <li><a href="./pet_selling.php" >Pet Selling</a></li>
             <li><a href="about.php">About Us</a></li>
         </ul>
     </nav>
