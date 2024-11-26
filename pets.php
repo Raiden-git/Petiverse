@@ -11,7 +11,6 @@ $stmtUserPosts->execute();
 $resultUserPosts = $stmtUserPosts->get_result();
 
 
-
 // Handle search and category filter
 $searchQuery = '';
 $categoryFilter = 'lost'; // Default to show all pets
@@ -53,7 +52,11 @@ $result = $stmt->get_result();
     <title>Lost And Found</title>
     <link rel="stylesheet" href="assets/css/styles.css"> <!-- General styles -->
     <link rel="stylesheet" href="./assets/css/lost_found.css"> <!-- Link to new CSS file -->
+
+
+
     <link rel="stylesheet" href="./assets/css/scrollbar.css">
+
     <title>Lost & Found Pets - Petiverse</title>
     <!-- <link rel="stylesheet" href="assets/css/styles.css"> 
     <link rel="stylesheet" href="./assets/css/lost_found.css">  -->
