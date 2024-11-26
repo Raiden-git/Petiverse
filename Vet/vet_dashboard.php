@@ -3,11 +3,11 @@ session_start();
 
 // Check if vet is logged in
 if (!isset($_SESSION['vet_id'])) {
-    header("Location: vet_login.php"); // Redirect to login if not logged in
+    header("Location: index.php");
     exit();
 }
 
-include '../db.php'; // Include the database connection file
+include '../db.php';
 
 // Fetch vet details
 $vet_id = $_SESSION['vet_id'];
@@ -18,7 +18,28 @@ mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $vet = mysqli_fetch_assoc($result);
 
-// Close database connection
+// Fetch today's appointments
+$today = date('Y-m-d');
+$sql_appointments = "SELECT COUNT(*) as today_appointments FROM appointments WHERE vet_id = ? AND appointment_date = ?";
+$stmt_appointments = mysqli_prepare($conn, $sql_appointments);
+mysqli_stmt_bind_param($stmt_appointments, "is", $vet_id, $today);
+mysqli_stmt_execute($stmt_appointments);
+$result_appointments = mysqli_stmt_get_result($stmt_appointments);
+$appointments_count = mysqli_fetch_assoc($result_appointments)['today_appointments'];
+
+// Fetch pending messages - UPDATED QUERY
+$sql_messages = "SELECT COUNT(*) as unread_messages 
+                FROM messages 
+                WHERE receiver_id = ? 
+                AND receiver_type = 'vet'
+                AND read_status = 0 
+                AND deleted_by_receiver = 0";
+$stmt_messages = mysqli_prepare($conn, $sql_messages);
+mysqli_stmt_bind_param($stmt_messages, "i", $vet_id);
+mysqli_stmt_execute($stmt_messages);
+$result_messages = mysqli_stmt_get_result($stmt_messages);
+$unread_messages = mysqli_fetch_assoc($result_messages)['unread_messages'];
+
 mysqli_close($conn);
 ?>
 
@@ -28,84 +49,102 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vet Dashboard - Petiverse</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            margin: 0;
-            padding: 0;
-        }
         .dashboard-container {
-            max-width: 800px;
-            margin: 50px auto;
+            max-width: 1200px;
+            margin: 30px auto;
             padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        .vet-info {
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
             margin-bottom: 30px;
         }
-        .vet-info p {
-            font-size: 18px;
-            margin: 5px 0;
-        }
-        .actions {
-            display: flex;
-            justify-content: space-around;
-        }
-        .actions a {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .actions a:hover {
-            background-color: #218838;
-        }
-        .logout {
+        .stat-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
-            margin-top: 30px;
         }
-        .logout a {
-            color: #dc3545;
+        .stat-card h3 {
+            margin: 0;
+            color: #2c3e50;
+        }
+        .stat-card .number {
+            font-size: 36px;
+            color: #3498db;
+            margin: 10px 0;
+        }
+        .profile-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .action-card {
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
             text-decoration: none;
-            font-size: 18px;
+            transition: transform 0.3s, background-color 0.3s;
         }
-        .logout a:hover {
-            color: #c82333;
+        .action-card:hover {
+            transform: translateY(-5px);
+            background-color: #2980b9;
         }
     </style>
 </head>
 <body>
+    <?php include 'nav.php'; ?>
 
     <div class="dashboard-container">
-        <h2>Welcome, Dr. <?php echo $vet['name']; ?></h2>
-        
-        <div class="vet-info">
-            <p><strong>Clinic Name:</strong> <?php echo $vet['clinic_name']; ?></p>
-            <p><strong>Specialization:</strong> <?php echo $vet['specialization']; ?></p>
-            <p><strong>Experience:</strong> <?php echo $vet['experience']; ?> years</p>
-            <p><strong>Consultation Fee:</strong> $<?php echo $vet['consultation_fee']; ?></p>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Today's Appointments</h3>
+                <div class="number"><?php echo $appointments_count; ?></div>
+            </div>
+            <div class="stat-card">
+                <h3>Unread Messages</h3>
+                <div class="number"><?php echo $unread_messages; ?></div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Patients</h3>
+                <div class="number"><!--Add PHP logic for total patients--></div>
+            </div>
         </div>
 
-        <div class="actions">
-            <a href="manage_appointments.php">Manage Appointments</a>
-            <a href="edit_profile.php">Update Profile</a>
-            <a href="vet_chat.php">Chat with Clients</a>
+        <div class="profile-section">
+            <h2>Welcome, Dr. <?php echo htmlspecialchars($vet['name']); ?></h2>
+            <p><strong>Clinic:</strong> <?php echo htmlspecialchars($vet['clinic_name']); ?></p>
+            <p><strong>Specialization:</strong> <?php echo htmlspecialchars($vet['specialization']); ?></p>
+            <p><strong>Experience:</strong> <?php echo htmlspecialchars($vet['experience']); ?> years</p>
+            <p><strong>Consultation Fee:</strong> $<?php echo htmlspecialchars($vet['consultation_fee']); ?></p>
         </div>
 
-        <div class="logout">
-            <a href="vet_logout.php">Logout</a>
+        <div class="quick-actions">
+            <a href="manage_appointments.php" class="action-card">
+                <h3>Manage Appointments</h3>
+            </a>
+            <a href="vet_chat.php" class="action-card">
+                <h3>Chat with Clients</h3>
+            </a>
+            <a href="medical_records.php" class="action-card">
+                <h3>Medical Records</h3>
+            </a>
+            <a href="edit_profile.php" class="action-card">
+                <h3>Update Profile</h3>
+            </a>
         </div>
     </div>
-
 </body>
 </html>

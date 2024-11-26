@@ -133,6 +133,7 @@ if ($result_online_payment->num_rows > 0) {
         
 =======
 >>>>>>> 8e174373cfe696749201fd38eb04ef54c15e6dfb
+        <li><a href="view_feedback.php">Feedbacks</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
 </nav>

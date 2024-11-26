@@ -157,13 +157,20 @@ $active_tab = $_GET['tab'] ?? 'profile';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            --gradient-secondary: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
-            --text-dark: #2c3e50;
-            --background-light: #f7f9fc;
-            --white: #ffffff;
-            --shadow-soft: 0 15px 35px rgba(0,0,0,0.08);
-            --shadow-medium: 0 15px 45px rgba(0,0,0,0.12);
+            --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+            --secondary-gradient: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            --accent-gradient: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            --surface-color: #ffffff;
+            --background-color: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --rounded-sm: 0.5rem;
+            --rounded-md: 1rem;
+            --rounded-lg: 1.5rem;
         }
 
         * {
@@ -173,374 +180,445 @@ $active_tab = $_GET['tab'] ?? 'profile';
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background-light);
-            color: var(--text-dark);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
             line-height: 1.6;
         }
 
         .pro-container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
         }
 
         .profile-card {
-            /* background: var(--white); */
-            border-radius: 20px;
-            box-shadow: var(--shadow-soft);
+            background: var(--surface-color);
+            border-radius: var(--rounded-lg);
+            box-shadow: var(--shadow-lg);
             overflow: hidden;
-            transition: all 0.3s ease;
-            margin: 2rem;
-            padding: 1rem;
+            margin-bottom: 2rem;
         }
 
         .profile-header {
             display: flex;
             align-items: center;
-            padding: 2.5rem;
-            background: var(--gradient-primary);
-            color: var(--white);
+            padding: 3rem;
+            background: var(--primary-gradient);
+            color: var(--surface-color);
             position: relative;
-            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/api/placeholder/1200/400') center/cover;
+            opacity: 0.1;
+            pointer-events: none;
         }
 
         .profile-avatar {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
-            border: 6px solid var(--white);
-            box-shadow: var(--shadow-medium);
-            margin-right: 2.5rem;
-            transition: transform 0.4s ease;
+            border: 4px solid var(--surface-color);
+            box-shadow: var(--shadow-lg);
+            margin-right: 3rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
         }
 
         .profile-avatar:hover {
-            transform: scale(1.05) rotate(3deg);
+            transform: scale(1.05) rotate(2deg);
         }
 
         .profile-details {
             flex-grow: 1;
+            position: relative;
+            z-index: 1;
         }
 
         .profile-name {
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
         }
 
         .profile-specialization {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             opacity: 0.9;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
         }
 
         .profile-stats {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
             background: rgba(255,255,255,0.1);
-            padding: 1rem;
-            border-radius: 10px;
+            padding: 1.5rem;
+            border-radius: var(--rounded-md);
+            backdrop-filter: blur(10px);
         }
 
         .stat-item {
             text-align: center;
+            padding: 1rem;
+            border-radius: var(--rounded-sm);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-2px);
         }
 
         .stat-value {
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
         }
 
         .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.7;
+            font-size: 0.875rem;
+            opacity: 0.8;
+            font-weight: 500;
         }
 
         .section {
-            padding: 2rem;
-            background: var(--white);
+            padding: 2.5rem;
+            background: var(--surface-color);
             margin-top: 1.5rem;
-            border-radius: 15px;
-            box-shadow: var(--shadow-soft);
+            border-radius: var(--rounded-md);
+            box-shadow: var(--shadow-md);
         }
 
         .section-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #2575fc;
+            color: var(--text-primary);
             margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-            border-bottom: 3px solid var(--gradient-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        .btn-appointment {
-            display: inline-block;
-            background: var(--gradient-secondary);
-            color: var(--white);
+        .section-title i {
+            color: #4f46e5;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            background: var(--surface-color);
+            padding: 0.5rem;
+            border-radius: var(--rounded-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            gap: 0.5rem;
+        }
+
+        .tab-buttons button {
             padding: 1rem 2rem;
-            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            border-radius: var(--rounded-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-buttons button.active {
+            background: var(--secondary-gradient);
+            color: white;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .day-schedule {
+            background: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: var(--rounded-md);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+        }
+
+        .day-schedule:hover {
+            transform: translateY(-2px);
+        }
+
+        .day-schedule h3 {
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .date {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1.25rem;
+            font-weight: 500;
+        }
+
+        .time-slot {
+            padding: 0.75rem 1rem;
+            background: #f1f5f9;
+            border-radius: var(--rounded-sm);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .time-slot:not(.booked):hover {
+            background: #e2e8f0;
+            transform: translateX(4px);
+        }
+
+        .time-slot.booked {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .booking-form {
+            background: var(--surface-color);
+            padding: 2.5rem;
+            border-radius: var(--rounded-lg);
+            box-shadow: var(--shadow-lg);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--rounded-sm);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .booking-form input[type="submit"] {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--rounded-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .booking-form input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .premium-feature {
+            background: var(--surface-color);
+            padding: 2.5rem;
+            border-radius: var(--rounded-lg);
+            text-align: center;
+            border: 2px dashed #e2e8f0;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .premium-feature h2 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .premium-feature p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .premium-feature a {
+            color: #4f46e5;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
+            transition: color 0.3s ease;
         }
 
-        .btn-appointment:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(255,107,107,0.3);
+        .premium-feature a:hover {
+            color: #4338ca;
         }
 
+        .chat-section {
+        background: linear-gradient(135deg, #ffffff, #f8fafc);
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+        max-width: 500px;
+        margin: 30px auto;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05),
+                    0 1px 8px rgba(0, 0, 0, 0.03);
+        border: 1px solid rgba(231, 235, 241, 0.8);
+        position: relative;
+        overflow: hidden;
+    }
 
-        .schedule-section {
-    padding: 2rem;
-    background: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+    .chat-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    }
 
-.schedule-section h2 {
-    color: #2c3e50;
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-}
+    .chat-section h2 {
+        color: #1e293b;
+        font-size: 1.75rem;
+        font-weight: 600;
+        margin-bottom: 25px;
+        line-height: 1.3;
+    }
 
-.schedule-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-}
+    .chat-section p {
+        color: #64748b;
+        font-size: 1rem;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
 
-.day-schedule {
-    background: white;
-    padding: 1.25rem;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
+    .chat-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #3b82f6;
+        color: white;
+        padding: 14px 32px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
 
-.day-schedule h3 {
-    color: #34495e;
-    margin: 0 0 0.5rem 0;
-    font-size: 1.2rem;
-}
+    .chat-button:hover {
+        transform: translateY(-2px);
+        background: #2563eb;
+        box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+    }
 
-.date {
-    color: #7f8c8d;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-}
+    .chat-button:active {
+        transform: translateY(0);
+    }
 
-.slots {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
+    .chat-button i {
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+    }
 
-.time-slot {
-    padding: 0.75rem;
-    background: #e8f5e9;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
+    .chat-button:hover i {
+        transform: translateX(4px);
+    }
 
-.time-slot:hover {
-    background: #c8e6c9;
-}
+    .chat-icon-bg {
+        position: absolute;
+        right: -20px;
+        bottom: -20px;
+        width: 120px;
+        height: 120px;
+        opacity: 0.05;
+        transform: rotate(-10deg);
+        pointer-events: none;
+    }
 
-.time-slot.booked {
-    background: #ffebee;
-    cursor: not-allowed;
-}
+    /* Optional animation */
+    @keyframes float {
+        0% { transform: translateY(0px) rotate(-10deg); }
+        50% { transform: translateY(-10px) rotate(-8deg); }
+        100% { transform: translateY(0px) rotate(-10deg); }
+    }
 
-.booked-text {
-    color: #e57373;
-    font-size: 0.8rem;
-    font-weight: 500;
-}
+    .chat-icon-bg {
+        animation: float 6s ease-in-out infinite;
+    }
 
-/* Booking Form Styles */
-.booking-form {
-    max-width: 500px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+    @media (max-width: 640px) {
+        .chat-section {
+            padding: 30px 20px;
+            margin: 20px;
+        }
 
-.booking-form h2 {
-    color: #2c3e50;
-    margin-bottom: 1.5rem;
-}
+        .chat-section h2 {
+            font-size: 1.5rem;
+        }
 
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #34495e;
-    font-weight: 500;
-}
-
-select, input[type="date"] {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #dfe6e9;
-    border-radius: 4px;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    background: white;
-}
-
-select:focus, input[type="date"]:focus {
-    outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
-}
-
-input[type="submit"] {
-    width: 100%;
-    padding: 0.75rem;
-    background: #2ecc71;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-input[type="submit"]:hover {
-    background: #27ae60;
-}
-
-/* Premium Feature Box */
-.premium-feature {
-    max-width: 500px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #f8f9fa;
-    border-radius: 8px;
-    text-align: center;
-    border: 2px dashed #bdc3c7;
-}
-
-.premium-feature h2 {
-    color: #2c3e50;
-    margin-bottom: 1rem;
-}
-
-.premium-feature p {
-    color: #7f8c8d;
-    margin-bottom: 1rem;
-}
-
-.premium-feature a {
-    color: #3498db;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.premium-feature a:hover {
-    text-decoration: underline;
-}
-
-
-.tab-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    position: relative;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    overflow: hidden;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.tab-buttons button {
-    position: relative;
-    padding: 0.75rem 2rem;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #64748b;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 120px;
-    border-right: 2px solid #e2e8f0;
-}
-
-.tab-buttons button:last-child {
-    border-right: none;
-}
-
-.tab-buttons button.active {
-    color: #fff;
-    background: #3b82f6;
-    border-right: none;
-}
-
-.tab-buttons button:first-child.active {
-    border-radius: 10px 0 0 10px;
-}
-
-.tab-buttons button:last-child.active {
-    border-radius: 0 10px 10px 0;
-}
-
-.tab-buttons button:hover {
-    color: #3b82f6;
-}
-
-.tab-buttons button.active:hover {
-    color: #fff;
-}
-
+        .chat-button {
+            padding: 12px 24px;
+            font-size: 1rem;
+        }
+    }
 
         @media (max-width: 768px) {
             .profile-header {
                 flex-direction: column;
                 text-align: center;
+                padding: 2rem 1.5rem;
             }
 
             .profile-avatar {
-                margin-right: 0;
-                margin-bottom: 1.5rem;
+                margin: 0 0 1.5rem 0;
+                width: 150px;
+                height: 150px;
             }
-        }
 
-        /* For smaller screens */
-        @media (max-width: 480px) {
+            .profile-stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
             .tab-buttons {
-                padding: 1rem;
+                flex-direction: column;
             }
 
             .tab-buttons button {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-                min-width: 100px;
+                width: 100%;
             }
         }
-
-        .tab-buttons { margin-bottom: 20px; }
-        .tab-buttons button { padding: 10px 20px; margin-right: 10px; }
-        .tab-buttons button.active { background-color: #2575fc; color: white; }
-        .time-slot { padding: 5px 10px; margin: 5px; display: inline-block; }
-        .time-slot.booked { background-color: #ffebee; color: #c62828; }
-        .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    </style>
     </style>
 </head>
 <body>
@@ -599,6 +677,28 @@ input[type="submit"]:hover {
                 to <?php echo htmlspecialchars($vet['clinic_name']); ?>. Specializing in <?php echo htmlspecialchars($vet['specialization']); ?>, 
                 I'm committed to providing compassionate and comprehensive care for your beloved pets.</p>
             </div>
+
+            <?php if ($is_premium): // Only allow chat if the user is premium ?>
+                <div class="chat-section">
+    <!-- Background decorative icon -->
+    <svg class="chat-icon-bg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10s10-4.48 10-10c0-5.52-4.48-10-10-10zM8 14l3-3v7h2v-7l3 3h2l-5-5-5 5h2z"/>
+    </svg>
+
+    <h2>Want to chat with Dr. <?php echo htmlspecialchars($vet['name']); ?>?</h2>
+    <p>Start a conversation with our experienced veterinarian for professional advice and pet care guidance.</p>
+    
+    <a href="user_chat.php?vet_id=<?php echo $vet_id; ?>" class="chat-button">
+        Start Chat
+        <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+<?php else: ?>
+    <div class="premium-feature">
+        <h2>Premium Feature</h2>
+        <p>Chatting with veterinarians is available for premium members only. <a href="subscription.php">Upgrade to premium</a> to access this feature and more!</p>
+    </div>
+<?php endif; ?>
 
                 
             </div>
@@ -668,7 +768,7 @@ input[type="submit"]:hover {
 <?php else: ?>
     <div class="premium-feature">
         <h2>Premium Feature</h2>
-        <p>Booking an appointment is available for premium members only. <a href="upgrade.php">Upgrade to premium</a> to access this feature and more!</p>
+        <p>Booking an appointment is available for premium members only. <a href="subscription.php">Upgrade to premium</a> to access this feature and more!</p>
     </div>
 <?php endif; ?>
         <?php endif; ?>

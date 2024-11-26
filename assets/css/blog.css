@@ -1,4 +1,14 @@
 
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #ac6440;
+  --secondary-color: #f8fafc;
+  --accent-color: #0f172a;
+  --text-color: #334155;
+  --border-radius: 16px;
+  --box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 
 body {

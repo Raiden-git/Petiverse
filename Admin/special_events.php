@@ -112,7 +112,15 @@ if (isset($_GET['delete_id'])) {
     <ul>
         <li><a href="dashboard.php">Home</a></li>
         <li><a href="special_events.php">Special Events</a></li>
+<<<<<<< HEAD
         <li><a href="logout.php" onclick="return confirm('Are you sure you want to logout?');">Logout</a></li>
+=======
+        <li><a href="vet_management.php">Vet Management</a></li>
+        <li><a href="moderator_management.php">Moderator Management</a></li>
+        <li><a href="petselling.php">Pet selling</a><li>
+        <li><a href="view_feedback.php">Feedbacks</a></li>
+        <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
+>>>>>>> dfb82787b21fd50a499d280962b1f4ab69594aa7
     </ul>
 </nav>
 
