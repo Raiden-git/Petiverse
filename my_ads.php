@@ -27,6 +27,7 @@ $result = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Ads</title>
     <link rel="stylesheet" href="assets/css/pet_selling.css">
+    <link rel="stylesheet" href="./assets/css/scrollbar.css">
     <style>
         .my-ads {
             display: flex;

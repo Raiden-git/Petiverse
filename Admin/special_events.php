@@ -90,6 +90,7 @@ if (isset($_GET['delete_id'])) {
     <title>Special Event Management</title>
     <link rel="stylesheet" href="admin_sidebar.css">
     <style>
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -123,7 +124,29 @@ if (isset($_GET['delete_id'])) {
         .actions a {
             margin-right: 10px;
         }
-    </style>
+
+
+
+main {
+    padding: 2em;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+table, th, td {
+    border: 1px solid #dee2e6;
+}
+
+th, td {
+    padding: 0.75em;
+    text-align: left;
+}
+</style>
+  
 </head>
 <body>
 <header>

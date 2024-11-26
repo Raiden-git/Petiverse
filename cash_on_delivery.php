@@ -50,6 +50,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/cash_on_delivery.css">
+    <link rel="stylesheet" href="./assets/css/scrollbar.css">
 </head>
 <body>
 

@@ -62,6 +62,7 @@ if ($result) {
     <script src="logout_js.js"></script>
 
     <style>
+
    /* General Reset */
 * {
     margin: 0;
@@ -69,6 +70,7 @@ if ($result) {
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
+
 
 /* Body Styling */
 body {

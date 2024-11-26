@@ -1,8 +1,4 @@
 
-<?php
-// Retrieve the order_id
-$order_id = isset($_GET['order_id']) ? htmlspecialchars($_GET['order_id']) : 'N/A';
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +8,7 @@ $order_id = isset($_GET['order_id']) ? htmlspecialchars($_GET['order_id']) : 'N/
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
     <style>
-    
+      
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
@@ -63,14 +59,14 @@ $order_id = isset($_GET['order_id']) ? htmlspecialchars($_GET['order_id']) : 'N/
             }
         }
     </style>
-    
+    </style>
 </head>
 <body>
     <div class="popup" id="successPopup">
    
-<dotlottie-player src="https://lottie.host/c1dc8b47-bacc-4049-bf84-c1e7789e530d/Cip6dBWjcQ.lottie" background="transparent" speed="2" style="width: 350px; height: 300px" loop autoplay></dotlottie-player>
-        <h2>Payment Successful!</h2>
-        <p>Thank you for your purchase. Your order ID is <strong><?= $order_id ?></strong></p>
+    <i class="fas fa-check-circle"></i>
+        <h2>Your order has been successfully placed! </h2>
+        <p>Thank you for your purchase. </p>
         <p>You will be redirected to the homepage shortly.</p>
     </div>
     <script>

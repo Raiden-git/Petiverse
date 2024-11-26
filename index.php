@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start the session to check login status
+session_start(); 
 ?>
 
 <!DOCTYPE html>
@@ -330,7 +330,7 @@ function closeAllNotifications() {
             <img src="src/img/Health-track.jpg" alt="Health Tracker">
             <h3>Health Tracker</h3>
             <p>Monitor your pet's health with our BMI tracker.</p>
-            <a href="#" class="button">Track Health</a>
+            <a href="./health_tracker.php" class="button">Track Health</a>
         </div>
     </section>
 
@@ -466,7 +466,6 @@ $conn->close();
 <style>
 /* General Section Styles */
 section {
-    margin: 20px 0;
     padding: 20px;
     border-radius: 8px;
 }
@@ -474,18 +473,18 @@ section {
 
 /* Lost & Found Section */
 .lost-found {
-    background: #f4f4f4; /* Light background for lost and found */
+    background: #f4f4f4; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .lost-found h2 {
-    font-size: 28px; /* Increase font size for better visibility */
-    margin-bottom: 20px; /* Adjust space below the heading */
-    text-align: center; /* Center the text */
-    font-family: 'Inter', sans-serif; /* Set the font to "Inter" */
-    font-weight: 600; /* Set a medium font weight for emphasis */
-    letter-spacing: 1px; /* Slight letter spacing for a modern look */
-    color: #333; /* Dark color for better contrast */
+    font-size: 28px; 
+    margin-bottom: 20px; 
+    text-align: center; 
+    font-family: 'Inter', sans-serif; 
+    font-weight: 600; 
+    letter-spacing: 1px; 
+    color: #333; 
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
@@ -493,7 +492,7 @@ section {
 
 .lost-found-cards {
     display: flex;
-    overflow: hidden; /* Hide scrollbar */
+    overflow: hidden; 
     gap: 20px;
     scroll-snap-type: x mandatory;
     position: relative;
@@ -511,7 +510,7 @@ section {
 
 .lost-found-card {
     flex-shrink: 0;
-    width: 250px; /* Adjust the width of each card */
+    width: 250px;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -525,7 +524,7 @@ section {
 
 .lost-found-card img {
     width: 100%;
-    height: 150px; /* Adjust the height for image */
+    height: 150px; 
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 10px;
@@ -538,7 +537,7 @@ section {
 
 /* Auto-scrolling behavior */
 .lost-found-cards {
-    animation: scroll-cards 30s linear infinite; /* Slow animation */
+    animation: scroll-cards 30s linear infinite;
 }
 
 @keyframes scroll-cards {
@@ -546,7 +545,7 @@ section {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-100%); /* Move all the way to the left */
+        transform: translateX(-100%); 
     }
 }
 
@@ -555,16 +554,16 @@ section {
     display: flex;
     flex-wrap: nowrap;
     animation: scroll-cards 30s linear infinite;
-    width: calc(100% + 20px); /* Ensures no cropping for the last card */
+    width: calc(100% + 20px); 
 }
 
 .lost-found-card {
-    margin-right: 20px; /* Gap between cards */
+    margin-right: 20px; 
     flex-shrink: 0;
 }
 
 .lost-found-card:last-child {
-    margin-right: 0; /* No gap on the last card */
+    margin-right: 0; 
 }
 
 /* Remove scrollbar */
@@ -694,7 +693,7 @@ section {
         // Function to close all notifications
         function closeAllNotifications() {
             const container = document.getElementById("notifications-container");
-            container.innerHTML = ""; // Clear all notifications
+            container.innerHTML = ""; 
             document.getElementById("close-all-btn").style.display = "none"; 
         }
 
