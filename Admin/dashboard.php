@@ -3,7 +3,7 @@
 include('../db.php');
 include('session_check.php');
 
-// Fetch the number of new COD orders from the database
+/* // Fetch the number of new COD orders from the database
 $sql = "SELECT COUNT(*) AS new_orders_count FROM COD_orders WHERE order_status = 'pending'";
 $result = $conn->query($sql);
 $new_orders_count = 0;
@@ -11,7 +11,7 @@ $new_orders_count = 0;
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $new_orders_count = $row['new_orders_count'];
-}
+} */
 
 // Fetch the number of new Online Payment orders from the database
 $sql_online_payment = "SELECT COUNT(*) AS new_online_payment_count FROM online_payment_orders WHERE order_status = 'pending'";
