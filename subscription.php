@@ -248,7 +248,7 @@ body {
                 <div class="price-header">
                     <h2>Monthly Premium</h2>
                     <div class="price">
-                        $9.99 <span>/month</span>
+                        LKR 999 <span>/month</span>
                     </div>
                     <p>Perfect for pet owners who want full access</p>
                 </div>
@@ -287,7 +287,7 @@ body {
                 <div class="price-header">
                     <h2>Annual Premium</h2>
                     <div class="price">
-                        $99.99 <span>/year</span>
+                        LKR 10,080 <span>/year</span>
                     </div>
                     <p>Best value for dedicated pet owners</p>
                 </div>

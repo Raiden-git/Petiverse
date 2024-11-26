@@ -12,6 +12,51 @@ session_start();
     <link rel="stylesheet" href="assets/css/scrollbar.css">
     <link rel="stylesheet" href="assets/css/popup.css"> 
     <style>
+  
+
+
+
+.pro-membership-container {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+    max-width: 800px;
+    margin: 50px auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.pro-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.pro-content p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.pro-btn {
+    display: inline-block;
+    background-color: white;
+    color: #6a11cb;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.pro-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+}
 
 .special-events {
     padding: 60px 20px;
@@ -408,7 +453,7 @@ session_start();
             <img src="src/img/day-care.jpeg" alt="Day Care">
             <h3>Day Care</h3>
             <p>Find reliable day care services for your pets.</p>
-            <a href="#" class="button">Find Day Care</a>
+            <a href="daycare.php" class="button">Find Day Care</a>
         </div>
         <div class="feature-card">
             <img src="src/img/Health-track.jpg" alt="Health Tracker">
@@ -418,6 +463,8 @@ session_start();
         </div>
     </section>
 
+
+    
 
 
     <!-- Our Mission Section -->
@@ -456,7 +503,7 @@ session_start();
     <?php
     include('db.php');
 
-    $query = "SELECT * FROM special_events WHERE approved = 1 ORDER BY date DESC LIMIT 4";
+    $query = "SELECT * FROM special_events WHERE approved = 1 ORDER BY date DESC LIMIT 3";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -487,7 +534,13 @@ session_start();
     <a href="special_events.php" class="btn">See All Events</a>
 </section>
 
-
+<div class="pro-membership-container">
+        <div class="pro-content">
+            <h2>Upgrade to Pro Membership</h2>
+            <p>Unlock unlimited pet profiles, advanced tracking, and exclusive features. Take your pet management to the next level with our Pro Membership!</p>
+            <a href="subscription.php" class="pro-btn">Become a Pro Member</a>
+        </div>
+    </div>
 
 
 

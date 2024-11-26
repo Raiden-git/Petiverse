@@ -187,7 +187,7 @@ $result = $conn->query($query);
                         <span><?php echo $vet['clinic_name']; ?></span>
                         
                         <strong>Consultation Fee:</strong> 
-                        <span>$<?php echo $vet['consultation_fee']; ?></span>
+                        <span>LKR <?php echo $vet['consultation_fee']; ?></span>
                     </div>
 
                     <a href="vet_profile.php?id=<?php echo $vet['id']; ?>" class="view-profile-btn">
