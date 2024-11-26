@@ -17,6 +17,87 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Handle the deletion of a pet health record
+if (isset($_GET['delete_id'])) {
+    $delete_id = $_GET['delete_id'];
+
+    // Ensure the record belongs to the logged-in user before deleting
+    $stmt = $conn->prepare("SELECT * FROM health_tracker WHERE id = ? AND user_id = ?");
+    $stmt->bind_param("ii", $delete_id, $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Delete the pet health record
+        $stmt = $conn->prepare("DELETE FROM health_tracker WHERE id = ? AND user_id = ?");
+        $stmt->bind_param("ii", $delete_id, $user_id);
+
+        if ($stmt->execute()) {
+            // Redirect back to the health tracker page after deletion
+            header("Location: health_tracker.php");
+            exit();
+        } else {
+            echo "Error deleting record: " . $conn->error;
+        }
+    } else {
+        echo "Record not found or you do not have permission to delete it.";
+    }
+    $stmt->close();
+}
+
+
+
+
+
+
+
+
+// Handle the deletion of pet health records
+if (isset($_GET['delete_id'])) {
+  $delete_id = $_GET['delete_id'];
+  
+  // Delete the record from the database
+  $stmt = $conn->prepare("DELETE FROM health_tracker WHERE id = ? AND user_id = ?");
+  $stmt->bind_param("ii", $delete_id, $user_id);
+
+  if ($stmt->execute()) {
+      // Record deleted successfully
+      header("Location: health_tracker.php"); // Redirect to avoid form resubmission
+      exit();
+  } else {
+      echo "Error deleting record: " . $conn->error;
+  }
+  $stmt->close();
+}
+// Fetch the pet health records for the user
+$sql = "SELECT * FROM health_tracker WHERE user_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$conn->close();
+?>
+
+<?php
+
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if not logged in
+    header("Location: login.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+// Database connection
+$conn = new mysqli('localhost', 'root', '', 'petiverse');
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 $error_message = '';
 
 // Handle form submission to save pet details
@@ -44,23 +125,71 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+
+// Handle the deletion of pet health records
+if (isset($_GET['delete_id'])) {
+    $delete_id = $_GET['delete_id'];
+    
+    // Delete the record from the database
+    $stmt = $conn->prepare("DELETE FROM health_tracker WHERE id = ? AND user_id = ?");
+    $stmt->bind_param("ii", $delete_id, $user_id);
+
+    if ($stmt->execute()) {
+        // Record deleted successfully
+        header("Location: health_tracker.php"); // Redirect to avoid form resubmission
+        exit();
+    } else {
+        echo "Error deleting record: " . $conn->error;
+    }
+    $stmt->close();
+}
+
+
+// Fetch user-specific pet health data
+$stmt = $conn->prepare("SELECT * FROM health_tracker WHERE user_id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$pets = [];
+
+while ($row = $result->fetch_assoc()) {
+    $pets[] = $row;
+}
+
+$stmt->close();
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/health_tracker.css">
-    <!-- Add Font Awesome for the recycle icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/scrollbar.css">
     <title>Pet Health Tracking</title>
+    <style>/* Styling for the health tracker table */
+
+</style>
 </head>
 <body>
+<?php include 'Cus-NavBar/navBar.php'; ?>
+<h1>Pet BMI Calculator</h1>
+
+<div class="paragraph"> 
+    <div id="catParagraph" class="pet-info">
+        <img src="./assets/img/overweight-cat.jpg" alt="">
+        <H1>Calculate Your Cat's Body Mass Index</H1>
+        <h2>Cats are amazing companions known for their playful and independent nature.<br> Ensure your cat maintains a healthy weight by monitoring their BMI.</h2>
+    </div>
+    <div id="dogParagraph" class="pet-info" style="display: none;">
+    <img src="./assets/img/overweight-cat.jpg" alt="">
+    <H1>Calculate Your Dog's Body Mass Index</H1>
+        <h2>Dogs are loyal and energetic pets. Keeping track of their BMI helps ensure <br>they stay active and healthy throughout their life.</h2>
+    </div>
+</div>
 
 <div class="container">
-    <h1>Pet BMI Calculator</h1>
-    
     <?php if (!empty($error_message)): ?>
         <div class="error-message">
             <?php echo $error_message; ?>
@@ -72,7 +201,7 @@ $conn->close();
         <button id="dogTab" onclick="switchTab('Dog')">DOG</button>
     </div>
 
-    <form id="bmiForm" method="POST" action="save_track_details.php">
+    <form id="bmiForm" method="POST" action="health_tracker.php">
         <label for="petName">Your pet's name*</label>
         <input type="text" id="petName" name="petName" placeholder="Enter your pet's name" required>
 
@@ -104,7 +233,7 @@ $conn->close();
         <button type="button" class="calculate-btn" onclick="calculateBMI(event)">Calculate BMI</button>
 
         <!-- Button to submit and save details (and BMI) -->
-        <button type="submit" class="submit-btn">Add Crack Table</button>
+        <button id="addtrack" type="submit" class="submit-btn">Add Track</button>
     </form>
 
     <!-- Display BMI after calculation -->
@@ -119,18 +248,74 @@ $conn->close();
         <p>BMI Value: <span id="bmiValue"></span></p>
     </div>
 
-    <!-- Recycle Icon to reset and show the result again -->
-    <button id="resetBtn" onclick="resetBMIResult()" style="margin-top: 20px; background: none; border: none;">
-        <i class="fas fa-sync-alt" style="font-size: 30px; color: #333;"></i>
-    </button>
-
 </div>
+
+
+<!-- Display user's pet health tracker details in a table -->
+<div class="petrecord">    
+    <h2>Your Pet Health Records</h2>
+    <p>Keep track of your pet's health records easily with our Pet Health Tracker! Below, you'll find a comprehensive table displaying the health details of all your registered pets. From their weight and height to their BMI, this information helps you monitor their well-being effectively. Use the delete option to remove outdated or incorrect records. Scroll down to add new pets and ensure you maintain an updated health record for each furry friend. A healthy pet is a happy pet!</p>
+</div>
+
+    <table class="health-table">
+        <thead>
+            <tr>
+                <th>Pet Name</th>
+                <th>Birthday</th>
+                <th>Gender</th>
+                <th>Breed</th>
+                <th>Weight (kg)</th>
+                <th>Height (cm)</th>
+                <th>BMI</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (count($pets) > 0): ?>
+                <?php foreach ($pets as $pet): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($pet['pet_name']); ?></td>
+                        <td><?php echo htmlspecialchars($pet['birthday']); ?></td>
+                        <td><?php echo htmlspecialchars($pet['gender']); ?></td>
+                        <td><?php echo htmlspecialchars($pet['breed']); ?></td>
+                        <td><?php echo htmlspecialchars($pet['weight']); ?></td>
+                        <td><?php echo htmlspecialchars($pet['height']); ?></td>
+                        <td><?php echo htmlspecialchars($pet['bmi']); ?></td>
+                        <td>
+                            <a href="health_tracker.php?delete_id=<?php echo $pet['id']; ?>" onclick="return confirm('Are you sure you want to delete this pet record?')">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="8">No records found.</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+    
+    <?php include 'footer.php'; ?>
 
 <script>
     // Data for breeds
     const breeds = {
-        Cat: ["Persian", "Siamese", "Maine Coon", "Bengal"],
-        Dog: ["Labrador Retriever", "German Shepherd", "Bulldog", "Poodle"]
+ Cat: [
+        "Persian", "Siamese", "Maine Coon", "Bengal", "Ragdoll", "British Shorthair",
+        "Abyssinian", "Scottish Fold", "Birman", "Exotic Shorthair", "Russian Blue", 
+        "Oriental Shorthair", "Savannah", "Sphynx", "Devon Rex", "Norwegian Forest Cat", 
+        "Egyptian Mau", "Turkish Angora", "British Longhair", "American Shorthair"
+    ],
+    Dog: [
+        "Labrador Retriever", "German Shepherd", "Bulldog", "Poodle", "Golden Retriever", 
+        "Beagle", "French Bulldog", "Rottweiler", "Yorkshire Terrier", "Dachshund", 
+        "Boxer", "Siberian Husky", "Chihuahua", "Shih Tzu", "Doberman Pinscher", 
+        "Cocker Spaniel", "Australian Shepherd", "Great Dane", "Border Collie", 
+        "Pomeranian", "Pit Bull Terrier", "Chow Chow", "Maltese", "Bichon Frise", 
+        "Akita", "Saint Bernard", "English Springer Spaniel", "Cavalier King Charles Spaniel", 
+        "Schnauzer", "Collie", "Havanese", "Newfoundland", "Weimaraner"
+    ]
     };
 
     let currentTab = "Cat"; // Default tab
@@ -150,7 +335,23 @@ $conn->close();
             option.textContent = breed;
             breedSelect.appendChild(option);
         });
+
+
+   // Show the relevant paragraph
+   const catParagraph = document.getElementById("catParagraph");
+        const dogParagraph = document.getElementById("dogParagraph");
+        if (tab === "Cat") {
+            catParagraph.style.display = "block";
+            dogParagraph.style.display = "none";
+        } else {
+            catParagraph.style.display = "none";
+            dogParagraph.style.display = "block";
+        }
+
+
     }
+
+
 
     function calculateBMI(event) {
         event.preventDefault(); // Prevent form from submitting immediately
@@ -234,3 +435,8 @@ $conn->close();
 
 </body>
 </html>
+
+
+
+
+

@@ -4,14 +4,96 @@ body {
   margin: 0;
   padding: 0;
 }
+
+
+h1{
+  margin-top: 50px;
+  margin-bottom: 80px;
+  font-size: 50px;
+}
+
+.pet-info {
+  position: absolute;
+  text-align: center; /* Centers the text horizontally */
+}
+
+.pet-info img {
+  width: 120%; /* Makes the image 150% of its original width */
+  height: auto;
+  margin-left: -25%; /* Adjusts the left margin to center the image correctly */
+  display: block; /* Ensures the image is treated as a block element */
+  margin-left: 40px;
+  
+}
+
+/* Adding dark overlay on the image */
+.pet-info::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120%; 
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 1; 
+  margin-left: -25%; 
+  margin-left: 40px;
+
+  
+}
+
+/* Styling for the main heading */
+.pet-info h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2; /* Ensures the text is above the overlay */
+  color: rgb(234, 147, 34); /* Color for the h1 */
+  font-size: 2em; /* Font size for h1 */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Text shadow for readability */
+  margin: 0; /* Remove default margin */
+  white-space: nowrap; /* Prevents the text from wrapping to the next line */
+  width: 100%; /* Optional: limits the width to prevent text from stretching too far */
+  text-align: center; /* Centers the text horizontally */
+  margin-left: 30px;
+}
+
+/* Styling for the subheading */
+.pet-info h2 {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2; 
+  color: white; 
+  font-size: 1.2em; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
+  margin: 0; 
+  white-space: nowrap; 
+  width: 90%; 
+  text-align: center; 
+  margin-left: 30px;
+}
+
+
+
 .container {
   max-width: 400px;
-  margin: 50px auto;
-  background: #fff;
+  background: #ffffff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(250, 132, 29, 0.477);
+  margin-top: 160px;
+  margin: auto;
+  margin-right: 70PX;
+  border-radius: 40px;
+  padding: 50px;
+  margin-bottom: 40px;
+ border: solid rgb(255, 160, 6) 1px;
+ font-weight: bold;
 }
+
 h1 {
   text-align: center;
   color: #333;
@@ -32,7 +114,7 @@ h1 {
   cursor: pointer;
 }
 .tabs button.active {
-  background: #007bff;
+  background: #fcac51;
   color: #fff;
 }
 label {
@@ -48,17 +130,75 @@ input, select {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+
+
+
 button.calculate-btn {
-  width: 100%;
-  padding: 10px;
-  margin-top: 20px;
-  background: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
+  background: linear-gradient(to bottom right, #d0bc59, #FF9A5A);
+  border: 0;
+  border-radius: 50px;
+  color: #FFFFFF;
   cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  margin-right: 20px;
+  margin-top: 20px;
 }
+
+
+button.calculate-btn:not([disabled]):hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+  color: black;
+}
+
+
+
+.submit-btn{
+  background: linear-gradient(to bottom right, #d0bc59, #ff835a);
+  border: 0;
+  border-radius: 50px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+
+.submit-btn:not([disabled]):hover{
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+  color: black;
+ 
+}
+
+
+
 button.calculate-btn:disabled {
   background: #ccc;
   cursor: not-allowed;
@@ -104,3 +244,95 @@ button.calculate-btn:disabled {
   color: #007bff;
   font-weight: bold;
 }
+
+
+
+
+.petrecord h2{
+  color: #000000;
+ margin-left: 450px;
+  font-size: 50px;
+  margin-top: 140px;
+
+}
+
+.petrecord p{
+  color: #443e3e;
+  font-size: 18px;
+margin-left: 20px;
+margin-right: 20px;
+margin-bottom: 50px;
+font-weight: bold;
+}
+
+.health-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+  margin-bottom: 30px;
+  border: black 1px solid;
+}
+
+.health-table th,
+.health-table td {
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.health-table th {
+  background-color: #2a59c8;
+  color: white;
+}
+
+.health-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.health-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.health-table td a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.health-table td a:hover {
+  text-decoration: underline;
+}
+
+.health-table td {
+  font-size: 14px;
+}
+
+
+
+
+
+
+/* Styling for action column */
+.health-table td a {
+  margin-right: 10px;
+}
+
+/* Responsive table for smaller screens */
+@media screen and (max-width: 768px) {
+  .health-table th, .health-table td {
+      padding: 8px;
+  }
+  .health-table td {
+      font-size: 12px;
+  }
+  .health-table {
+      margin-top: 10px;
+  }
+}
+
+
+
+
+
+
+
