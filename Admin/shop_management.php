@@ -199,6 +199,7 @@ $conn->close();
         <li><a href="shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
+        <li><a href="admin_daycare_management.php">Daycare Management</a></li>
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>

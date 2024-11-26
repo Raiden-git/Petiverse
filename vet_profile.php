@@ -661,7 +661,7 @@ $active_tab = $_GET['tab'] ?? 'profile';
                             <div class="stat-label">Years Experience</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value">$<?php echo number_format($vet['consultation_fee'], 2); ?></div>
+                            <div class="stat-value">LKR <?php echo number_format($vet['consultation_fee'], 2); ?></div>
                             <div class="stat-label">Consultation Fee</div>
                         </div>
                         <div class="stat-item">

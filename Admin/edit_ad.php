@@ -53,155 +53,206 @@ if (isset($_GET['pet_id']) && is_numeric($_GET['pet_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Pet Ad</title>
-    <link rel="stylesheet" href="../assets/css/admin.css"> <!-- Adjusted path for the CSS file -->
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        /* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #f0f4f8;
+            --text-color: #2c3e50;
+            --card-background: #ffffff;
+        }
 
-/* Body Styling */
-body {
-    margin: 20px;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* Header Styling */
-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-header h1 {
-    color: #333;
-    font-size: 2rem;
-    font-weight: 600;
-}
+        .container {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            animation: fadeIn 0.5s ease-out;
+        }
 
-/* Main Form Container */
-main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-/* Form Styling */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-/* Label Styling */
-label {
-    font-weight: bold;
-    color: #555;
-}
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
 
-/* Input Fields */
-input[type="text"], textarea {
-    padding: 12px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    transition: border-color 0.3s ease;
-}
+        .header h1 i {
+            color: var(--secondary-color);
+        }
 
-input[type="text"]:focus, textarea:focus {
-    border-color: #007bff;
-    outline: none;
-}
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-/* Textarea Styling */
-textarea {
-    resize: vertical;
-    min-height: 100px;
-}
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
 
-/* Button Styling */
-button {
-    padding: 12px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    text-align: center;
-}
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
 
-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
 
-button:active {
-    background-color: #004085;
-}
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
 
-/* Optional: Add a subtle shadow to the form inputs and button for a clean look */
-input[type="text"], textarea, button {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    body {
-        margin: 10px;
-    }
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
 
-    main {
-        padding: 15px;
-    }
+        .btn:active {
+            transform: translateY(0);
+        }
 
-    h1 {
-        font-size: 1.8rem;
-    }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
 
-    button {
-        padding: 10px 15px;
-    }
+        .navigation a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
 
-    input[type="text"], textarea {
-        font-size: 0.9rem;
-    }
-}
+        .navigation a:hover {
+            color: var(--secondary-color);
+        }
 
-        </style>
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Edit Pet Ad</h1>
-    </header>
+    <div class="container">
+        <div class="navigation">
+            <a href="dashboard.php">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="lost_found_pets.php">
+                <i class="fas fa-arrow-left"></i> Back to lost and found pets
+            </a>
+        </div>
 
-    <main>
+        <div class="header">
+            <h1>
+                <i class="fas fa-edit"></i>
+                Edit Pet Ad
+            </h1>
+        </div>
+
         <form method="POST">
-            <label for="pet_name">Pet Name:</label>
-            <input type="text" id="pet_name" name="pet_name" value="<?= htmlspecialchars($pet['pet_name']) ?>" required>
+            <div class="form-group">
+                <label for="pet_name">Pet Name</label>
+                <input type="text" id="pet_name" name="pet_name" class="form-control" value="<?= htmlspecialchars($pet['pet_name']) ?>" required>
+            </div>
 
-            <label for="pet_type">Pet Type:</label>
-            <input type="text" id="pet_type" name="pet_type" value="<?= htmlspecialchars($pet['pet_type']) ?>" required>
+            <div class="form-group">
+                <label for="pet_type">Pet Type</label>
+                <input type="text" id="pet_type" name="pet_type" class="form-control" value="<?= htmlspecialchars($pet['pet_type']) ?>" required>
+            </div>
 
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" required><?= htmlspecialchars($pet['description']) ?></textarea>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" class="form-control" required><?= htmlspecialchars($pet['description']) ?></textarea>
+            </div>
 
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="location" value="<?= htmlspecialchars($pet['location']) ?>" required>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" class="form-control" value="<?= htmlspecialchars($pet['location']) ?>" required>
+            </div>
 
-            <button type="submit" class="btn">Save Changes</button>
+            <button type="submit" class="btn">
+                <i class="fas fa-save"></i>
+                Save Changes
+            </button>
         </form>
-    </main>
+    </div>
 </body>
 </html>

@@ -122,11 +122,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </header>
     <nav>
         <ul>
-        <li><a href="dashboard.php">Dashboard</a></li>
+        <li><a href="dashboard.php">Home</a></li>
         <li><a href="user_management.php">User Management</a></li>
         <li><a href="shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
+        <li><a href="admin_daycare_management.php">Daycare Management</a></li>
         <li><a href="lost_found_pets.php" class="active">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
@@ -201,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <td><?= htmlspecialchars($row['pet_type']) ?></td>
                             <td><?= htmlspecialchars($row['pet_breed']) ?></td>
                             <td><?= htmlspecialchars($row['description']) ?></td>
-                            <td>$<?= htmlspecialchars($row['price']) ?></td>
+                            <td>Rs.<?= htmlspecialchars($row['price']) ?></td>
                             <td>
                                 <form method="POST" style="display: inline;">
                                     <input type="hidden" name="delete_id" value="<?= $row['ad_id'] ?>">

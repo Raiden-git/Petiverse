@@ -14,50 +14,118 @@ session_start();
     <style>
 
 .special-events {
-    padding: 20px;
-    background-color: #f8f9fa;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #f6f7f9 0%, #f0f2f5 100%);
 }
 
 .special-events h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    color: #6A097D;
+    position: relative;
+}
+
+.special-events h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: #fda085;
 }
 
 .event-cards {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
     justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .event-card {
-    background: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    background: white;
+    border-radius: 12px;
     width: 300px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    text-align: center;
-    padding: 15px;
+    transition: all 0.3s ease;
+    border: 1px solid #e6e6e6;
+}
+
+.event-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 .event-image {
     width: 100%;
-    height: 200px;
+    height: 250px;
     object-fit: cover;
-    border-bottom: 1px solid #ddd;
+    transition: transform 0.3s ease;
+}
+
+.event-card:hover .event-image {
+    transform: scale(1.05);
+}
+
+.event-card-content {
+    padding: 20px;
+    text-align: left;
 }
 
 .event-card h3 {
-    font-size: 20px;
-    color: #333;
-    margin: 15px 0;
+    font-size: 22px;
+    color: #6A097D;
+    margin-bottom: 10px;
+    font-weight: 600;
 }
 
 .event-card p {
     font-size: 16px;
     color: #555;
-    margin: 10px 0;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.event-card p:last-child {
+    font-weight: bold;
+    color: #fda085;
+    margin-bottom: 0;
+}
+
+.btn {
+    display: block;
+    width: 200px;
+    margin: 40px auto 0;
+    padding: 12px 20px;
+    text-align: center;
+    background-color: #6A097D;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #fda085;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .event-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .event-card {
+        width: 90%;
+        max-width: 350px;
+    }
 }
 
 
@@ -382,24 +450,21 @@ session_start();
     </section>
 
    <!-- Special Events Section -->
-<section class="special-events">
+   <section class="special-events">
     <h2>Special Events</h2>
     <div class="event-cards">
     <?php
     include('db.php');
 
-    /// Fetch the latest 4 approved events ordered by date
     $query = "SELECT * FROM special_events WHERE approved = 1 ORDER BY date DESC LIMIT 4";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();
 
-
     while ($event = $result->fetch_assoc()) {
         echo "<div class='event-card'>";
         
         if (!empty($event['image'])) {
-            // Properly encode binary image data as Base64
             $image_data = base64_encode($event['image']);
             $image_src = "data:image/jpeg;base64,{$image_data}";
             echo "<img src='{$image_src}' alt='Event Image' class='event-image'>";
@@ -407,18 +472,18 @@ session_start();
             echo "<img src='placeholder.jpg' alt='No Image Available' class='event-image'>";
         }
 
+        echo "<div class='event-card-content'>";
         echo "<h3>" . htmlspecialchars($event['title']) . "</h3>";
         echo "<p>" . htmlspecialchars($event['description']) . "</p>";
-        echo "<p><strong>Date:</strong> " . htmlspecialchars($event['date']) . "</p>";
+        echo "<p>Date: " . htmlspecialchars($event['date']) . "</p>";
+        echo "</div>";
         echo "</div>";
     }
 
-    // Close the prepared statement
     $stmt->close();
     ?>
     </div>
 
-    <!-- Button to redirect to special_events.php -->
     <a href="special_events.php" class="btn">See All Events</a>
 </section>
 
