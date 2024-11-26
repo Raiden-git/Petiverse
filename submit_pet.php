@@ -170,6 +170,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
+    <?php include 'footer.php'; ?>
+
     <script>
         // JavaScript to handle popup
         function closePopup() {

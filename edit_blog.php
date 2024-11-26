@@ -60,8 +60,274 @@ $stmt->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/edit_blog.css">
+    <!-- <link rel="stylesheet" href="./assets/css/edit_blog.css"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <title>My Blogs - Petiverse</title>
+    <style>
+        
+    :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --secondary-color: #f8fafc;
+        --accent-color: #0f172a;
+        --text-color: #334155;
+        --border-radius: 16px;
+        --box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        background-color: #f1f5f9;
+        color: var(--text-color);
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+    }
+
+    .your_blog {
+        text-align: center;
+        color: var(--accent-color);
+        font-size: 2rem;
+        font-weight: 600;
+        margin: 2rem 0;
+        padding: 0 1rem;
+    }
+
+    /* Blog List Container */
+    .blog-list {
+        max-width: 1400px;
+        margin: 2rem auto;
+        padding: 0 2rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+
+    /* Blog Item Card */
+    .blog-item {
+        background: white;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--box-shadow);
+        transition: var(--transition);
+        border: 1px solid #e2e8f0;
+        padding: 1.5rem;
+    }
+
+    .blog-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    }
+
+    .blog-item img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: calc(var(--border-radius) - 4px);
+        margin: 1rem 0;
+    }
+
+    .blog-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+        line-height: 1.4;
+    }
+
+    .blog-content {
+        color: #64748b;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin: 1rem 0;
+        max-height: 150px;
+        overflow-y: auto;
+    }
+
+    .approval-status {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        background: var(--secondary-color);
+        color: var(--text-color);
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin: 0.5rem 0;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .edit-btn, .delete-btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 9999px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+        flex: 1;
+        border: none;
+    }
+
+    .edit-btn {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .edit-btn:hover {
+        background: var(--primary-hover);
+        transform: translateY(-2px);
+    }
+
+    .delete-btn {
+        background: white;
+        color: #ef4444;
+        border: 1px solid #fecaca;
+    }
+
+    .delete-btn:hover {
+        background: #fef2f2;
+        color: #dc2626;
+        transform: translateY(-2px);
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(4px);
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: white;
+        width: 90%;
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2.5rem;
+        border-radius: var(--border-radius);
+        position: relative;
+        box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    }
+
+    .modal-content h2 {
+        color: var(--accent-color);
+        margin: 0 0 1.5rem 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .close-btn {
+        position: absolute;
+        right: 1.5rem;
+        top: 1.5rem;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #64748b;
+        background: var(--secondary-color);
+        border-radius: 50%;
+        transition: var(--transition);
+    }
+
+    .close-btn:hover {
+        background: #e2e8f0;
+        color: var(--accent-color);
+    }
+
+    /* Form Styles */
+    #editForm {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    #editForm label {
+        font-weight: 500;
+        color: var(--accent-color);
+        font-size: 0.95rem;
+    }
+
+    #editForm input[type="text"],
+    #editForm textarea,
+    #editForm select {
+        padding: 0.875rem 1.25rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        transition: var(--transition);
+        background: #f8fafc;
+    }
+
+    #editForm input[type="text"]:focus,
+    #editForm textarea:focus,
+    #editForm select:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        background: white;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    #editForm textarea {
+        min-height: 200px;
+        resize: vertical;
+    }
+
+    #editForm input[type="file"] {
+        padding: 0.875rem 0;
+    }
+
+    #editForm input[type="submit"] {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.875rem;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 500;
+        font-size: 0.95rem;
+        margin-top: 0.5rem;
+    }
+
+    #editForm input[type="submit"]:hover {
+        background: var(--primary-hover);
+        transform: translateY(-2px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .blog-list {
+            padding: 1rem;
+            grid-template-columns: 1fr;
+        }
+        
+        .modal-content {
+            width: 95%;
+            margin: 1rem auto;
+            padding: 1.5rem;
+        }
+        
+        .your_blog {
+            font-size: 1.75rem;
+            margin: 1.5rem 0;
+        }
+    }
+    </style>
 </head>
 <body>
 
