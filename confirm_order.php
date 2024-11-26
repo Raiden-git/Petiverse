@@ -23,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Fetch user id (assuming the user is logged in and their id is stored in the session)
-        $user_id = $_SESSION['user_id']; 
+        $user_id = $_SESSION['user_id'];
 
         // Generate a unique order ID
-        $order_id = 'ORD' . strtoupper(uniqid()); 
+        $order_id = 'ORD' . strtoupper(uniqid());
 
         // Loop through cart items to insert each one into the database
         foreach ($_SESSION['cart'] as $product_id => $quantity) {
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Get product details
                 $product_name = $item['name'];
                 $product_price = $item['price'];
-                $product_photo = $item['photo']; 
+                $product_photo = $item['photo'];
 
                 // Calculate total price
                 $total_price = $product_price * $quantity;
@@ -68,8 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Clear the cart after the order is saved
         unset($_SESSION['cart']);
 
-        // Redirect to an order confirmation page
-        echo "<script>alert('Your order has been successfully placed!'); window.location.href='shop.php';</script>";
+        // Include the success page
+        include 'cod_oder_Success.php';
+        exit();
     } else {
         echo "<script>alert('Your cart is empty. Please add items before proceeding.'); window.location.href='shop.php';</script>";
     }

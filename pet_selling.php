@@ -45,6 +45,7 @@ $result = $conn->query($query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Selling</title>
     <link rel="stylesheet" href="assets/css/pet_selling.css">
+    <link rel="stylesheet" href="./assets/css/scrollbar.css">
     <script>
         function openPopup(detailsId) {
             document.getElementById(detailsId).style.display = 'flex';
