@@ -155,6 +155,7 @@ $active_tab = $_GET['tab'] ?? 'profile';
     <title><?php echo htmlspecialchars($vet['name']); ?> - Veterinarian Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/scrollbar.css">
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);

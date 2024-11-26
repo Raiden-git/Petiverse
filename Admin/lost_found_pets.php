@@ -62,87 +62,168 @@ if ($result) {
     <script src="logout_js.js"></script>
 
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background-color: #f9f9f9;
-    }
 
-    h2 {
-        color: #333;
-    }
+   /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
 
-    .table-container {
-        margin-top: 20px;
-        overflow-x: auto;
-    }
 
+/* Body Styling */
+body {
+    margin: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Headings */
+h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+/* Table Container */
+.table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 1rem;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Status Labels */
+.status {
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.status.pending {
+    background-color: #ffcc00;
+    color: white;
+}
+
+.status.approved {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+}
+
+.btn.approve {
+    background-color: #28a745;
+}
+
+.btn.reject {
+    background-color: #dc3545;
+}
+
+.btn.edit {
+    background-color: #007bff;
+}
+
+.btn.delete {
+    background-color: #6c757d;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+/* Form Styling (Inline Actions) */
+form {
+    display: inline;
+}
+
+/* Media Query for Mobile Responsiveness */
+@media (max-width: 768px) {
     table {
-        width: 100%;
-        border: 1px solid #ccc;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-
-    th, td {
-        padding: 10px;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    tr:nth-child(even) {
-        background-color: #fafafa;
-    }
-
-    .status {
-        padding: 5px 10px;
-        border-radius: 3px;
-    }
-
-    .status.pending {
-        background-color: #ffcc00;
-        color: white;
-    }
-
-    .status.approved {
-        background-color: #4caf50;
-        color: white;
+        font-size: 0.9rem;
     }
 
     .btn {
-        padding: 5px 10px;
-        text-decoration: none;
-        border-radius: 3px;
-        color: white;
+        padding: 6px 10px;
+        font-size: 0.8rem;
     }
+}
+/* Edit Link Button Styling */
+a.btn-edit {
+    display: inline-block;
+    background-color: #007bff; /* Blue background */
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-    .btn.approve {
-        background-color: #4caf50;
-    }
+a.btn-edit:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge the link on hover */
+}
 
-    .btn.reject {
-        background-color: #f44336;
-    }
+a.btn-edit:active {
+    background-color: #004085; /* Even darker blue on click */
+}
 
-    .btn.edit {
-        background-color: #2196F3;
-    }
+/* Optional: Add a border to match button-like appearance */
+a.btn-edit {
+    border: 1px solid transparent;
+}
 
-    .btn.delete {
-        background-color: #f44336;
-    }
-
-    .btn:hover {
-        opacity: 0.8;
-    }
-
-    form {
-        display: inline;
-    }
 </style>
 </head>
 <body>
@@ -198,9 +279,16 @@ if ($result) {
                         <td><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) ?></td>
                         <td><span class="status pending">Pending Approval</span></td>
                         <td>
-                            <a href="?approve=true&pet_id=<?= $row['id'] ?>" class="btn approve">Approve</a>
-                            <a href="?reject=true&pet_id=<?= $row['id'] ?>" class="btn reject">Reject</a>
-                            <a href="edit_ad.php?pet_id=<?= $row['id'] ?>" class="btn edit">Edit</a>
+                        <form method="POST" action="lost_found_pets.php">
+                    <input type="hidden" name="action" value="approve">
+                    <input type="hidden" name="pet_id" value="<?= htmlspecialchars($row['id']) ?>">
+                    <button type="submit" class="btn approve">Approve</button>
+                    </form>
+                    <form method="POST" action="lost_found_pets.php">
+                    <input type="hidden" name="action" value="reject">
+                    <input type="hidden" name="pet_id" value="<?= htmlspecialchars($row['id']) ?>">
+                    <button type="submit" class="btn reject">Reject</button>
+                    </form>
                             <form method="POST" action="delete_ad.php">
                             <input type="hidden" name="pet_id" value="<?= htmlspecialchars($row['id']) ?>">
                             <button type="submit" class="btn delete" onclick="return confirm('Are you sure you want to delete this pet?');">Delete</button>
@@ -238,7 +326,9 @@ if ($result) {
                         <td><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) ?></td>
                         <td><span class="status approved">Approved</span></td>
                         <td>
-                            <a href="edit_ad.php?id=<?= $row['id'] ?>" class="btn edit">Edit</a>
+                        <a href="edit_ad.php?pet_id=<?= $row['id'] ?>" class="btn-edit">Edit</a>
+
+
                         <form method="POST" action="delete_ad.php">
                             <!-- Replace $row['id'] with the actual variable holding the ID -->
                             <input type="hidden" name="pet_id" value="<?= htmlspecialchars($row['id']) ?>">
