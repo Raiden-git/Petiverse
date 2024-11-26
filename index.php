@@ -365,34 +365,47 @@ function closeAllNotifications() {
         </div>
     </section>
 
-    <!-- Special Events Section -->
+   <!-- Special Events Section -->
 <section class="special-events">
     <h2>Special Events</h2>
     <div class="event-cards">
     <?php
     include('db.php');
-    $query = "SELECT * FROM special_events ORDER BY date DESC";
+
+    /// Fetch the latest 4 approved events ordered by date
+    $query = "SELECT * FROM special_events WHERE approved = 1 ORDER BY date DESC LIMIT 4";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();
 
+
     while ($event = $result->fetch_assoc()) {
         echo "<div class='event-card'>";
+        
         if (!empty($event['image'])) {
-            // Convert binary image data to a base64 string and display it
+            // Properly encode binary image data as Base64
             $image_data = base64_encode($event['image']);
-            echo "<img src='data:image/jpeg;base64,{$image_data}' alt='Event Image' class='event-image'>";
+            $image_src = "data:image/jpeg;base64,{$image_data}";
+            echo "<img src='{$image_src}' alt='Event Image' class='event-image'>";
         } else {
-            echo "<img src='placeholder.jpg' alt='No Image Available' class='event-image'>"; // Use a placeholder if no image
+            echo "<img src='placeholder.jpg' alt='No Image Available' class='event-image'>";
         }
+
         echo "<h3>" . htmlspecialchars($event['title']) . "</h3>";
         echo "<p>" . htmlspecialchars($event['description']) . "</p>";
         echo "<p><strong>Date:</strong> " . htmlspecialchars($event['date']) . "</p>";
         echo "</div>";
     }
+
+    // Close the prepared statement
+    $stmt->close();
     ?>
     </div>
+
+    <!-- Button to redirect to special_events.php -->
+    <a href="special_events.php" class="btn">See All Events</a>
 </section>
+
 
 
 

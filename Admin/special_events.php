@@ -2,47 +2,66 @@
 include('../db.php');
 include('session_check.php');
 
-// Handle the event submission
+// Handle event submission (for new event creation)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['date'])) {
         $title = $_POST['title'];
         $description = $_POST['description'];
         $date = $_POST['date'];
-        $image_path = null;
 
-        // Handling the image upload
+        // Handle image upload
+        $image_data = null;
         if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
-            $target_dir = "../uploads/";
-            if (!is_dir($target_dir)) {
-                mkdir($target_dir, 0777, true); // Create the directory if it doesn't exist
-            }
-            $target_file = $target_dir . uniqid() . "_" . basename($_FILES['image']['name']);
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-                $image_path = $target_file;
-            } else {
-                echo "<script>alert('Error uploading image.');</script>";
-            }
+            $image_data = file_get_contents($_FILES['image']['tmp_name']); // Read binary data
         }
 
-        // Insert event into the database
+        // Insert into the database
         $insert_query = "INSERT INTO special_events (title, description, date, image) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($insert_query);
 
         if ($stmt) {
-            $stmt->bind_param("ssss", $title, $description, $date, $image_path);
+            $stmt->bind_param("sssb", $title, $description, $date, $image_data); // Use 'b' for binary data
+            $stmt->send_long_data(3, $image_data); // Send LONGBLOB data
             if ($stmt->execute()) {
-                echo "<script>alert('Event added successfully!'); window.location.href='special_events.php';</script>";
+                echo "Event added successfully!";
             } else {
-                echo "<script>alert('Error adding event: " . $stmt->error . "');</script>";
+                echo "Error adding event: " . $stmt->error;
             }
+        } else {
+            echo "Error preparing statement: " . $conn->error;
         }
+    }
+}
+
+// Handle event approval
+if (isset($_GET['approve_id'])) {
+    $approve_id = intval($_GET['approve_id']);
+    $query = "UPDATE special_events SET approved = 1 WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $approve_id);
+    if ($stmt->execute()) {
+        echo "<script>alert('Event approved successfully!'); window.location.href='special_events.php';</script>";
+    } else {
+        echo "<script>alert('Error approving event: " . $stmt->error . "');</script>";
+    }
+}
+
+// Handle event rejection
+if (isset($_GET['reject_id'])) {
+    $reject_id = intval($_GET['reject_id']);
+    $query = "UPDATE special_events SET approved = 0 WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $reject_id);
+    if ($stmt->execute()) {
+        echo "<script>alert('Event rejected successfully!'); window.location.href='special_events.php';</script>";
+    } else {
+        echo "<script>alert('Error rejecting event: " . $stmt->error . "');</script>";
     }
 }
 
 // Handle event deletion
 if (isset($_GET['delete_id'])) {
     $delete_id = intval($_GET['delete_id']);
-
     // Retrieve the image path to delete the file
     $query = "SELECT image FROM special_events WHERE id = ?";
     $stmt = $conn->prepare($query);
@@ -101,6 +120,9 @@ if (isset($_GET['delete_id'])) {
         .image-preview {
             max-width: 100px;
         }
+        .actions a {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -109,18 +131,19 @@ if (isset($_GET['delete_id'])) {
 </header>
 
 <nav>
-    <ul>
-        <li><a href="dashboard.php">Home</a></li>
+<ul>
+        <li><a href="dashboard.php">Dashboard</a></li>
+        <li><a href="user_management.php">User Management</a></li>
+        <li><a href="shop_management.php">Shop Management</a></li>
+        <li><a href="community_controls.php">Community Controls</a></li>
+        <li><a href="blog_management.php">Blog Management</a></li>
+        <li><a href="lost_found_pets.php" class="active">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
-<<<<<<< HEAD
-        <li><a href="logout.php" onclick="return confirm('Are you sure you want to logout?');">Logout</a></li>
-=======
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
-        <li><a href="petselling.php">Pet selling</a><li>
+        <li><a href="petselling.php">Pet selling</a></li>
         <li><a href="view_feedback.php">Feedbacks</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
->>>>>>> dfb82787b21fd50a499d280962b1f4ab69594aa7
     </ul>
 </nav>
 
@@ -154,6 +177,7 @@ if (isset($_GET['delete_id'])) {
         </thead>
         <tbody>
             <?php
+            // Query to select events (approved or pending) ordered by date
             $query = "SELECT * FROM special_events ORDER BY date DESC";
             $stmt = $conn->prepare($query);
             $stmt->execute();
@@ -165,14 +189,16 @@ if (isset($_GET['delete_id'])) {
                 echo "<td>" . htmlspecialchars($event['date']) . "</td>";
                 echo "<td>";
                 if ($event['image']) {
-                    echo "<img src='" . htmlspecialchars($event['image']) . "' class='image-preview' alt='Event Image'>";
+                    echo "<img src='data:image/jpeg;base64," . base64_encode($event['image']) . "' class='image-preview' alt='Event Image'>";
                 } else {
                     echo "No Image";
                 }
                 echo "</td>";
-                echo "<td>
-                        <a href='edit_special_event.php?id=" . $event['id'] . "'>Edit</a> | 
-                        <a href='special_events.php?delete_id=" . $event['id'] . "' onclick='return confirm(\"Are you sure?\");'>Delete</a>
+                echo "<td class='actions'>
+                        <a href='edit_special_event.php?id=" . $event['id'] . "'>Edit</a> |
+                        <a href='special_events.php?delete_id=" . $event['id'] . "' onclick='return confirm(\"Are you sure?\");'>Delete</a> |
+                        <a href='special_events.php?approve_id=" . $event['id'] . "'>Approve</a> |
+                        <a href='special_events.php?reject_id=" . $event['id'] . "'>Reject</a>
                       </td>";
                 echo "</tr>";
             }
