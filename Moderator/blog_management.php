@@ -95,6 +95,7 @@ $result_approved_posts = $stmt_approved_posts->get_result();
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
+        <li><a href="petselling.php">Pet selling</a><li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
 </nav>

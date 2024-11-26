@@ -288,7 +288,7 @@
                 <h2>Contact Us</h2>
                 <p>We'd love to hear from you! Reach out with any questions, suggestions, or feedback.</p>
                 <p><i class="fas fa-envelope"></i> Email: <a href="mailto:support@petiverse.com">support@petiverse.com</a></p>
-                <p><i class="fas fa-phone"></i> Phone: +1 (555) 123-4567</p>
+                <p><i class="fas fa-phone"></i> Phone: +(94) 123-4567</p>
                 <p><i class="fas fa-share-alt"></i> Follow us on social media:</p>
                 <ul class="social-media-links">
                     <li><a href="https://facebook.com/petiverse" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></li>

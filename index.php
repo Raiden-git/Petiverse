@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +12,7 @@ session_start();
     <link rel="stylesheet" href="assets/css/scrollbar.css">
     <link rel="stylesheet" href="assets/css/popup.css"> 
     <style>
+
         /* Container for the contact and feedback section */
         .footer-container {
     background-color: #2C3E50;
@@ -254,40 +255,7 @@ session_start();
 </div>
 <button id="close-all-btn" onclick="closeAllNotifications()">Close All</button>
 
-<script>
-// Function to show notifications and the "Close All" button with a delay
-document.addEventListener("DOMContentLoaded", function() {
-    setTimeout(function() {
-        // Show all notifications
-        const notifications = document.querySelectorAll('.notification');
-        notifications.forEach(notification => {
-            notification.style.display = 'flex'; // Show notification after 2 seconds
-        });
 
-        // Show the "Close All" button after 2 seconds
-        const closeAllBtn = document.getElementById('close-all-btn');
-        closeAllBtn.style.display = 'block'; 
-    }, 2000); // 2000ms delay
-});
-
-// Function to close individual notification
-function closeNotification(button) {
-    const notification = button.parentElement;
-    notification.style.display = 'none';
-}
-
-// Function to close all notifications
-function closeAllNotifications() {
-    const notifications = document.querySelectorAll('.notification');
-    notifications.forEach(notification => {
-        notification.style.display = 'none';
-    });
-
-    // Optionally, you can hide the "Close All" button after closing all notifications
-    const closeAllBtn = document.getElementById('close-all-btn');
-    closeAllBtn.style.display = 'none';
-}
-</script>
 
     <!-- Our Story Section -->
     <section class="about-section" style="position:relative; padding: 60px 20px; background-color: #f0f8ff;">
@@ -365,28 +333,48 @@ function closeAllNotifications() {
         </div>
     </section>
 
-    <!-- Special Events Section -->
-    <section class="special-events">
+   <!-- Special Events Section -->
+<section class="special-events">
     <h2>Special Events</h2>
+    <div class="event-cards">
     <?php
     include('db.php');
-    $query = "SELECT * FROM special_events ORDER BY date DESC";
+
+    /// Fetch the latest 4 approved events ordered by date
+    $query = "SELECT * FROM special_events WHERE approved = 1 ORDER BY date DESC LIMIT 4";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();
 
+
     while ($event = $result->fetch_assoc()) {
-        echo "<div class='event'>";
+        echo "<div class='event-card'>";
+        
+        if (!empty($event['image'])) {
+            // Properly encode binary image data as Base64
+            $image_data = base64_encode($event['image']);
+            $image_src = "data:image/jpeg;base64,{$image_data}";
+            echo "<img src='{$image_src}' alt='Event Image' class='event-image'>";
+        } else {
+            echo "<img src='placeholder.jpg' alt='No Image Available' class='event-image'>";
+        }
+
         echo "<h3>" . htmlspecialchars($event['title']) . "</h3>";
         echo "<p>" . htmlspecialchars($event['description']) . "</p>";
         echo "<p><strong>Date:</strong> " . htmlspecialchars($event['date']) . "</p>";
-        if ($event['image']) {
-            echo "<img src='data:image/jpeg;base64," . base64_encode($event['image']) . "' alt='Event Image' />";
-        }
         echo "</div>";
     }
+
+    // Close the prepared statement
+    $stmt->close();
     ?>
-    </section>
+    </div>
+
+    <!-- Button to redirect to special_events.php -->
+    <a href="special_events.php" class="btn">See All Events</a>
+</section>
+
+
 
 
 <!-- Lost & Found Pets Section -->
@@ -446,6 +434,7 @@ $conn->close();
 <style>
 /* General Section Styles */
 section {
+    margin: 20px 0;
     padding: 20px;
     border-radius: 8px;
 }
@@ -453,18 +442,18 @@ section {
 
 /* Lost & Found Section */
 .lost-found {
-    background: #f4f4f4; 
+    background: #f4f4f4; /* Light background for lost and found */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .lost-found h2 {
-    font-size: 28px; 
-    margin-bottom: 20px; 
-    text-align: center; 
-    font-family: 'Inter', sans-serif; 
-    font-weight: 600; 
-    letter-spacing: 1px; 
-    color: #333; 
+    font-size: 28px; /* Increase font size for better visibility */
+    margin-bottom: 20px; /* Adjust space below the heading */
+    text-align: center; /* Center the text */
+    font-family: 'Inter', sans-serif; /* Set the font to "Inter" */
+    font-weight: 600; /* Set a medium font weight for emphasis */
+    letter-spacing: 1px; /* Slight letter spacing for a modern look */
+    color: #333; /* Dark color for better contrast */
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
@@ -472,7 +461,7 @@ section {
 
 .lost-found-cards {
     display: flex;
-    overflow: hidden; 
+    overflow: hidden; /* Hide scrollbar */
     gap: 20px;
     scroll-snap-type: x mandatory;
     position: relative;
@@ -490,7 +479,7 @@ section {
 
 .lost-found-card {
     flex-shrink: 0;
-    width: 250px;
+    width: 250px; /* Adjust the width of each card */
     background: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -504,7 +493,7 @@ section {
 
 .lost-found-card img {
     width: 100%;
-    height: 150px; 
+    height: 150px; /* Adjust the height for image */
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 10px;
@@ -517,7 +506,7 @@ section {
 
 /* Auto-scrolling behavior */
 .lost-found-cards {
-    animation: scroll-cards 30s linear infinite;
+    animation: scroll-cards 30s linear infinite; /* Slow animation */
 }
 
 @keyframes scroll-cards {
@@ -525,7 +514,7 @@ section {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-100%); 
+        transform: translateX(-100%); /* Move all the way to the left */
     }
 }
 
@@ -534,16 +523,16 @@ section {
     display: flex;
     flex-wrap: nowrap;
     animation: scroll-cards 30s linear infinite;
-    width: calc(100% + 20px); 
+    width: calc(100% + 20px); /* Ensures no cropping for the last card */
 }
 
 .lost-found-card {
-    margin-right: 20px; 
+    margin-right: 20px; /* Gap between cards */
     flex-shrink: 0;
 }
 
 .lost-found-card:last-child {
-    margin-right: 0; 
+    margin-right: 0; /* No gap on the last card */
 }
 
 /* Remove scrollbar */
@@ -642,7 +631,41 @@ section {
         setTimeout(() => {
             closeAllNotifications();
         }, 20000); 
+
+        // Function to show notifications and the "Close All" button with a delay
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                // Show all notifications
+                const notifications = document.querySelectorAll('.notification');
+                notifications.forEach(notification => {
+                    notification.style.display = 'flex'; // Show notification after 2 seconds
+                });
+
+                // Show the "Close All" button after 2 seconds
+                const closeAllBtn = document.getElementById('close-all-btn');
+                closeAllBtn.style.display = 'block'; 
+            }, 2000); // 2000ms delay
+        });
+
+        // Function to close individual notification
+        function closeNotification(button) {
+            const notification = button.parentElement;
+            notification.style.display = 'none';
+        }
+
+        // Function to close all notifications
+        function closeAllNotifications() {
+            const notifications = document.querySelectorAll('.notification');
+            notifications.forEach(notification => {
+                notification.style.display = 'none';
+            });
+
+            // Optionally, you can hide the "Close All" button after closing all notifications
+            const closeAllBtn = document.getElementById('close-all-btn');
+            closeAllBtn.style.display = 'none';
+        }
     </script>
+
 
     
 </body>
