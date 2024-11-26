@@ -147,5 +147,6 @@ $result = $conn->query($query);
         <?php endif; ?>
     </div>
 </main>
+<?php include 'footer.php'; ?>
 </body>
 </html>

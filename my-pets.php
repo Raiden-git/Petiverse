@@ -127,52 +127,203 @@ $pets = $stmt->get_result();
     <title>My Pets</title>
     <style>
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        form {
-            margin: 20px;
-        }
-        label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .pet-list {
-            margin: 15px 0;
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
-        .message {
-            color: green;
-            margin-bottom: 10px;
-        }
-        .error {
-            color: red;
-            margin-bottom: 10px;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.pet {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    font-weight: 300;
+    position: relative;
+}
+
+.pet::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+}
+
+.message, .error {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Form Styling */
+form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    margin: 15px 0 8px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #6a11cb;
+    box-shadow: 0 0 0 2px rgba(106, 17, 203, 0.2);
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Pet List Styling */
+h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin: 30px 0 20px;
+    font-weight: 300;
+}
+
+.pet-list {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.pet-list:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.pet-list h3 {
+    color: #6a11cb;
+    margin-bottom: 10px;
+}
+
+.pet-list p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.pet-list a {
+    text-decoration: none;
+    color: #2575fc;
+    margin-right: 15px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.pet-list a:hover {
+    color: #6a11cb;
+}
+
+.pet-list a:first-of-type::before {
+    content: '✏️';
+    margin-right: 5px;
+}
+
+.pet-list a:last-of-type::before {
+    content: '🗑️';
+    margin-right: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    form, .pet-list {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    input, textarea, button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* Delete Confirmation Styling */
+.confirm-delete {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 20px;
+}
     </style>
 </head>
 <body>
-
-<h1>My Pets</h1>
+<div class="container">
+    
+<h1 class="pet">My Pets</h1>
 
 <!-- Display success or error messages -->
 <?php if (isset($success_message)): ?>
@@ -208,6 +359,8 @@ $pets = $stmt->get_result();
         <a href="my-pets.php?delete_id=<?= $pet['id']; ?>" onclick="return confirm('Are you sure you want to delete this pet?')">Delete</a>
     </div>
 <?php endwhile; ?>
+</div>
 
+<?php include ('footer.php'); ?>
 </body>
 </html>

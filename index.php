@@ -408,7 +408,7 @@ session_start();
             <img src="src/img/day-care.jpeg" alt="Day Care">
             <h3>Day Care</h3>
             <p>Find reliable day care services for your pets.</p>
-            <a href="#" class="button">Find Day Care</a>
+            <a href="daycare.php" class="button">Find Day Care</a>
         </div>
         <div class="feature-card">
             <img src="src/img/Health-track.jpg" alt="Health Tracker">
@@ -456,7 +456,7 @@ session_start();
     <?php
     include('db.php');
 
-    $query = "SELECT * FROM special_events WHERE approved = 1 ORDER BY date DESC LIMIT 4";
+    $query = "SELECT * FROM special_events WHERE approved = 1 ORDER BY date DESC LIMIT 3";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();

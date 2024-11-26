@@ -745,7 +745,7 @@ $active_tab = $_GET['tab'] ?? 'profile';
                     $types_result = $types_stmt->get_result();
 
                     while ($type = $types_result->fetch_assoc()) {
-                        echo "<option value='{$type['id']}'>" . ucfirst($type['type_name']) . " ({$type['duration']} mins) - $ {$type['price']}</option>";
+                        echo "<option value='{$type['id']}'>" . ucfirst($type['type_name']) . " ({$type['duration']} mins) - LKR {$type['price']}</option>";
                     }
                     ?>
                 </select>
