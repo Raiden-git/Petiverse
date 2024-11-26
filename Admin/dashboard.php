@@ -3,7 +3,7 @@
 include('../db.php');
 include('session_check.php');
 
-/* // Fetch the number of new COD orders from the database
+// Fetch the number of new COD orders from the database
 $sql = "SELECT COUNT(*) AS new_orders_count FROM COD_orders WHERE order_status = 'pending'";
 $result = $conn->query($sql);
 $new_orders_count = 0;
@@ -11,7 +11,7 @@ $new_orders_count = 0;
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $new_orders_count = $row['new_orders_count'];
-} */
+}
 
 // Fetch the number of new Online Payment orders from the database
 $sql_online_payment = "SELECT COUNT(*) AS new_online_payment_count FROM online_payment_orders WHERE order_status = 'pending'";
@@ -124,6 +124,7 @@ if ($result_online_payment->num_rows > 0) {
         <li><a href="shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
+        <li><a href="admin_daycare_management.php">Daycare Management</a></li>
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>

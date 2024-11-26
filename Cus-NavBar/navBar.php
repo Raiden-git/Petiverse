@@ -355,7 +355,7 @@ nav.desktop-nav a:hover {
         <ul>
             <li><a href="shop.php">Shop</a></li>
             <li><a href="vets_map.php">Vet Services</a></li>
-            <li><a href="#">Day Care</a></li>
+            <li><a href="daycare.php">Day Care</a></li>
             <li><a href="community.php">Community</a></li>
             <li><a href="blog.php">Blog</a></li>
             <li><a href="./pets.php">Lost & Found Pets</a></li>
