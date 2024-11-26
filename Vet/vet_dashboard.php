@@ -138,8 +138,7 @@ mysqli_close($conn);
             <a href="vet_chat.php" class="action-card">
                 <h3>Chat with Clients</h3>
             </a>
-            <a href="medical_records.php" class="action-card">
-                <h3>Medical Records</h3>
+            
             </a>
             <a href="edit_profile.php" class="action-card">
                 <h3>Update Profile</h3>
