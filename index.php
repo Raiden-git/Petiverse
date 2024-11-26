@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start the session to check login status
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +12,7 @@ session_start(); // Start the session to check login status
     <link rel="stylesheet" href="assets/css/scrollbar.css">
     <link rel="stylesheet" href="assets/css/popup.css"> 
     <style>
+
         /* Container for the contact and feedback section */
         .footer-container {
     background-color: #2C3E50;
@@ -254,40 +255,7 @@ session_start(); // Start the session to check login status
 </div>
 <button id="close-all-btn" onclick="closeAllNotifications()">Close All</button>
 
-<script>
-// Function to show notifications and the "Close All" button with a delay
-document.addEventListener("DOMContentLoaded", function() {
-    setTimeout(function() {
-        // Show all notifications
-        const notifications = document.querySelectorAll('.notification');
-        notifications.forEach(notification => {
-            notification.style.display = 'flex'; // Show notification after 2 seconds
-        });
 
-        // Show the "Close All" button after 2 seconds
-        const closeAllBtn = document.getElementById('close-all-btn');
-        closeAllBtn.style.display = 'block'; 
-    }, 2000); // 2000ms delay
-});
-
-// Function to close individual notification
-function closeNotification(button) {
-    const notification = button.parentElement;
-    notification.style.display = 'none';
-}
-
-// Function to close all notifications
-function closeAllNotifications() {
-    const notifications = document.querySelectorAll('.notification');
-    notifications.forEach(notification => {
-        notification.style.display = 'none';
-    });
-
-    // Optionally, you can hide the "Close All" button after closing all notifications
-    const closeAllBtn = document.getElementById('close-all-btn');
-    closeAllBtn.style.display = 'none';
-}
-</script>
 
     <!-- Our Story Section -->
     <section class="about-section" style="position:relative; padding: 60px 20px; background-color: #f0f8ff;">
@@ -389,170 +357,10 @@ function closeAllNotifications() {
     </section>
 
 
-<!-- Lost & Found Pets Section -->
-<section class="lost-found">
-    <h2>Lost & Found Pets</h2>
-    <div class="lost-found-cards">
-    <?php
-// Database connection
-include './db.php';
 
 
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
-// Fetch the latest 5 lost and found pets from the database
-$sql = "SELECT * FROM lost_and_found_pets WHERE approved = 1 ORDER BY date DESC LIMIT 4";
-$result = $conn->query($sql);
-
-// Check if there are any results
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $pet_name = $row['pet_name'];
-        $status = $row['status'];
-        $description = $row['description'];
-        $location = $row['location'];
-        $image_data = $row['image']; // LONGBLOB image data
-        $contact_info = $row['contact_info'];
-        
-        // Encode the image data to base64
-        $image_base64 = base64_encode($image_data);
-        $image_src = 'data:image/jpeg;base64,' . $image_base64;
-        
-        echo '<div class="lost-found-card">';
-        echo '<img src="' . $image_src . '" alt="Pet Image">';
-        echo '<p>' . htmlspecialchars($pet_name) . '</p>';
-        echo '<p>Status: ' . htmlspecialchars($status) . '</p>';
-        echo '<p>Description: ' . htmlspecialchars($description) . '</p>';
-        echo '<p>Location: ' . htmlspecialchars($location) . '</p>';
-        echo '<p>Contact: ' . htmlspecialchars($contact_info) . '</p>';
-        echo '</div>';
-    }
-} else {
-    echo "<p>No lost and found pets available.</p>";
-}
-
-// Close the connection
-$conn->close();
-?>
-
-    </div>
-</section>
-
-
-<style>
-/* General Section Styles */
-section {
-    margin: 20px 0;
-    padding: 20px;
-    border-radius: 8px;
-}
-
-
-/* Lost & Found Section */
-.lost-found {
-    background: #f4f4f4; /* Light background for lost and found */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.lost-found h2 {
-    font-size: 28px; /* Increase font size for better visibility */
-    margin-bottom: 20px; /* Adjust space below the heading */
-    text-align: center; /* Center the text */
-    font-family: 'Inter', sans-serif; /* Set the font to "Inter" */
-    font-weight: 600; /* Set a medium font weight for emphasis */
-    letter-spacing: 1px; /* Slight letter spacing for a modern look */
-    color: #333; /* Dark color for better contrast */
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-
-
-.lost-found-cards {
-    display: flex;
-    overflow: hidden; /* Hide scrollbar */
-    gap: 20px;
-    scroll-snap-type: x mandatory;
-    position: relative;
-    width: 100%;
-}
-
-.lost-found-cards::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-
-.lost-found-card {
-    flex-shrink: 0;
-    width: 250px; /* Adjust the width of each card */
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    scroll-snap-align: start;
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.lost-found-card img {
-    width: 100%;
-    height: 150px; /* Adjust the height for image */
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-.lost-found-card p {
-    font-size: 16px;
-    margin-top: 10px;
-}
-
-/* Auto-scrolling behavior */
-.lost-found-cards {
-    animation: scroll-cards 30s linear infinite; /* Slow animation */
-}
-
-@keyframes scroll-cards {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%); /* Move all the way to the left */
-    }
-}
-
-/* Continuous Scrolling without gaps */
-.lost-found-cards {
-    display: flex;
-    flex-wrap: nowrap;
-    animation: scroll-cards 30s linear infinite;
-    width: calc(100% + 20px); /* Ensures no cropping for the last card */
-}
-
-.lost-found-card {
-    margin-right: 20px; /* Gap between cards */
-    flex-shrink: 0;
-}
-
-.lost-found-card:last-child {
-    margin-right: 0; /* No gap on the last card */
-}
-
-/* Remove scrollbar */
-.lost-found-cards::-webkit-scrollbar {
-    display: none;
-}
-
-</style>
 
     <section class="about-section feedback-form">
     <div class="feedback-box">
@@ -643,7 +451,41 @@ section {
         setTimeout(() => {
             closeAllNotifications();
         }, 20000); 
+
+        // Function to show notifications and the "Close All" button with a delay
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                // Show all notifications
+                const notifications = document.querySelectorAll('.notification');
+                notifications.forEach(notification => {
+                    notification.style.display = 'flex'; // Show notification after 2 seconds
+                });
+
+                // Show the "Close All" button after 2 seconds
+                const closeAllBtn = document.getElementById('close-all-btn');
+                closeAllBtn.style.display = 'block'; 
+            }, 2000); // 2000ms delay
+        });
+
+        // Function to close individual notification
+        function closeNotification(button) {
+            const notification = button.parentElement;
+            notification.style.display = 'none';
+        }
+
+        // Function to close all notifications
+        function closeAllNotifications() {
+            const notifications = document.querySelectorAll('.notification');
+            notifications.forEach(notification => {
+                notification.style.display = 'none';
+            });
+
+            // Optionally, you can hide the "Close All" button after closing all notifications
+            const closeAllBtn = document.getElementById('close-all-btn');
+            closeAllBtn.style.display = 'none';
+        }
     </script>
+
 
     
 </body>

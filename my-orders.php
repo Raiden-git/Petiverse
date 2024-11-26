@@ -87,165 +87,143 @@ $stmt->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders - Pet Shop</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to the external CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* General Reset */
-        body, h1, h2, p {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    color: black;
-}
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+        }
 
-/* Body Styling */
-body {
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
 
-/* Container */
-.container {
-    width: 80%;
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-/* Header */
-h1 {
-    margin-bottom:20px ;
-    font-size: 3em;
-    margin-bottom: 20px;
-    color: orange;
-    text-align: center;
-}
+        .page-header {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            padding: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
 
-/* Order Card */
-.order-card {
-    margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9fc;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
+        .order-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
 
-.order-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
+        .order-card:hover {
+            transform: translateY(-5px);
+        }
 
-/* Order Details */
-.order-details {
-    margin-bottom: 15px;
-  
-}
+        .order-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.order-details p {
-    margin-bottom: 8px;
-    font-size: 1em;
-    line-height: 1.4;
-}
+        .order-details {
+            padding: 20px;
+            background-color: var(--secondary-color);
+        }
 
-.order-details p strong {
-    color: brown;
-}
+        .order-details p {
+            margin-bottom: 10px;
+        }
 
-/* Product List */
-.product-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-}
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px;
+            background-color: white;
+        }
 
-.product-item {
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-    width: 400px;
-    
-}
+        .product-item {
+            flex: 1;
+            min-width: 250px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: box-shadow 0.3s ease;
+        }
 
-.product-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
+        .product-item:hover {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-.product-item p {
-    margin-bottom: 8px;
-    font-size: 0.95em;
-    line-height: 1.4;
-}
+        .product-item img {
+            max-width: 200px;
+            max-height: 200px;
+            object-fit: contain;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
 
-.product-item p strong {
-    color: #555;
-}
+        .order-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
 
-.product-item img {
-    display: block;
-    max-width: 60%;
-    height: auto;
-    margin-top: 10px;
-    border-radius: 8px;
-}
+        .status-pending {
+            background-color: #ffc107;
+            color: #212529;
+        }
 
-/* No Orders Message */
-.no-orders {
-    font-size: 1.2em;
-    color: #555;
-    text-align: center;
-    margin: 20px 0;
-}
+        .status-completed {
+            background-color: #28a745;
+            color: white;
+        }
 
-/* Buttons */
-button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1em;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-}
+        .status-cancelled {
+            background-color: #dc3545;
+            color: white;
+        }
 
-button:hover {
-    background-color: #0056b3;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .order-card {
-        padding: 15px;
-    }
-
-    .product-list {
-        grid-template-columns: 1fr;
-    }
-
-    h1 {
-        font-size: 2em;
-    }
-}
-
+        .no-orders {
+            text-align: center;
+            color: var(--primary-color);
+            padding: 50px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
 <?php include 'Cus-NavBar/navBar.php'; ?>
 
-
-    <h1>My Orders</h1>
+<div class="container">
+    <div class="page-header">
+        <h1>My Orders</h1>
+    </div>
 
     <?php if ($result->num_rows > 0): ?>
         <?php
@@ -257,23 +235,37 @@ button:hover {
 
         foreach ($orders as $order_code => $products):
             $order_details = $products[0]; // Use the first product to get order-level details
+
+            // Determine status color class
+            $status_class = 'status-pending';
+            if (strtolower($order_details['order_status']) === 'completed') {
+                $status_class = 'status-completed';
+            } elseif (strtolower($order_details['order_status']) === 'cancelled') {
+                $status_class = 'status-cancelled';
+            }
         ?>
             <div class="order-card">
-                <h2>Order #<?= htmlspecialchars($order_code) ?> (<?= htmlspecialchars($order_details['payment_type']) ?>)</h2>
+                <div class="order-header">
+                    <h2>Order #<?= htmlspecialchars($order_code) ?> (<?= htmlspecialchars($order_details['payment_type']) ?>)</h2>
+                    <span class="order-status <?= $status_class ?>">
+                        <?= htmlspecialchars($order_details['order_status']) ?>
+                    </span>
+                </div>
                 <div class="order-details">
-                    <p><strong>Full Name:</strong> <?= htmlspecialchars($order_details['full_name']) ?></p>
-                    <p><strong>Delivery Address:</strong> <?= htmlspecialchars($order_details['delivery_address']) ?></p>
-                    <p><strong>Phone Number:</strong> <?= htmlspecialchars($order_details['phone_number']) ?></p>
-                    <p><strong>Postal Code:</strong> <?= htmlspecialchars($order_details['postal_code']) ?></p>
-                    <p><strong>Total Price:</strong> LKR. <?= number_format($order_details['total_price'], 2) ?></p>
-                    <p><strong>Status:</strong> <?= htmlspecialchars($order_details['order_status']) ?></p>
-                    <p><strong>Status Message:</strong> <?= htmlspecialchars($order_details['order_status_message']) ?></p>
+                    <div class="order-info">
+                        <p><strong>Full Name:</strong> <?= htmlspecialchars($order_details['full_name']) ?></p>
+                        <p><strong>Delivery Address:</strong> <?= htmlspecialchars($order_details['delivery_address']) ?></p>
+                        <p><strong>Phone Number:</strong> <?= htmlspecialchars($order_details['phone_number']) ?></p>
+                        <p><strong>Postal Code:</strong> <?= htmlspecialchars($order_details['postal_code']) ?></p>
+                        <p><strong>Total Price:</strong> LKR. <?= number_format($order_details['total_price'], 2) ?></p>
+                        <p><strong>Status Message:</strong> <?= htmlspecialchars($order_details['order_status_message']) ?></p>
+                    </div>
                 </div>
                 <div class="product-list">
                     <?php foreach ($products as $product): ?>
                         <div class="product-item">
-                            <p><strong>Product Name:</strong> <?= htmlspecialchars($product['product_name']) ?></p>
-                            <p><strong>Description:</strong> <?= htmlspecialchars($product['product_description']) ?></p>
+                            <h3><?= htmlspecialchars($product['product_name']) ?></h3>
+                            <p><?= htmlspecialchars($product['product_description']) ?></p>
                             <p><strong>Quantity:</strong> <?= htmlspecialchars($product['quantity']) ?></p>
                             <p><strong>Price:</strong> LKR. <?= number_format($product['price'], 2) ?></p>
                             <?php if ($product['product_photo']): ?>
@@ -287,10 +279,11 @@ button:hover {
             </div>
         <?php endforeach; ?>
     <?php else: ?>
-        <p class="no-orders">No orders found.</p>
+        <p class="no-orders">No orders found. Start shopping and place your first order!</p>
     <?php endif; ?>
-
 </div>
+
+<?php include 'footer.php'; ?>
 
 </body>
 </html>
@@ -299,7 +292,3 @@ button:hover {
 // Close the database connection
 $conn->close();
 ?>
-
-
-
-

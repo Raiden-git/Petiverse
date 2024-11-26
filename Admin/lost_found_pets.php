@@ -183,11 +183,7 @@ if ($result) {
                     <th>Pet Type</th>
                     <th>Description</th>
                     <th>Location</th>
-<<<<<<< HEAD
                     <th>User</th>
-=======
-                    <th>User</th> 
->>>>>>> 8e174373cfe696749201fd38eb04ef54c15e6dfb
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
@@ -199,12 +195,8 @@ if ($result) {
                         <td><?= htmlspecialchars($row['pet_type']) ?></td>
                         <td><?= htmlspecialchars($row['description']) ?></td>
                         <td><?= htmlspecialchars($row['location']) ?></td>
-<<<<<<< HEAD
                         <td><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) ?></td>
                         <td><span class="status pending">Pending Approval</span></td>
-=======
-                        <td><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) ?></td> 
->>>>>>> 8e174373cfe696749201fd38eb04ef54c15e6dfb
                         <td>
                             <a href="?approve=true&pet_id=<?= $row['id'] ?>" class="btn approve">Approve</a>
                             <a href="?reject=true&pet_id=<?= $row['id'] ?>" class="btn reject">Reject</a>

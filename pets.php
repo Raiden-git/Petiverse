@@ -10,7 +10,6 @@ $stmtUserPosts->bind_param("i", $userId);
 $stmtUserPosts->execute();
 $resultUserPosts = $stmtUserPosts->get_result();
 
-session_start();
 
 // Handle search and category filter
 $searchQuery = '';
@@ -49,11 +48,11 @@ $result = $stmt->get_result();
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
+
     <title>Lost And Found</title>
     <link rel="stylesheet" href="assets/css/styles.css"> <!-- General styles -->
     <link rel="stylesheet" href="./assets/css/lost_found.css"> <!-- Link to new CSS file -->
-=======
+    
     <title>Lost & Found Pets - Petiverse</title>
     <!-- <link rel="stylesheet" href="assets/css/styles.css"> 
     <link rel="stylesheet" href="./assets/css/lost_found.css">  -->
@@ -101,6 +100,15 @@ $result = $stmt->get_result();
             border-radius: 2px;
         }
 
+        .hii {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            padding: 2rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
         .submit-btn {
             display: inline-block;
             background: var(--primary-color);
@@ -115,6 +123,25 @@ $result = $stmt->get_result();
         }
 
         .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .my-posts-btn {
+            display: inline-block;
+            background: white;
+            color: black;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all var(--transition-speed);
+            margin-bottom: 2rem;
+            margin-left: 1rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .my-posts-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
@@ -270,8 +297,10 @@ $result = $stmt->get_result();
             border-radius: 15px;
             max-width: 700px;
             width: 90%;
+            height: 90%;
             position: relative;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
         }
 
         .popup-content img {
@@ -341,8 +370,19 @@ $result = $stmt->get_result();
     <h2>Lost & Found Pets</h2>
 
     <!-- Submit Pet Button -->
-    <a href="submit_pet.php" class="submit-btn">Report a pet</a>
-    <a href="Lost_found_myposts.php" class="my-posts-btn">My Posts</a>
+    <div class="hii">
+
+    <a href="Lost_found_myposts.php" class="my-posts-btn">
+        <i class="fas fa-user"></i> My Posts
+    </a>
+
+    <a href="submit_pet.php" class="submit-btn">
+        <i class="fas fa-plus-circle"></i> Report a Pet
+    </a>
+
+    
+    </div>
+
     <form method="POST" class="search-form">
         <input type="text" name="search" placeholder="Search for pets..." value="<?php echo htmlspecialchars($searchQuery); ?>">
         <button type="submit"><i class="fas fa-search"></i> Search</button>
