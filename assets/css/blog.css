@@ -1,325 +1,382 @@
 
+/* Modern Design Variables */
 :root {
-  --primary-color: #2563eb;
-  --primary-hover: #ac6440;
-  --secondary-color: #f8fafc;
-  --accent-color: #0f172a;
-  --text-color: #334155;
-  --border-radius: 16px;
-  --box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+   --primary-color: #DA8359;
+   --primary-hover: #ac6440;
+   --secondary-color: #f8fafc;
+   --accent-color: #0f172a;
+   --text-color: #334155;
+   --border-radius: 16px;
+   --box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f6f3e8;
-  margin: 0;
-  padding: 0;
+   font-family: 'Inter', system-ui, -apple-system, sans-serif;
+   background-color: #f6f3e8;
+   color: var(--text-color);
+   line-height: 1.6;
+   margin: 0;
+   padding: 0;
 }
 
-/* Navbar Styling */
+/* Modern Navigation */
 .navbar {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  background-color: #4e4e4b;
-  padding: 15px 0;
-  color: #000000;
+   background: rgba(255, 255, 255, 0.8);
+   backdrop-filter: blur(12px);
+   -webkit-backdrop-filter: blur(12px);
+   padding: 1rem 2rem;
+   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+   display: flex;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: 1.5rem;
+   position: sticky;
+   top: 0;
+   z-index: 100;
 }
 
 .navbar a {
-  color: white;
-  text-decoration: none;
-  padding: 8px 15px;
-  border-radius: 4px;
+   text-decoration: none;
+   color: var(--text-color);
+   padding: 0.5rem 1rem;
+   border-radius: 9999px;
+   transition: var(--transition);
+   font-weight: 500;
+   font-size: 0.95rem;
 }
 
 .navbar a:hover {
-  color: rgb(255, 255, 255);
-  text-decoration: none;
- 
+   background: var(--secondary-color);
+   color: var(--primary-color);
 }
 
-
-
-/* Search Form */
 .search-form {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  margin-right: 30px;
- 
+   margin-left: auto;
+   display: flex;
+   gap: 0.5rem;
 }
 
-.search-form input[type="text"] {
-  padding: 8px;
-  border-radius: 4px;
-  border: 2px solid #000000;
-  width: 300px;
-  height: 22px;
+.search-form input {
+   padding: 0.75rem 1.5rem;
+   border: 1px solid #e2e8f0;
+   border-radius: 9999px;
+   min-width: 240px;
+   background: #f8fafc;
+   transition: var(--transition);
+}
+
+.search-form input:focus {
+   outline: none;
+   border-color: var(--primary-color);
+   background: white;
 }
 
 .search-form button {
-  padding: 8px 12px;
-  margin-left: 5px;
-  background-color: #0b0b0b;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  height: 40px;
-  width: 90px;
+   background: var(--primary-color);
+   color: white;
+   border: none;
+   padding: 0.75rem 1.5rem;
+   border-radius: 9999px;
+   cursor: pointer;
+   transition: var(--transition);
+   font-weight: 500;
 }
 
 .search-form button:hover {
-  background-color: #555;
-  color: red;
+   background: var(--primary-hover);
+   transform: translateY(-1px);
 }
 
+/* Blog Controls - Repositioned to Right */
+.hii {
+   display: flex;
+   justify-content: flex-end;
+   gap: 1rem;
+   padding: 2rem 2rem;
+   max-width: 1400px;
+   margin: 0 auto;
+}
 
+.createblog, .myblogs {
+   background: var(--primary-color);
+   color: white;
+   border: none;
+   padding: 0.75rem 1.5rem;
+   border-radius: 9999px;
+   font-size: 0.95rem;
+   cursor: pointer;
+   transition: var(--transition);
+   font-weight: 500;
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+}
 
+.createblog {
+   background: var(--primary-color);
+}
 
+.myblogs {
+   background: white;
+   color: var(--text-color);
+   border: 1px solid #e2e8f0;
+}
 
+.createblog:hover, .myblogs:hover {
+   transform: translateY(-2px);
+   box-shadow: var(--box-shadow);
+}
 
+.myblogs:hover {
+   background: var(--secondary-color);
+}
 
-
-
-
-
-/* Blog Cards Container */
+/* Modern Blog Cards */
 .blogs-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
-  justify-content: center;
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+   gap: 2rem;
+   padding: 1rem 2rem 3rem;
+   max-width: 1400px;
+   margin: 0 auto;
 }
 
-/* Blog Card Styling */
 .blog-card {
-  background: rgb(253, 240, 219);
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  padding: 20px;
-  position: relative;
-  border: 1px solid black;
+   background: white;
+   border-radius: var(--border-radius);
+   overflow: hidden;
+   box-shadow: var(--box-shadow);
+   transition: var(--transition);
+   border: 1px solid #e2e8f0;
 }
 
-.blog-card-header img {
-  width: 100%;
-  max-height: 200px;
-  object-fit: cover;
-  border-radius: 8px 8px 0 0;
-  margin-top: 5px;
+.blog-card:hover {
+   transform: translateY(-4px);
+   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.blog-photo {
+   height: 220px;
+   overflow: hidden;
+}
+
+.blog-photo img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   transition: var(--transition);
 }
 
 .username {
-  font-weight: bold;
-  color: rgb(0, 0, 0);
-  margin-left: 330px;
-
-
+   position: absolute;
+   top: 1rem;
+   left: 1rem;
+   background: rgba(255, 255, 255, 0.95);
+   padding: 0.5rem 1rem;
+   border-radius: 9999px;
+   font-weight: 500;
+   font-size: 0.9rem;
+   z-index: 1;
+   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
 }
 
 .blog-card-details {
-  font-size: 0.9rem;
-  color: #413e3e;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
+   padding: 1.25rem;
+   display: flex;
+   flex-wrap: wrap;
+   gap: 1rem;
+   font-size: 0.875rem;
+   color: #64748b;
+   border-bottom: 1px solid #f1f5f9;
 }
 
-.blog-card-content h3 {
-  font-size: 1.5rem;
-  color: #ff3c3c;
-  margin: 10px 0;
+.blog-card-content {
+   padding: 1.5rem;
 }
 
-.blog-card-content p {
-  color: #000000;
+.blog-title {
+   margin: 0 0 1rem 0;
+   font-size: 1.25rem;
+   color: var(--accent-color);
+   font-weight: 600;
+   line-height: 1.4;
+}
+
+.blog-excerpt {
+   color: #64748b;
+   margin-bottom: 1.5rem;
+   font-size: 0.95rem;
+   line-height: 1.6;
 }
 
 .read-more {
-  background-color: #DA8359;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 0.9rem;
+   background: white;
+   color: var(--primary-color);
+   border: 1px solid #e2e8f0;
+   padding: 0.75rem 1.5rem;
+   border-radius: 9999px;
+   cursor: pointer;
+   transition: var(--transition);
+   font-weight: 500;
+   font-size: 0.95rem;
 }
 
 .read-more:hover {
-  background-color: #b85d30;
+   background: var(--primary-color);
+   color: white;
+   border-color: var(--primary-color);
 }
 
-/* Popup Overlay */
-.overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 999;
+/* Modern Modal Design */
+.modal {
+   display: none;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 110%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.3);
+   backdrop-filter: blur(4px);
+   z-index: 1000;
+   
 }
 
-
-
-
-
-
-/* Create Blog Button */
-.hii .createblog{
-  background-color: #DA8359;
-  color: white;
-  padding: 10px 20px;
-  margin-left: 1200px;
-  border: 2px solid #DA8359;
-  border-radius: 25px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top:20px ;
-  margin-bottom: 10px;
+.modal-content {
+   background: white;
+   width: 90%;
+   max-width: 800px;
+   margin: 2rem auto;
+   padding: 2.5rem;
+   border-radius: var(--border-radius);
+   max-height: 85vh;
+   overflow-y: auto;
+   position: relative;
+   box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 }
 
-.hii .createblog:hover, .hii .myblogs:hover {
-  background-color: #b85d30;
+.close {
+   position: absolute;
+   right: 1.5rem;
+   top: 1.5rem;
+   font-size: 1.5rem;
+   cursor: pointer;
+   color: #8b6464;
+   transition: var(--transition);
+   width: 32px;
+   height: 32px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 50%;
 }
 
-
-
-/* my Blog Button */
-.hii .myblogs {
-  background-color: #DA8359;
-  color: white;
-  padding: 10px 20px;
-  border: 2px solid #DA8359;
-  border-radius: 25px;
-  border-radius: 5px;
-  cursor: pointer;
+.close:hover {
+   background: #f1f5f9;
+   color: var(--accent-color);
 }
 
-.hii .createblog:hover, .hii .myblogs:hover {
-  background-color: #b85d30;
-}
-
-
-
-
-
-
-
-
-
-
-/* Create Blog Popup */
+/* Modern Create Blog Form */
 .my-blogs-popup {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  width: 90%;
-  max-width: 600px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
+   display: none;
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background: white;
+   padding: 2.5rem;
+   border-radius: var(--border-radius);
+   width: 90%;
+   max-width: 600px;
+   z-index: 1001;
+   box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+.my-blogs-popup form {
+   display: flex;
+   flex-direction: column;
+   gap: 1.25rem;
 }
 
 .my-blogs-popup input[type="text"],
 .my-blogs-popup textarea,
-.my-blogs-popup select,
-.my-blogs-popup input[type="file"] {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.my-blogs-popup select {
+   padding: 0.875rem 1.25rem;
+   border: 1px solid #e2e8f0;
+   border-radius: 12px;
+   font-size: 0.95rem;
+   transition: var(--transition);
+   background: #f8fafc;
 }
 
-.my-blogs-popup button[type="submit"] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.my-blogs-popup input[type="text"]:focus,
+.my-blogs-popup textarea:focus,
+.my-blogs-popup select:focus {
+   outline: none;
+   border-color: var(--primary-color);
+   background: white;
 }
 
-.my-blogs-popup button[type="submit"]:hover {
-  background-color: #45a049;
+.my-blogs-popup textarea {
+   min-height: 200px;
+   resize: vertical;
 }
 
 .my-blogs-popup button {
-  margin-top: 10px;
-  cursor: pointer;
+   background: var(--primary-color);
+   color: white;
+   border: none;
+   padding: 0.875rem;
+   border-radius: 12px;
+   cursor: pointer;
+   transition: var(--transition);
+   font-weight: 500;
+   font-size: 0.95rem;
 }
 
-
-
-/* Modal Styling */
-.modal {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
-  max-width: 90%;
-  width: 600px;
-  max-height: 90vh;
-  overflow-y: auto;
+.my-blogs-popup button:hover {
+   background: var(--primary-hover);
 }
 
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.overlay {
+   display: none;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.3);
+   backdrop-filter: blur(4px);
+   z-index: 1000;
 }
 
-.modal-content h2 {
-  font-size: 1.5rem;
-  color: #333;
-}
-
-.modal-content img {
-  width: 100%;
-  max-height: 300px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.modal-content p {
-  color: #555;
-}
-
-.modal-content .modal-author,
-.modal-content .modal-date {
-  font-size: 0.9rem;
-  color: #777;
-}
-
-.close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 1.5rem;
-  color: #333;
-  cursor: pointer;
-}
-
-.close:hover {
-  color: #999;
+/* Responsive Design */
+@media (max-width: 768px) {
+   .navbar {
+       padding: 1rem;
+   }
+   
+   .search-form {
+       width: 100%;
+       margin-top: 1rem;
+   }
+   
+   .search-form input {
+       flex: 1;
+   }
+   
+   .blogs-container {
+       padding: 1rem;
+       grid-template-columns: 1fr;
+   }
+   
+   .modal-content {
+       width: 95%;
+       margin: 1rem auto;
+       padding: 1.5rem;
+   }
+   
+   .hii {
+       padding: 1rem;
+   }
 }

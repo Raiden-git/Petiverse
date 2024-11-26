@@ -10,7 +10,7 @@ $stmtUserPosts->bind_param("i", $userId);
 $stmtUserPosts->execute();
 $resultUserPosts = $stmtUserPosts->get_result();
 
-session_start();
+
 
 // Handle search and category filter
 $searchQuery = '';
@@ -49,11 +49,11 @@ $result = $stmt->get_result();
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
+
     <title>Lost And Found</title>
     <link rel="stylesheet" href="assets/css/styles.css"> <!-- General styles -->
     <link rel="stylesheet" href="./assets/css/lost_found.css"> <!-- Link to new CSS file -->
-=======
+    <link rel="stylesheet" href="./assets/css/scrollbar.css">
     <title>Lost & Found Pets - Petiverse</title>
     <!-- <link rel="stylesheet" href="assets/css/styles.css"> 
     <link rel="stylesheet" href="./assets/css/lost_found.css">  -->

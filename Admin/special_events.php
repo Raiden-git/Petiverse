@@ -51,19 +51,8 @@ if (isset($_GET['delete_id'])) {
     <title>Special Event Management</title>
     <link rel="stylesheet" href="admin_sidebar.css">
     <style>
-        body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-}
 
-header {
-    background-color: #343a40;
-    color: white;
-    padding: 1em;
-    text-align: center;
-}
+
 
 main {
     padding: 2em;
@@ -108,7 +97,6 @@ th, td {
 </nav>
 
 <main>
-<<<<<<< HEAD
     <h2>Add Special Event</h2>
     <form method="POST" enctype="multipart/form-data">
         <label for="title">Event Title:</label>
@@ -155,10 +143,6 @@ th, td {
             ?>
         </tbody>
     </table>
-=======
-    <h2>Special Event Management</h2>
-   
->>>>>>> 8e174373cfe696749201fd38eb04ef54c15e6dfb
 </main>
 </body>
 </html>

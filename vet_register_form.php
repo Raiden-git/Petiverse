@@ -10,6 +10,7 @@ session_start();
     <title>Veterinarian Registration</title>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHdLOieN0OIcTyyY6CmJv6gPNx-OX3MwA&callback=initMap" async defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/scrollbar.css">
     <style>
         body {
             font-family: 'Roboto', sans-serif;

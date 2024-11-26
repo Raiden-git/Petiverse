@@ -87,7 +87,7 @@ $stmt->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders - Pet Shop</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to the external CSS -->
+    <link rel="stylesheet" href="./assets/css/scrollbar.css">
     <style>
         /* General Reset */
         body, h1, h2, p {

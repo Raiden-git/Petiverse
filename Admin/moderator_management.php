@@ -93,7 +93,7 @@ h2, h3 {
 form label {
     display: inline-block;
     width: 150px;
-    font-weight: bold;
+   
 }
 
 form input[type="email"],
@@ -113,7 +113,6 @@ form button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-weight: bold;
     margin-bottom: 60px;
     margin-top: 10px;
 }
