@@ -95,7 +95,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <a href="vet_dashboard.php" class="logo">Petiverse</a>
             <div class="nav-links">
                 <a href="vet_dashboard.php" class="<?php echo $current_page == 'vet_dashboard.php' ? 'active' : ''; ?>">Dashboard</a>
-                <a href="manage_appointments.php" class="<?php echo $current_page == 'manage_appointments.php' ? 'active' : ''; ?>">Appointments</a>
+                <a href="vet_appointments.php" class="<?php echo $current_page == 'manage_appointments.php' ? 'active' : ''; ?>">Appointments</a>
                 <a href="vet_chat.php" class="<?php echo $current_page == 'vet_chat.php' ? 'active' : ''; ?>">Chat</a>
                 <a href="edit_profile.php" class="<?php echo $current_page == 'edit_profile.php' ? 'active' : ''; ?>">Profile</a>
             </div>

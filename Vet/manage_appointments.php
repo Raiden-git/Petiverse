@@ -236,7 +236,7 @@ $appointment_types = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                         <input type="number" name="duration" placeholder="Duration (minutes)" required>
                     </div>
                     <div class="form-group">
-                        <label class="block text-sm font-medium mb-2">Price ($)</label>
+                        <label class="block text-sm font-medium mb-2">Price (LKR)</label>
                         <input type="number" name="price" step="0.01" placeholder="Price" required>
                     </div>
                 </div>
@@ -261,7 +261,7 @@ $appointment_types = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                 <tr>
                     <td><?= htmlspecialchars($type['type_name']) ?></td>
                     <td><?= htmlspecialchars($type['duration']) ?> minutes</td>
-                    <td>$<?= htmlspecialchars($type['price']) ?></td>
+                    <td>LKR <?= htmlspecialchars($type['price']) ?></td>
                     <td class="<?= $type['is_available'] ? 'status-available' : 'status-unavailable' ?>">
                         <?= $type['is_available'] ? 'Available' : 'Not Available' ?>
                     </td>

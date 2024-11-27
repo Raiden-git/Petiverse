@@ -1,6 +1,10 @@
 <?php
 require 'db.php';
+require 'vendor/autoload.php';
 session_start();
+
+
+\Stripe\Stripe::setApiKey('sk_test_51QNWQKG2zxFLmtj9w1HsGLgAkVByklUMkMC59EYOk9A2XNaL5azhcTTlFT2LE5oJMkYPxOysXU4cdJidanITC70n00S49ksdJ4');
 
 // Check if a vet ID is passed in the URL
 if (!isset($_GET['id'])) {
@@ -28,7 +32,7 @@ $vet = $result->fetch_assoc();
 // Check user's premium status
 $user_id = $_SESSION['user_id'] ?? null;
 if ($user_id) {
-    $user_query = "SELECT is_premium FROM users WHERE id = ?";
+    $user_query = "SELECT id, is_premium, email FROM users WHERE id = ?";
     $user_stmt = $conn->prepare($user_query);
     $user_stmt->bind_param('i', $user_id);
     $user_stmt->execute();
@@ -37,6 +41,8 @@ if ($user_id) {
     $is_premium = $user['is_premium'];
 } else {
     $is_premium = false;
+    echo "Please log in to book an appointment.";
+    exit;
 }
 
 // Get vet's schedule for the next 7 days
@@ -95,6 +101,86 @@ function getVetSchedule($conn, $vet_id, $start_date, $end_date) {
     
     return $schedule;
 }
+
+// Handle Stripe payment for online appointment
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $is_premium) {
+    $appointment_type_id = intval($_POST['appointment_type']);
+    $appointment_mode = $_POST['appointment_mode'];
+    $appointment_date = $_POST['appointment_date'];
+    $appointment_time = $_POST['appointment_time'];
+
+    // Fetch appointment type details
+    $type_query = "SELECT type_name, duration, price FROM appointment_types WHERE id = ?";
+    $type_stmt = $conn->prepare($type_query);
+    $type_stmt->bind_param('i', $appointment_type_id);
+    $type_stmt->execute();
+    $type_result = $type_stmt->get_result()->fetch_assoc();
+    $duration = intval($type_result['duration']);
+    $price = floatval($type_result['price']);
+
+    $start_time = $appointment_time;
+    $end_time = date('H:i:s', strtotime($start_time) + $duration * 60);
+
+    // Check if the selected time is available
+    $check_query = "SELECT * FROM appointments 
+                    WHERE vet_id = ? AND appointment_date = ? 
+                    AND (start_time < ? AND end_time > ?) AND status != 'cancelled'";
+    $check_stmt = $conn->prepare($check_query);
+    $check_stmt->bind_param('isss', $vet_id, $appointment_date, $end_time, $start_time);
+    $check_stmt->execute();
+    $check_result = $check_stmt->get_result();
+
+    if ($check_result->num_rows === 0) {
+        if ($appointment_mode === 'online') {
+            try {
+                // Create Stripe Checkout Session
+                $checkout_session = \Stripe\Checkout\Session::create([
+                    'payment_method_types' => ['card'],
+                    'line_items' => [[
+                        'price_data' => [
+                            'currency' => 'lkr',
+                            'unit_amount' => $price * 100, // Stripe expects amount in cents
+                            'product_data' => [
+                                'name' => "Dr. {$vet['name']} - {$type_result['type_name']} Appointment",
+                            ],
+                        ],
+                        'quantity' => 1,
+                    ]],
+                    'mode' => 'payment',
+                    'success_url' => "http://localhost/petiverse/appointment_success.php?vet_id={$vet_id}&date={$appointment_date}&time={$appointment_time}&type_id={$appointment_type_id}&mode={$appointment_mode}&session_id={CHECKOUT_SESSION_ID}",
+                    'cancel_url' => "http://localhost/petiverse/vet_profile.php?id={$vet_id}&tab=schedule&error=payment_cancelled",
+                    'client_reference_id' => $user_id,
+                    'customer_email' => $user['email'],
+                ]);
+
+                // Redirect to Stripe Checkout
+                header("Location: " . $checkout_session->url);
+                exit;
+            } catch (Exception $e) {
+                // Handle Stripe errors
+                echo "Payment error: " . $e->getMessage();
+                exit;
+            }
+        } else { // Physical appointment
+            // Book the appointment directly
+            $insert_query = "INSERT INTO appointments (vet_id, user_id, appointment_type_id, appointment_date, start_time, end_time, mode) 
+                             VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $insert_stmt = $conn->prepare($insert_query);
+            $insert_stmt->bind_param('iiissss', $vet_id, $user_id, $appointment_type_id, $appointment_date, $start_time, $end_time, $appointment_mode);
+            
+            if ($insert_stmt->execute()) {
+                // Redirect to a success page
+                header("Location: appointment_success.php?vet_id={$vet_id}&date={$appointment_date}&time={$appointment_time}&type_id={$appointment_type_id}&mode={$appointment_mode}");
+                exit;
+            } else {
+                echo "Error booking appointment.";
+            }
+        }
+    } else {
+        echo "The selected time slot is already booked.";
+    }
+}
+
 
 // Handle appointment booking for premium users
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $is_premium) {
@@ -620,7 +706,6 @@ $active_tab = $_GET['tab'] ?? 'profile';
             }
         }
     </style>
-    </style>
 </head>
 <body>
     <?php include 'Cus-NavBar/navBar.php'; ?>
@@ -734,6 +819,15 @@ $active_tab = $_GET['tab'] ?? 'profile';
     <div class="booking-form">
         <form action="vet_profile.php?id=<?php echo $vet_id; ?>&tab=schedule" method="POST">
             <h2>Book an Appointment</h2>
+
+            <div class="form-group">
+                <label for="appointment_mode">Appointment Mode:</label>
+                <select name="appointment_mode" id="appointment_mode" required>
+                    <option value="physical">Physical Consultation</option>
+                    <option value="online">Online Consultation</option>
+                </select>
+            </div>
+
             <div class="form-group">
                 <label for="appointment_type">Appointment Type:</label>
                 <select name="appointment_type" id="appointment_type" required>
@@ -762,6 +856,8 @@ $active_tab = $_GET['tab'] ?? 'profile';
                     <!-- Time slots will be dynamically populated with available times using JS -->
                 </select>
             </div>
+
+
 
             <input type="submit" value="Book Appointment">
         </form>
