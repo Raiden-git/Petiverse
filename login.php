@@ -66,20 +66,64 @@ $google_login_url = $google_client->createAuthUrl();
             background: linear-gradient(to bottom right, #6A82FB, #FC5C7D);
             height: 100vh;
             display: flex;
+            overflow: hidden;
+        }
+
+        .page-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+        }
+
+        .description-section {
+            width: 60%;
+            background-color: #6A82FB;
+            color: white;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 40px;
+            text-align: center;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .description-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .description-section p {
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-bottom: 30px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .description-image {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            animation: bounce 2s infinite alternate;
         }
 
         .login-container {
-            position: relative;
-            background-color: #ffffff;
+            width: 40%;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             padding: 40px;
-            border-radius: 10px;
-            max-width: 450px;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .login-form {
+            max-width: 350px;
             width: 100%;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-            animation: slideIn 0.8s ease;
-            left: 25%;
+            margin: 0 auto;
         }
 
         h2 {
@@ -102,11 +146,12 @@ $google_login_url = $google_client->createAuthUrl();
             margin-bottom: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         input[type="email"]:focus, input[type="password"]:focus {
             border-color: #FC5C7D;
+            box-shadow: 0 0 10px rgba(252, 92, 125, 0.2);
         }
 
         input[type="submit"] {
@@ -119,11 +164,12 @@ $google_login_url = $google_client->createAuthUrl();
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.1s;
         }
 
         input[type="submit"]:hover {
             background-color: #FC5C7D;
+            transform: scale(1.02);
         }
 
         .google-login-btn {
@@ -137,49 +183,13 @@ $google_login_url = $google_client->createAuthUrl();
             border-radius: 5px;
             font-size: 16px;
             font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.1s;
         }
 
         .google-login-btn:hover {
             background-color: #357ae8;
+            transform: scale(1.02);
         }
-
-        .google-login-btn svg {
-            margin-right: 10px;
-        }
-
-        a {
-            color: #6A82FB;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: none;
-        }
-
-        p {
-            text-align: center;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .forgot-password {
-            display: block;
-            text-align: right;
-            margin-top: -15px;
-            margin-bottom: 20px;
-        }
-
 
         .error-message {
             color: #fff;
@@ -188,8 +198,29 @@ $google_login_url = $google_client->createAuthUrl();
             margin-bottom: 20px;
             text-align: center;
             border-radius: 5px;
-            font-size: 14px;
-            animation: fadeIn 0.5s ease-in-out;
+            animation: shake 0.5s;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         @keyframes fadeIn {
@@ -200,36 +231,67 @@ $google_login_url = $google_client->createAuthUrl();
                 opacity: 1;
             }
         }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(-10px);
+            }
+            to {
+                transform: translateY(10px);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                flex-direction: column;
+            }
+
+            .description-section, .login-container {
+                width: 100%;
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login to Petiverse</h2>
-        <?php if (!empty($error_message)): ?>
-            <div class="error-message">
-                <?php echo $error_message; ?>
-            </div>
-        <?php endif; ?>
-        <form action="./login.php" method="POST">
-            <label>Email:</label>
-            <input type="email" name="email" placeholder="Enter your email" required>
+    <div class="page-container">
+        <div class="description-section">
+            <h1>Welcome to Petiverse</h1>
+            <p>Petiverse is your all-in-one pet care web application designed to simplify and enhance your pet ownership experience. From health tracking and veterinary records to pet-friendly location recommendations and community connections, Petiverse is the ultimate companion for pet lovers.</p>
+            <img src="./src/img/pet-log.png" alt="Petiverse Illustration" class="description-image">
+        </div>
+        <div class="login-container">
+            <div class="login-form">
+                <h2>Login to Petiverse</h2>
+                <?php if (!empty($error_message)): ?>
+                    <div class="error-message">
+                        <?php echo $error_message; ?>
+                    </div>
+                <?php endif; ?>
+                <form action="./login.php" method="POST">
+                    <label>Email:</label>
+                    <input type="email" name="email" placeholder="Enter your email" required>
 
-            <label>Password:</label>
-            <input type="password" name="password" placeholder="Enter your password" required>
+                    <label>Password:</label>
+                    <input type="password" name="password" placeholder="Enter your password" required>
 
-            
+                    <a href="forgot-password.php" style="display: block; text-align: right; margin-top: -15px; margin-bottom: 20px; color: #6A82FB;">Forgot Password?</a>
 
-            <a href="forgot-password.php" class="forgot-password">Forgot Password?</a>
+                    <input type="submit" value="Login">
 
-            <input type="submit" value="Login">
+                    <p style="text-align: center; margin: 15px 0;">OR</p>
 
-            <p>OR</p>
-
-            <a href="<?php echo $google_login_url; ?>" class="google-login-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="google" viewBox="-380.2 274.7 65.7 65.8" width="25" height="25">
-                    <circle cx="-347.3" cy="307.6" r="32.9" style="fill:#e0e0e0"></circle>
-                    <circle cx="-347.3" cy="307.1" r="32.4" style="fill:#fff"></circle>
-                    <g>
+                    <a href="<?php echo $google_login_url; ?>" class="google-login-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="25" viewBox="-380.2 274.7 65.7 65.8">
+                            <circle cx="-347.3" cy="307.6" r="32.9" style="fill:#e0e0e0"></circle>
+                            <circle cx="-347.3" cy="307.1" r="32.4" style="fill:#fff"></circle>
+                            <g>
                         <defs>
                             <path id="SVGID_1_" d="M-326.3 303.3h-20.5v8.5h11.8c-1.1 5.4-5.7 8.5-11.8 8.5-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4c-3.9-3.4-8.9-5.5-14.5-5.5-12.2 0-22 9.8-22 22s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path>
                         </defs>
@@ -263,10 +325,13 @@ $google_login_url = $google_client->createAuthUrl();
                             <path d="M-322.8 331.3l-31-24-4-3 35-10z" style="clip-path:url(#SVGID_8_);fill:#4285f4"></path>
                         </g>
                     </g>
-                </svg>Continue with Google
-                </a>
-        </form>
-        <p>Not registered? <a href="signup.php">Sign up here</a></p>
-
+                        </svg>
+                         Continue with Google
+                    </a>
+                </form>
+                <p style="text-align: center; margin-top: 15px;">Not registered? <a href="signup.php" style="color: #6A82FB;">Sign up here</a></p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -19,7 +19,7 @@ $google_login_url = $google_client->createAuthUrl(); // Google login URL
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script> 
 
 <style>
-/* Base Header Styles */
+
 header {
     background-color: #ECDFCC;
     display: flex;
@@ -43,9 +43,8 @@ header {
     color: #DA8359;
 }
 
-/* Hamburger Menu Button */
 .menu-toggle {
-    display: none; /* Hidden by default, shown on mobile */
+    display: none;
     background: none;
     border: none;
     cursor: pointer;
@@ -183,7 +182,7 @@ nav.desktop-nav a:hover {
 
 /* Mobile Navigation Drawer */
 .mobile-nav {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
     top: 0;
     left: -280px;
@@ -275,7 +274,6 @@ nav.desktop-nav a:hover {
 }
 
 @media (max-width: 768px) {
-    /* Show mobile elements */
     .menu-toggle {
         display: flex;
     }
@@ -284,12 +282,10 @@ nav.desktop-nav a:hover {
         display: block;
     }
     
-    /* Hide desktop navigation */
     nav.desktop-nav {
         display: none;
     }
     
-    /* Adjust header for mobile */
     header {
         padding: 10px 15px;
     }
@@ -327,21 +323,12 @@ nav.desktop-nav a:hover {
 
 
 
-
-
-
-
-
-
-
-
 </style>
 
 
 </head>
 <body>
 <header>
-    <!-- Mobile Menu Toggle -->
     <button class="menu-toggle" aria-label="Toggle Menu">
         <box-icon name='menu' size="md"></box-icon>
     </button>
@@ -350,7 +337,7 @@ nav.desktop-nav a:hover {
         <h1><a href="index.php">Petiverse</a></h1>
     </div>
     
-    <!-- Desktop Navigation -->
+
     <nav class="desktop-nav">
         <ul>
             <li><a href="shop.php">Shop</a></li>
