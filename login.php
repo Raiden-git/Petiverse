@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'google-config.php'; // Google Client configuration
+require 'google-config.php'; 
 
 $error_message = '';
 
@@ -66,71 +66,30 @@ $google_login_url = $google_client->createAuthUrl();
             background: linear-gradient(to bottom right, #6A82FB, #FC5C7D);
             height: 100vh;
             display: flex;
-            overflow: hidden;
-        }
-
-        .page-container {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            box-shadow: 0 0 50px rgba(0,0,0,0.1);
-        }
-
-        .description-section {
-            width: 60%;
-            background-color: #6A82FB;
-            color: white;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 40px;
-            text-align: center;
-            animation: slideInLeft 1s ease-out;
-        }
-
-        .description-section h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        .description-section p {
-            font-size: 1rem;
-            line-height: 1.6;
-            max-width: 600px;
-            margin-bottom: 30px;
-            animation: fadeIn 2s ease-out;
-        }
-
-        .description-image {
-            max-width: 400px;
-            width: 100%;
-            height: auto;
-            animation: bounce 2s infinite alternate;
         }
 
         .login-container {
-            width: 40%;
-            background-color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            position: relative;
+            background-color: #ffffff;
             padding: 40px;
-            animation: slideInRight 1s ease-out;
-        }
-
-        .login-form {
-            max-width: 350px;
+            border-radius: 10px;
+            max-width: 450px;
             width: 100%;
-            margin: 0 auto;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.8s ease;
+            left: 25%;
         }
 
         h2 {
             text-align: center;
             margin-bottom: 30px;
             font-weight: 600;
-            color: #FC5C7D;
+            color: black;
+            font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 55px;
+            
         }
 
         label {
@@ -146,12 +105,11 @@ $google_login_url = $google_client->createAuthUrl();
             margin-bottom: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s ease;
         }
 
         input[type="email"]:focus, input[type="password"]:focus {
             border-color: #FC5C7D;
-            box-shadow: 0 0 10px rgba(252, 92, 125, 0.2);
         }
 
         input[type="submit"] {
@@ -164,12 +122,11 @@ $google_login_url = $google_client->createAuthUrl();
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.1s;
+            transition: background-color 0.3s ease;
         }
 
         input[type="submit"]:hover {
             background-color: #FC5C7D;
-            transform: scale(1.02);
         }
 
         .google-login-btn {
@@ -183,13 +140,49 @@ $google_login_url = $google_client->createAuthUrl();
             border-radius: 5px;
             font-size: 16px;
             font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.1s;
         }
 
         .google-login-btn:hover {
             background-color: #357ae8;
-            transform: scale(1.02);
         }
+
+        .google-login-btn svg {
+            margin-right: 10px;
+        }
+
+        a {
+            color: #6A82FB;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: right;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+
 
         .error-message {
             color: #fff;
@@ -198,29 +191,8 @@ $google_login_url = $google_client->createAuthUrl();
             margin-bottom: 20px;
             text-align: center;
             border-radius: 5px;
-            animation: shake 0.5s;
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            font-size: 14px;
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         @keyframes fadeIn {
@@ -325,13 +297,10 @@ $google_login_url = $google_client->createAuthUrl();
                             <path d="M-322.8 331.3l-31-24-4-3 35-10z" style="clip-path:url(#SVGID_8_);fill:#4285f4"></path>
                         </g>
                     </g>
-                        </svg>
-                         Continue with Google
-                    </a>
-                </form>
-                <p style="text-align: center; margin-top: 15px;">Not registered? <a href="signup.php" style="color: #6A82FB;">Sign up here</a></p>
-            </div>
-        </div>
-    </div>
+                </svg>Continue with Google
+                </a>
+        </form>
+        <p>Not registered? <a href="signup.php">Sign up here</a></p>
+
 </body>
 </html>

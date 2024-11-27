@@ -188,8 +188,8 @@ if ($conn->connect_error) {
 
 // Check if admin submitted an update for order status
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
-    $order_code = $_POST['order_code']; // Order code received from the form
-    $new_status = $_POST['status']; // Status to be updated
+    $order_code = $_POST['order_code']; 
+    $new_status = $_POST['status'];
 
     // Prepare the status message based on the new status
     $status_message = ($new_status === 'confirmed') 
@@ -243,7 +243,7 @@ $sql = "SELECT
             products.price AS product_price
         FROM COD_orders
         INNER JOIN products ON COD_orders.product_id = products.id
-        WHERE COD_orders.order_status NOT IN ('confirmed', 'cancelled')  -- Exclude confirmed/cancelled orders
+        WHERE COD_orders.order_status NOT IN ('confirmed', 'cancelled')  
         GROUP BY COD_orders.order_id, COD_orders.product_id
         ORDER BY COD_orders.order_id";
 

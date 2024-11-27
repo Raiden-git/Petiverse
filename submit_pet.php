@@ -1,11 +1,11 @@
 <?php
-// Start the session to check if the user is logged in
+
 session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
-    exit(); // Ensure the rest of the script does not run
+    exit(); 
 }
 
 // Database connection
@@ -50,8 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Ensure the image data is bound correctly
-    $approved = 0;  // New submissions are not approved, need admin review
-    $user_id = $_SESSION['user_id']; // Get the logged-in user's ID
+    $approved = 0; 
+    $user_id = $_SESSION['user_id']; 
 
     // Bind parameters (image must use `addslashes` for proper binary handling)
     $stmt->bind_param(

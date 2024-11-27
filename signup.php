@@ -70,66 +70,19 @@ $google_signup_url = $google_client->createAuthUrl();
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to bottom right, #6A82FB, #FC5C7D);
+            background: transparent;
             height: 100vh;
             display: flex;
-            overflow: hidden;
-        }
-
-        .page-container {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            box-shadow: 0 0 50px rgba(0,0,0,0.1);
-        }
-
-        .description-section {
-            width: 60%;
-            background-color: #6A82FB;
-            color: white;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 40px;
-            text-align: center;
-            animation: slideInLeft 1s ease-out;
-        }
-
-        .description-section h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        .description-section p {
-            font-size: 1rem;
-            line-height: 1.6;
-            max-width: 600px;
-            margin-bottom: 30px;
-            animation: fadeIn 2s ease-out;
-        }
-
-        .description-image {
-            max-width: 400px;
-            width: 100%;
-            height: auto;
-            animation: bounce 2s infinite alternate;
         }
 
         .signup-container {
-            width: 40%;
-            background-color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            position: relative;
+            background-color: #ffffff;
             padding: 40px;
-            animation: slideInRight 1s ease-out;
-            overflow-y: auto;
-        }
-
-        .signup-form {
-            max-width: 350px;
+            border-radius: 10px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
             width: 100%;
             margin: 0 auto;
         }
@@ -138,7 +91,10 @@ $google_signup_url = $google_client->createAuthUrl();
             text-align: center;
             margin-bottom: 30px;
             font-weight: 600;
-            color: #FC5C7D;
+            color: black;
+            font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 55px;
+            
         }
 
         form {

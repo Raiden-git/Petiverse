@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db.php'; // Database connection
+include 'db.php'; 
 
 // Fetch all approved vets
 $query = "SELECT id, name, qualification, specialization, experience, clinic_name, consultation_fee, services, profile_picture, rating 

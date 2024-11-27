@@ -302,7 +302,7 @@ body.editing::before {
 
     function hideEditForm() {
         document.getElementById('editForm').style.display = 'none';
-        document.body.classList.remove('editing'); // Remove overlay
+        document.body.classList.remove('editing'); 
     }
 </script>
 

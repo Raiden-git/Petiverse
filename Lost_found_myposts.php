@@ -58,7 +58,6 @@ $result = $stmt->get_result();
         .mypost-card button {
             margin: 5px;
         }
-        <style>
     .myposts-section {
         padding: 20px;
         max-width: 1000px;
@@ -86,13 +85,12 @@ $result = $stmt->get_result();
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
 
-    <style>
     .mypost-card img {
-        width: 100%; /* Ensure the image fits within the container's width */
-        max-height: 200px; /* Limit the height for consistency */
-        object-fit: contain; /* Show the full image without cropping */
-        border-radius: 8px; /* Keep rounded corners for a clean look */
-        background-color: #f0f0f0; /* Optional: Add a light background color for empty space */
+        width: 100%; 
+        max-height: 200px; 
+        object-fit: contain; 
+        border-radius: 8px;
+        background-color: #f0f0f0; 
         margin-bottom: 10px;
     }
 
@@ -157,10 +155,10 @@ $result = $stmt->get_result();
     }
 </style>
 
-    </style>
+
 </head>
 <body>
-<?php include './Cus-NavBar/navBar.php'; ?> <!-- Include navigation bar -->
+<?php include './Cus-NavBar/navBar.php'; ?> 
 
 <section class="myposts-section">
     <h2>My Posts</h2>

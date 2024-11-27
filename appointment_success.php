@@ -1,6 +1,6 @@
 <?php
 require 'db.php';
-require 'vendor/autoload.php'; // Stripe PHP library
+require 'vendor/autoload.php';
 session_start();
 
 // Verify user is logged in
@@ -75,8 +75,7 @@ if ($insert_stmt->execute()) {
     $user_stmt->execute();
     $user_result = $user_stmt->get_result()->fetch_assoc();
 
-    // Send confirmation emails (you'd implement this separately)
-    // sendAppointmentConfirmationEmail($user_result, $vet_result, $appointment_date, $start_time, $appointment_mode);
+   
 ?>
 <!DOCTYPE html>
 <html lang="en">

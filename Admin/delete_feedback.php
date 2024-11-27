@@ -1,5 +1,4 @@
 <?php
-// Include your database connection
 include('../db.php');
 include('session_check.php');
 

@@ -62,7 +62,7 @@ if (isset($_GET['delete_id'])) {
 
   if ($stmt->execute()) {
       // Record deleted successfully
-      header("Location: health_tracker.php"); // Redirect to avoid form resubmission
+      header("Location: health_tracker.php"); 
       exit();
   } else {
       echo "Error deleting record: " . $conn->error;
@@ -108,11 +108,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $breed = $conn->real_escape_string($_POST['breed']);
     $weight = $_POST['weight'];
     $height = $_POST['height'];
-    $bmi = $_POST['bmi']; // Get BMI value from the form submission
+    $bmi = $_POST['bmi']; 
 
     if (empty($pet_name) || empty($birthday) || empty($gender) || empty($breed) || empty($weight) || empty($height)) {
         $error_message = "All fields are required.";
     } else {
+
         // Insert pet details and BMI into the health_tracker table
         $stmt = $conn->prepare("INSERT INTO health_tracker (user_id, pet_name, birthday, gender, breed, weight, height, bmi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -168,9 +169,7 @@ $conn->close();
     <link rel="stylesheet" href="./assets/css/health_tracker.css">
     <link rel="stylesheet" href="./assets/css/scrollbar.css">
     <title>Pet Health Tracking</title>
-    <style>/* Styling for the health tracker table */
 
-</style>
 </head>
 <body>
 <?php include 'Cus-NavBar/navBar.php'; ?>
@@ -226,13 +225,13 @@ $conn->close();
         <label for="height">Height to Shoulder (cm)*</label>
         <input type="number" id="height" name="height" placeholder="Enter height in cm" min="0" step="0.1" required>
 
-        <!-- Hidden field to store BMI value -->
+    
         <input type="hidden" id="bmi" name="bmi" value="0">
 
-        <!-- Button to calculate BMI, it doesn't submit the form yet -->
+       
         <button type="button" class="calculate-btn" onclick="calculateBMI(event)">Calculate BMI</button>
 
-        <!-- Button to submit and save details (and BMI) -->
+    
         <button id="addtrack" type="submit" class="submit-btn">Add Track</button>
     </form>
 
@@ -354,7 +353,7 @@ $conn->close();
 
 
     function calculateBMI(event) {
-        event.preventDefault(); // Prevent form from submitting immediately
+        event.preventDefault(); 
 
         const petName = document.getElementById("petName").value.trim();
         const weight = parseFloat(document.getElementById("weight").value);
@@ -372,8 +371,8 @@ $conn->close();
         }
 
         // BMI calculation
-        const heightM = heightCm / 100; // Convert height to meters
-        const bmi = (weight / (heightM * heightM)).toFixed(2); // BMI formula
+        const heightM = heightCm / 100; 
+        const bmi = (weight / (heightM * heightM)).toFixed(2); 
 
         // Categorize BMI
         let category = "";
@@ -382,24 +381,24 @@ $conn->close();
         if (currentTab === "Dog") {
             if (bmi < 15) {
                 category = "Underweight";
-                bmiPosition = (bmi - 10) / 10 * 100; // Adjust indicator for dogs
+                bmiPosition = (bmi - 10) / 10 * 100;
             } else if (bmi < 25) {
                 category = "Normal";
-                bmiPosition = ((bmi - 15) / 10) * 100 + 25; // Adjust indicator for dogs
+                bmiPosition = ((bmi - 15) / 10) * 100 + 25; 
             } else {
                 category = "Overweight";
-                bmiPosition = 90; // Set the indicator position for overweight dogs
+                bmiPosition = 90; 
             }
         } else if (currentTab === "Cat") {
             if (bmi < 10) {
                 category = "Underweight";
-                bmiPosition = (bmi - 5) / 5 * 100; // Adjust indicator for cats
+                bmiPosition = (bmi - 5) / 5 * 100; 
             } else if (bmi < 15) {
                 category = "Normal";
-                bmiPosition = ((bmi - 10) / 5) * 100 + 25; // Adjust indicator for cats
+                bmiPosition = ((bmi - 10) / 5) * 100 + 25; 
             } else {
                 category = "Overweight";
-                bmiPosition = 90; // Set the indicator position for overweight cats
+                bmiPosition = 90; 
             }
         }
 
@@ -414,9 +413,9 @@ $conn->close();
 
         // Set indicator position
         bmiIndicator.style.left = `${bmiPosition}%`;
-        bmiValue.innerText = bmi; // Display BMI value inside the result
+        bmiValue.innerText = bmi; 
 
-        resultDiv.style.display = "block"; // Ensure the result div stays visible
+        resultDiv.style.display = "block"; 
 
         // Store the BMI value in the hidden field for form submission
         document.getElementById('bmi').value = bmi;
@@ -426,7 +425,7 @@ $conn->close();
         // Reset form and result section
         document.getElementById("bmiForm").reset();
         document.getElementById("result").style.display = "none";
-        document.getElementById("bmi").value = "0"; // Reset hidden BMI field
+        document.getElementById("bmi").value = "0"; 
     }
 
     // Initialize default tab and breeds

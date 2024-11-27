@@ -1,5 +1,4 @@
 <?php
-// Database connection
 include 'db.php';
 
 // Fetch all daycare locations

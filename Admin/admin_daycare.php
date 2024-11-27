@@ -1,5 +1,5 @@
 <?php
-include '../db.php'; // Your database connection
+include '../db.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
@@ -101,7 +101,6 @@ body {
 </header>
 
 <nav>
-    <!-- Navigation menu remains the same as in the previous script -->
     <ul>
         <li><a href="dashboard.php">Home</a></li>
         <li><a href="user_management.php">User Management</a></li>
@@ -145,7 +144,7 @@ body {
 
         function initMap() {
             // Set the initial map center (can be any default location)
-            const initialLocation = { lat: 6.9271, lng: 79.8612 };  // Example: Colombo, Sri Lanka
+            const initialLocation = { lat: 6.9271, lng: 79.8612 };  
             map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 13,
                 center: initialLocation

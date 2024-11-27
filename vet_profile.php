@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $is_premium) {
                     'line_items' => [[
                         'price_data' => [
                             'currency' => 'lkr',
-                            'unit_amount' => $price * 100, // Stripe expects amount in cents
+                            'unit_amount' => $price * 100,
                             'product_data' => [
                                 'name' => "Dr. {$vet['name']} - {$type_result['type_name']} Appointment",
                             ],
@@ -197,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $is_premium) {
     $duration = intval($type_result['duration']);
 
     $start_time = $appointment_time;
-    $end_time = date('H:i:s', strtotime($start_time) + $duration * 60); // End time is calculated by adding the duration
+    $end_time = date('H:i:s', strtotime($start_time) + $duration * 60); 
 
     // Check if the selected time is available
     $check_query = "SELECT * FROM appointments 

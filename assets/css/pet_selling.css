@@ -177,7 +177,7 @@ header h1 {
     overflow: hidden;
     position: relative;
     width: 100%;
-    height: 400px; /* Set a fixed height for the container */
+    height: 400px; 
 }
 
 .popup-slider-images {
@@ -187,8 +187,8 @@ header h1 {
 
 .popup-slider-images img {
     max-width: 100%;
-    max-height: 100%; /* Ensure the images do not exceed the container height */
-    object-fit: contain; /* Maintain the aspect ratio of the image */
+    max-height: 100%; 
+    object-fit: contain; 
     margin: 0 5px;
 }
 

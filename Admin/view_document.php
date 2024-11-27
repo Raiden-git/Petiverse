@@ -16,7 +16,7 @@ $result = $stmt->get_result();
 
 if ($row = $result->fetch_assoc()) {
     // Set appropriate content type based on document type
-    $mime_type = "application/pdf"; // Default to PDF
+    $mime_type = "application/pdf"; 
     if (stripos($row['document_type'], 'image') !== false) {
         $mime_type = "image/jpeg";
     }

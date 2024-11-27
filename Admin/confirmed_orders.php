@@ -88,10 +88,10 @@
     
 
 <?php
-// Start a session to store flash messages
+
 session_start();
 
-// Database connection
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -107,7 +107,7 @@ if ($conn->connect_error) {
 
 // Check if admin submitted a delete request for an order
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_order'])) {
-    $order_code = $_POST['order_code']; // Order code received from the form
+    $order_code = $_POST['order_code']; 
 
     // Delete the order from the database (admin-side only)
     $delete_sql = "DELETE FROM COD_orders WHERE order_id = ?";

@@ -157,8 +157,8 @@
 .posts-list .post-content {
   flex: 1;
   overflow: hidden;
-  word-wrap: break-word;  /* Break long words onto the next line */
-  white-space: normal;    /* Allow text to wrap onto multiple lines */
+  word-wrap: break-word;  
+  white-space: normal;    
 }
 
 .posts-list .post-content p {

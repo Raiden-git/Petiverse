@@ -22,7 +22,7 @@ if (isset($_POST['product_id']) && isset($_POST['quantity'])) {
     if ($quantity > 0) {
         $_SESSION['cart'][$product_id] = $quantity; 
     } else {
-        unset($_SESSION['cart'][$product_id]); // Remove item if quantity is 0
+        unset($_SESSION['cart'][$product_id]); 
     }
 }
 
@@ -85,7 +85,7 @@ if (isset($_SESSION['cart'])) {
         }
 
         function autoSubmitForm(productId) {
-            document.getElementById(`form-${productId}`).submit(); // Submit the form
+            document.getElementById(`form-${productId}`).submit(); 
         }
 
         function showPaymentOptions() {
