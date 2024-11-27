@@ -48,6 +48,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Payment - Pet Shop</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/cash_on_delivery.css">
     <link rel="stylesheet" href="./assets/css/scrollbar.css">
 </head>
 <body>

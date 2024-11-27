@@ -1,5 +1,5 @@
 <?php
-include '../db.php';  // Include the database connection
+include '../db.php'; 
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'google-config.php'; // Google Client configuration
+require 'google-config.php'; 
 
 $error_message = '';
 
@@ -62,135 +62,155 @@ $google_login_url = $google_client->createAuthUrl();
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to bottom right, #6A82FB, #FC5C7D);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom right, #6A82FB, #FC5C7D);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./assets/img/login3.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)), url('./assets/img/login2.jpg');
+  background-size: cover;
 
-        .login-container {
-            position: relative;
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 10px;
-            max-width: 450px;
-            width: 100%;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-            animation: slideIn 0.8s ease;
-            left: 25%;
-        }
+}
+
+
+
+.login-container {
+    position: relative;
+    background-color: transparent; 
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+    animation: slideIn 0.8s ease;
+    left: 25%;
+}
+
 
         h2 {
             text-align: center;
             margin-bottom: 30px;
             font-weight: 600;
-            color: #FC5C7D;
+            color: black;
+            font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 55px;
+            
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+}
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-        input[type="email"], input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            transition: border-color 0.3s ease;
-        }
+input[type="email"]:focus, input[type="password"]:focus {
+    border-color: #FC5C7D;
+    box-shadow: 0 0 10px rgba(252, 92, 125, 0.4);
+}
 
-        input[type="email"]:focus, input[type="password"]:focus {
-            border-color: #FC5C7D;
-        }
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #FC5C7D, #6A82FB);
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: buttonPulse 1.5s infinite;
+}
 
-        input[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            background-color: #6A82FB;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+input[type="submit"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 15px 30px rgba(252, 92, 125, 0.5);
+}
+.google-login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background-color: #4285f4;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
 
-        input[type="submit"]:hover {
-            background-color: #FC5C7D;
-        }
-
-        .google-login-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 20px;
-            background-color: #4285f4;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .google-login-btn:hover {
-            background-color: #357ae8;
-        }
-
-        .google-login-btn svg {
-            margin-right: 10px;
-        }
-
-        a {
-            color: #6A82FB;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: none;
-        }
-
-        p {
-            text-align: center;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .forgot-password {
-            display: block;
-            text-align: right;
-            margin-top: -15px;
-            margin-bottom: 20px;
-        }
+.google-login-btn:hover {
+    background-color: #357ae8;
+    transform: translateY(-3px);
+}
 
 
-        .error-message {
-            color: #fff;
-            background-color: #FF5A5A;
-            padding: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            border-radius: 5px;
-            font-size: 14px;
-            animation: fadeIn 0.5s ease-in-out;
-        }
+a {
+    color: red;
+    text-decoration: underline;
+    text-decoration: none;
+   
+    font-weight: bold;
+}
+
+a:hover {
+    color: white;
+    text-decoration: underline;
+    text-decoration: none;
+}
+
+
+p {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+/* Forgot Password */
+.forgot-password {
+    display: block;
+    text-align: right;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    color: black;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: white;
+}
+
+/* Error Message */
+.error-message {
+    color: red;
+    background-color: #FF5A5A;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 14px;
+    animation: fadeIn 0.5s ease-in-out;
+    box-shadow: 0px 10px 20px rgba(255, 90, 90, 0.3);
+}
 
         @keyframes fadeIn {
             from {
@@ -263,7 +283,7 @@ $google_login_url = $google_client->createAuthUrl();
                             <path d="M-322.8 331.3l-31-24-4-3 35-10z" style="clip-path:url(#SVGID_8_);fill:#4285f4"></path>
                         </g>
                     </g>
-                </svg>Continue with Google
+                </svg> Continue with Google
                 </a>
         </form>
         <p>Not registered? <a href="signup.php">Sign up here</a></p>

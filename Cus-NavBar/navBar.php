@@ -1,6 +1,6 @@
 <?php
 require 'google-config.php'; // Google Client configuration
-require_once 'db.php'; // Database connection
+require_once 'db.php'; 
 
 
 
@@ -326,7 +326,9 @@ nav.desktop-nav a:hover {
 
 
 
-
+.custom-cart-icon{
+    margin-right: 80px;
+}
 
 
 

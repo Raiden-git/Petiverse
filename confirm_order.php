@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->close();
         }
 
-        // Close the connection
+
         $conn->close();
 
         // Clear the cart after the order is saved

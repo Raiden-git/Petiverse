@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Handle image upload
         $image_data = null;
         if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
-            $image_data = file_get_contents($_FILES['image']['tmp_name']); // Read binary data
+            $image_data = file_get_contents($_FILES['image']['tmp_name']); 
         }
 
         // Insert into the database
@@ -20,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $conn->prepare($insert_query);
 
         if ($stmt) {
-            $stmt->bind_param("sssb", $title, $description, $date, $image_data); // Use 'b' for binary data
-            $stmt->send_long_data(3, $image_data); // Send LONGBLOB data
+            $stmt->bind_param("sssb", $title, $description, $date, $image_data); 
+            $stmt->send_long_data(3, $image_data); 
             if ($stmt->execute()) {
                 echo "Event added successfully!";
             } else {
@@ -70,7 +70,7 @@ if (isset($_GET['delete_id'])) {
     $result = $stmt->get_result();
     $event = $result->fetch_assoc();
     if ($event && file_exists($event['image'])) {
-        unlink($event['image']); // Delete the image file
+        unlink($event['image']); 
     }
 
     $delete_query = "DELETE FROM special_events WHERE id = ?";
@@ -90,61 +90,158 @@ if (isset($_GET['delete_id'])) {
     <title>Special Event Management</title>
     <link rel="stylesheet" href="admin_sidebar.css">
     <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-        }
-        header {
-            background-color: #343a40;
-            color: white;
-            padding: 1em;
-            text-align: center;
-        }
-        main {
-            padding: 2em;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1em;
-        }
-        table, th, td {
-            border: 1px solid #dee2e6;
-        }
-        th, td {
-            padding: 0.75em;
-            text-align: left;
-        }
-        .image-preview {
-            max-width: 100px;
-        }
-        .actions a {
-            margin-right: 10px;
-        }
-
-
-
-main {
-    padding: 2em;
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f8;
+    color: #333;
 }
 
+/* Header styling */
+header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 1.5em 0;
+    font-size: 1.5rem;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Main content styling */
+main {
+    padding: 2em;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 60px;
+    margin-left: 520px;
+}
+
+/* Form styling */
+form {
+    margin-bottom: 60px;
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+form input,
+form textarea,
+form button {
+    width: 100%;
+    padding: 0.75em;
+    margin-bottom: 1em;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Table styling */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1em;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-table, th, td {
+table th,
+table td {
+    padding: 1em;
+    text-align: left;
     border: 1px solid #dee2e6;
 }
 
-th, td {
-    padding: 0.75em;
-    text-align: left;
+table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
 }
+
+table td {
+    vertical-align: middle;
+}
+
+.image-preview {
+    max-width: 100px;
+    border-radius: 4px;
+}
+
+/* Action buttons */
+.actions a {
+    display: inline-block;
+    padding: 0.5em 0.75em;
+    margin: 0 0.2em;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.actions a:hover {
+    opacity: 0.8;
+}
+
+.actions a:nth-child(1) {
+    background-color: #17a2b8;
+}
+
+.actions a:nth-child(2) {
+    background-color: #dc3545;
+}
+
+.actions a:nth-child(3) {
+    background-color: #28a745;
+}
+
+.actions a:nth-child(4) {
+    background-color: #ffc107;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    form input,
+    form textarea,
+    form button {
+        font-size: 0.9rem;
+    }
+
+    table th,
+    table td {
+        padding: 0.5em;
+        font-size: 0.9rem;
+    }
+
+    .actions a {
+        font-size: 0.8rem;
+        padding: 0.3em 0.5em;
+    }
+}
+
 </style>
   
 </head>

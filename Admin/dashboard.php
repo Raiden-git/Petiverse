@@ -44,12 +44,12 @@ if ($result_online_payment->num_rows > 0) {
         .notification {
             display: flex;
             align-items: center;
-            background-color: #ff5722; /* Vibrant orange */
+            background-color: #ff5722; 
             color: white;
             padding: 10px 15px;
             border-radius: 25px;
             font-size: 16px;
-            text-decoration: none; /* Remove underline */
+            text-decoration: none; 
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s, box-shadow 0.2s;
             margin-top: 15px;
@@ -68,7 +68,7 @@ if ($result_online_payment->num_rows > 0) {
         }
 
         .notification-count {
-            background-color: #ffeb3b; /* Bright yellow for count */
+            background-color: #ffeb3b; 
             color: black;
             border-radius: 50%;
             font-size: 14px;
@@ -82,7 +82,7 @@ if ($result_online_payment->num_rows > 0) {
         .action-button {
             display: inline-flex;
             align-items: center;
-            background-color: #4caf50; /* Green */
+            background-color: #4caf50; 
             color: white;
             padding: 10px 20px;
             font-size: 16px;
@@ -129,8 +129,7 @@ if ($result_online_payment->num_rows > 0) {
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
-        <li><a href="petselling.php">Pet selling</a><li>
-        
+        <li><a href="petselling.php">Pet selling</a><li>        
         <li><a href="view_feedback.php">Feedbacks</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
@@ -164,7 +163,7 @@ if ($result_online_payment->num_rows > 0) {
     <!-- Notification for new Online Payment orders -->
     <?php if ($new_online_payment_count > 0): ?>
         <a href="online_payment_orders.php" class="notification">
-            <i class="fas fa-credit-card"></i> <!-- Credit card icon for online payment -->
+            <i class="fas fa-credit-card"></i>
             New Card Payment Order(s) - 
             <span class="notification-count"><?php echo $new_online_payment_count; ?></span>
             <?php echo ($new_online_payment_count > 1) ? 'orders' : 'order'; ?> pending.

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'google-config.php'; // Google Client configuration
+require 'google-config.php'; 
 
 if (isset($_GET['code'])) {
     try {

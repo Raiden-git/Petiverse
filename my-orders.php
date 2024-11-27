@@ -235,7 +235,7 @@ $stmt->close();
         }
 
         foreach ($orders as $order_code => $products):
-            $order_details = $products[0]; // Use the first product to get order-level details
+            $order_details = $products[0]; 
 
             // Determine status color class
             $status_class = 'status-pending';

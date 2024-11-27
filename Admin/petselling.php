@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Petiverse - Lost & Found Pets Management</title>
     <link rel="stylesheet" href="admin_sidebar.css">
-    <link rel="stylesheet" href="assets/css/admin.css"> <!-- New CSS file for styling -->
+    <link rel="stylesheet" href="assets/css/admin.css"> <
     <script src="logout_js.js"></script>
     
         <style>

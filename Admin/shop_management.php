@@ -429,7 +429,7 @@ $conn->close();
         function loadSubcategories(category, selectedSubcategory = "") {
             $.ajax({
                 type: 'POST',
-                url: '<?= $_SERVER['PHP_SELF'] ?>', // Adjust the path as needed
+                url: '<?= $_SERVER['PHP_SELF'] ?>', 
                 data: { main_category: category },
                 success: function(response) {
                     var subcategories = JSON.parse(response);
@@ -455,13 +455,13 @@ $conn->close();
         
         if (mainCategory !== "") {
             $.ajax({
-                url: 'shop_management.php', // Replace this with the correct PHP file handling the subcategory fetch
+                url: 'shop_management.php', 
                 type: 'POST',
                 data: { main_category: mainCategory },
                 success: function (response) {
                     var subcategories = JSON.parse(response);
                     var subcategorySelect = $('#subcategory');
-                    subcategorySelect.empty(); // Clear the previous subcategory options
+                    subcategorySelect.empty(); 
                     
                     subcategorySelect.append('<option value="">Select Subcategory</option>');
                     $.each(subcategories, function (index, subcategory) {

@@ -104,8 +104,6 @@ nav ul li:hover .dropdown-menu {
 
 <main>
     <h2>Community Controls</h2>
-    <!-- Add functionality for viewing, adding, and managing users here -->
-    
 
     <section id="posts-section">
             <h3>Manage Posts</h3>

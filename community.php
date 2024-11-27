@@ -64,12 +64,8 @@ if (!$result) {
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="./assets/css/scrollbar.css">
 
-    <!-- <link rel="stylesheet" href="./assets/css/community.css">  -->
+
     <style>
-       /* Reset and Base Styles */
-/* Modern List View Styles */
-
-
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #f0f2f5;

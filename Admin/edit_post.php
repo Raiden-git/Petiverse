@@ -4,7 +4,7 @@ include('session_check.php');
 
 // Get the post ID from the URL
 $post_id = $_GET['post_id'] ?? 0;
-$post_id = intval($post_id); // Sanitize input
+$post_id = intval($post_id); 
 
 // Fetch the post details
 $sql = "SELECT * FROM posts WHERE id = $post_id";

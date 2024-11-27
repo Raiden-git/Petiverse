@@ -48,11 +48,115 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Edit Special Event</title>
+    <link rel="stylesheet" href="./admin_sidebar.css">
 </head>
+<style>
+        /* Main content styling */
+main {
+    padding: 2em;
+    max-width: 600px;
+    margin: 2em auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 640px;
+}
+
+/* Form styling */
+form {
+    margin-bottom: 1.5em;
+    width: 500px;
+    
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    color: #333;
+}
+
+form input,
+form textarea,
+form button {
+    width: 100%;
+    padding: 0.75em;
+    margin-bottom: 1em;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+form input[type="file"] {
+    padding: 0.4em;
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 0.8em;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Input focus and hover effects */
+form input:focus,
+form textarea:focus,
+form button:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    main {
+        padding: 1.5em;
+    }
+
+    form input,
+    form textarea,
+    form button {
+        font-size: 0.9rem;
+    }
+}
+
+    </style>
 <body>
 <header>
     <h1>Edit Special Event</h1>
 </header>
+
+
+<nav>
+    <ul>
+        <li><a href="dashboard.php">Home</a></li>
+        <li><a href="user_management.php">User Management</a></li>
+        <li><a href="shop_management.php">Shop Management</a></li>
+        <li><a href="community_controls.php">Community Controls</a></li>
+        <li><a href="blog_management.php">Blog Management</a></li>
+        <li><a href="admin_daycare_management.php">Daycare Management</a></li>
+        <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
+        <li><a href="special_events.php">Special Events</a></li>
+        <li><a href="vet_management.php">Vet Management</a></li>
+        <li><a href="moderator_management.php">Moderator Management</a></li>
+        <li><a href="petselling.php">Pet selling</a><li>        
+        <li><a href="view_feedback.php">Feedbacks</a></li>
+        <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
+    </ul>
+</nav>
 
 <main>
     <form method="POST" enctype="multipart/form-data">

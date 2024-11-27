@@ -163,10 +163,9 @@ strong {
 <h2>Order Details</h2>
 
 <?php
-// Start a session to store flash messages
+
 session_start();
 
-// Database connection
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -182,8 +181,8 @@ if ($conn->connect_error) {
 
 // Check if admin submitted an update for order status
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
-    $order_code = $_POST['order_code']; // Order code received from the form
-    $new_status = $_POST['status']; // Status to be updated
+    $order_code = $_POST['order_code'];
+    $new_status = $_POST['status']; 
 
     // Prepare the status message based on the new status
     $status_message = ($new_status === 'confirmed') 
@@ -237,7 +236,7 @@ $sql = "SELECT
             products.price AS product_price
         FROM online_payment_orders
         INNER JOIN products ON online_payment_orders.product_id = products.id
-        WHERE online_payment_orders.order_status NOT IN ('confirmed', 'cancelled')  -- Exclude confirmed/cancelled orders
+        WHERE online_payment_orders.order_status NOT IN ('confirmed', 'cancelled')  
         GROUP BY online_payment_orders.order_id, online_payment_orders.product_id
         ORDER BY online_payment_orders.order_id";
 

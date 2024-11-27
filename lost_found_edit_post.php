@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$userId = $_SESSION['user_id']; // Get the logged-in user's ID
+$userId = $_SESSION['user_id']; 
 
 // Fetch the post details for editing
 if (isset($_GET['post_id'])) {
@@ -62,12 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Post - Lost and Found</title>
     <link rel="stylesheet" href="assets/css/styles.css">
+
     <style>
-        /* General body styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
-    margin: 0; /* Remove any default margins */
+    margin: 0; 
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -78,7 +78,7 @@ body {
 /* Main section styling */
 main {
     flex: 1;
-    margin-top: 80px; /* Offset for the navbar height */
+    margin-top: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,7 +114,7 @@ label {
 input[type="text"],
 textarea,
 select {
-    padding: 0.9rem; /* Increased padding for larger height */
+    padding: 0.9rem; 
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-bottom: 1rem;
@@ -141,7 +141,7 @@ textarea {
 
 button {
     padding: 0.75rem;
-    background: #8B4513; /* Change button color to brown */
+    background: #8B4513; 
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -151,7 +151,7 @@ button {
 }
 
 button:hover {
-    background: #5a2e0f; /* Darker brown on hover */
+    background: #5a2e0f; 
 }
 
 button:active {

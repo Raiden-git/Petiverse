@@ -2,10 +2,10 @@
 session_start();
 include 'db.php';
 
-// Remove the login check; the code will proceed regardless of user session status
+
 
 // Get user input
-$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null; // Optionally, handle user_id as null if session isn't set
+$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null; 
 $post_title = $_POST['post_title'];
 $post_content = $_POST['post_content'];
 $category = $_POST['category'];
@@ -16,8 +16,8 @@ if (empty($post_title) || empty($post_content) || empty($category)) {
     exit();
 }
 
-// Handle image upload
-$image = null; // Default value for image
+
+$image = null; 
 
 if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
     $target_dir = "C:\xampp\htdocs\Petiverse1\Petiverse\uploads"; 

@@ -1,9 +1,9 @@
 <?php
-include('../db.php'); // Include the database connection
+include('../db.php'); 
 
 // Check if pet_id is provided in the URL
 if (isset($_GET['pet_id']) && is_numeric($_GET['pet_id'])) {
-    $pet_id = intval($_GET['pet_id']); // Convert to an integer for security
+    $pet_id = intval($_GET['pet_id']); 
 
     // Fetch the pet details from the database
     $query = "SELECT * FROM lost_and_found_pets WHERE id = ?";
@@ -53,8 +53,7 @@ if (isset($_GET['pet_id']) && is_numeric($_GET['pet_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Pet Ad</title>
-    <link rel="stylesheet" href="../assets/css/admin.css"> <!-- Adjusted path for the CSS file -->
-
+    <link rel="stylesheet" href="./moderator_sidebar.css">
     <style>
         /* General Reset */
 * {
@@ -64,13 +63,6 @@ if (isset($_GET['pet_id']) && is_numeric($_GET['pet_id'])) {
     font-family: Arial, sans-serif;
 }
 
-/* Body Styling */
-body {
-    margin: 20px;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-}
 
 /* Header Styling */
 header {
@@ -92,6 +84,8 @@ main {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 290px;
+
 }
 
 /* Form Styling */
@@ -99,6 +93,8 @@ form {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    width: 700px;
+  
 }
 
 /* Label Styling */
@@ -178,10 +174,28 @@ input[type="text"], textarea, button {
         font-size: 0.9rem;
     }
 }
-
         </style>
 </head>
 <body>
+
+
+<nav>
+    <ul>
+    <li><a href="moderator_dashboard.php">Home</a></li>
+        <li><a href="Moderator_shop_management.php">Shop Management</a></li>
+        <li><a href="community_controls.php">Community Controls</a></li>
+        <li><a href="blog_management.php">Blog Management</a></li>
+        <li><a href="admin_daycare_management.php">Daycare Management</a></li>
+        <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
+        <li><a href="special_events.php">Special Events</a></li>
+        <li><a href="vet_management.php">Vet Management</a></li>
+        <li><a href="petselling.php">Pet selling</a><li>
+        <li><a href="view_feedback.php">Feedbacks</a></li>
+        <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
+    </ul>
+</nav>
+
+
     <header>
         <h1>Edit Pet Ad</h1>
     </header>

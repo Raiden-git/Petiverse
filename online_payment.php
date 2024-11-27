@@ -1,21 +1,21 @@
 <?php
 // Load Stripe PHP SDK
-require 'vendor/autoload.php'; // Make sure you've installed stripe-php using Composer
-require 'db.php'; // Include your database connection
+require 'vendor/autoload.php';
+require 'db.php'; 
 session_start();
 
 \Stripe\Stripe::setApiKey('sk_test_51QNWQKG2zxFLmtj9w1HsGLgAkVByklUMkMC59EYOk9A2XNaL5azhcTTlFT2LE5oJMkYPxOysXU4cdJidanITC70n00S49ksdJ4'); // Replace with your Stripe Secret Key
 
 if (isset($_POST['full_name'], $_POST['delivery_address'], $_POST['phone_number'], $_POST['total_price']) && isset($_SESSION['cart'])) {
     // Retrieve and sanitize user details
-    $user_id = $_SESSION['user_id'] ?? null; // Assuming user_id is stored in the session
+    $user_id = $_SESSION['user_id'] ?? null; 
     $full_name = htmlspecialchars($_POST['full_name']);
     $delivery_address = htmlspecialchars($_POST['delivery_address']);
     $phone_number = htmlspecialchars($_POST['phone_number']);
     $postal_code = htmlspecialchars($_POST['postal_code'] ?? '');
     $total_price = $_POST['total_price'];
-    $cart_items = $_SESSION['cart']; // Assuming the cart structure is [product_id => quantity]
-    $order_id = strtoupper(uniqid('ORDER_')); // Generate unique order ID
+    $cart_items = $_SESSION['cart'];
+    $order_id = strtoupper(uniqid('ORDER_')); 
 
     // Check if the user is logged in
     if (!$user_id) {

@@ -1,17 +1,17 @@
 <?php
 session_start();
-include('db.php'); // Ensure db.php includes your database connection details
+include('db.php'); 
 
 include ('Cus-NavBar/navBar.php');
 
 // Check if the user is logged in by verifying the session
 if (!isset($_SESSION['user_id'])) {
     // Redirect to login page or show an error
-    header("Location: login.php"); // Adjust this to your login page
-    exit(); // Stop further script execution
+    header("Location: login.php"); 
+    exit(); 
 }
 
-$user_id = $_SESSION['user_id']; // Assuming user_id is stored in session after login
+$user_id = $_SESSION['user_id']; 
 
 // Fetch user details to check premium status
 $sql = "SELECT is_premium FROM users WHERE id = ?";

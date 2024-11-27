@@ -69,20 +69,27 @@ $google_signup_url = $google_client->createAuthUrl();
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: transparent;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom right, #6A82FB, #FC5C7D);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./assets/img/login3.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)), url('./assets/img/login2.jpg');
+  background-size: cover;
+
+}
 
         .signup-container {
             position: relative;
-            background-color: #ffffff;
+            background-color: transparent; /* Transparent background */
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
             width: 100%;
             max-width: 500px;
             animation: slideIn 0.8s ease;
@@ -93,7 +100,10 @@ $google_signup_url = $google_client->createAuthUrl();
             text-align: center;
             margin-bottom: 30px;
             font-weight: 600;
-            color: #FC5C7D;
+            color: black;
+            font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 55px;
+            
         }
 
         form {

@@ -1,5 +1,5 @@
 <?php
-include('db.php'); // Include your database connection
+include('db.php'); 
 
 // Get tomorrow's date
 $tomorrow = date('Y-m-d', strtotime('+1 day'));
