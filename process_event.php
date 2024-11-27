@@ -1,5 +1,5 @@
 <?php
-// Database connection
+
 include('db.php');
 // Validate and sanitize inputs
 $title = $conn->real_escape_string($_POST['title']);

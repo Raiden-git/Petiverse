@@ -1,9 +1,9 @@
 <?php
-include('../db.php'); // Include the database connection
+include('../db.php'); 
 
 // Check if pet_id is provided in the URL
 if (isset($_GET['pet_id']) && is_numeric($_GET['pet_id'])) {
-    $pet_id = intval($_GET['pet_id']); // Convert to an integer for security
+    $pet_id = intval($_GET['pet_id']); 
 
     // Fetch the pet details from the database
     $query = "SELECT * FROM lost_and_found_pets WHERE id = ?";

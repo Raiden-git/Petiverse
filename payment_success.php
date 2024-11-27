@@ -1,5 +1,5 @@
 <?php
-require 'db.php'; // Include your database connection
+require 'db.php'; 
 session_start();
 
 if (!isset($_SESSION['user_id']) || !isset($_GET['session_id']) || !isset($_GET['plan'])) {
@@ -91,7 +91,7 @@ $conn->query($query);
             // Redirect to index.php after 3 seconds
             setTimeout(function () {
                 window.location.href = 'index.php';
-            }, 5000); // 3-second delay
+            }, 5000); 
         });
     </script>
 

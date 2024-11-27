@@ -14,14 +14,14 @@ h1{
 
 .pet-info {
   position: absolute;
-  text-align: center; /* Centers the text horizontally */
+  text-align: center;
 }
 
 .pet-info img {
-  width: 120%; /* Makes the image 150% of its original width */
+  width: 120%; 
   height: auto;
-  margin-left: -25%; /* Adjusts the left margin to center the image correctly */
-  display: block; /* Ensures the image is treated as a block element */
+  margin-left: -25%; 
+  display: block;
   margin-left: 40px;
   
 }
@@ -48,14 +48,14 @@ h1{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2; /* Ensures the text is above the overlay */
-  color: rgb(234, 147, 34); /* Color for the h1 */
-  font-size: 2em; /* Font size for h1 */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Text shadow for readability */
-  margin: 0; /* Remove default margin */
-  white-space: nowrap; /* Prevents the text from wrapping to the next line */
-  width: 100%; /* Optional: limits the width to prevent text from stretching too far */
-  text-align: center; /* Centers the text horizontally */
+  z-index: 2;
+  color: rgb(234, 147, 34);
+  font-size: 2em; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  margin: 0; 
+  white-space: nowrap; 
+  width: 100%;
+  text-align: center;
   margin-left: 30px;
 }
 

@@ -144,20 +144,21 @@ strong {
 <header>
     <h1>Oder Mana</h1>
 </header>
-
 <nav>
     <ul>
     <li><a href="moderator_dashboard.php">Home</a></li>
         <li><a href="Moderator_shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
+        <li><a href="admin_daycare_management.php">Daycare Management</a></li>
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
+        <li><a href="petselling.php">Pet selling</a><li>
+        <li><a href="view_feedback.php">Feedbacks</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
 </nav>
-
 <main>
 
 <a href="./confirmed_orders.php" class="confirm"><button>Confirm orders</button></a>
@@ -186,8 +187,8 @@ if ($conn->connect_error) {
 
 // Check if admin submitted an update for order status
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
-    $order_code = $_POST['order_code']; // Order code received from the form
-    $new_status = $_POST['status']; // Status to be updated
+    $order_code = $_POST['order_code']; 
+    $new_status = $_POST['status']; 
 
     // Prepare the status message based on the new status
     $status_message = ($new_status === 'confirmed') 
@@ -241,7 +242,7 @@ $sql = "SELECT
             products.price AS product_price
         FROM COD_orders
         INNER JOIN products ON COD_orders.product_id = products.id
-        WHERE COD_orders.order_status NOT IN ('confirmed', 'cancelled')  -- Exclude confirmed/cancelled orders
+        WHERE COD_orders.order_status NOT IN ('confirmed', 'cancelled')  
         GROUP BY COD_orders.order_id, COD_orders.product_id
         ORDER BY COD_orders.order_id";
 

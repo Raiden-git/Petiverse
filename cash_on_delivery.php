@@ -3,7 +3,7 @@ session_start();
 $total_price = 0;
 $cart_items = [];
 
-// Check if the cart is not empty
+
 if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     // Database connection
     $servername = "localhost";

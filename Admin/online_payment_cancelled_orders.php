@@ -189,7 +189,7 @@ if ($conn->connect_error) {
 
 // Handle order deletion
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_order'])) {
-    $order_code = $_POST['order_code']; // Order code received from the form
+    $order_code = $_POST['order_code']; 
 
     // Delete the order from the database
     $delete_sql = "DELETE FROM online_payment_orders WHERE order_id = ?";

@@ -1,5 +1,5 @@
 <?php
-include '../db.php';  // Include the database connection
+include '../db.php'; 
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -115,7 +115,6 @@ if (isset($_GET['id'])) {
 </header>
 
 <nav>
-    <!-- Navigation menu remains the same as in the previous script -->
     <ul>
         <li><a href="dashboard.php">Home</a></li>
         <li><a href="user_management.php">User Management</a></li>

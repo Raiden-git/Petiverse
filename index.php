@@ -420,10 +420,7 @@ session_start();
 
     <!-- Our Story Section -->
     <section class="about-section" style="position:relative; padding: 60px 20px; background-color: #f0f8ff;">
-        <!-- Adding a Blob SVG Shape -->
-        <!-- <svg style="position: absolute; top: 50px;  z-index: 3;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="400" height="400">
-            <path fill="#FFD700" d="M45.5,-62.7C60.7,-51.4,73.8,-38.2,76.6,-22.7C79.4,-7.2,71.8,10.5,61.2,22.7C50.5,34.8,37,41.4,23.4,46.6C9.8,51.7,-3.9,55.5,-16.7,52.7C-29.5,49.8,-41.4,40.3,-47.5,28C-53.7,15.7,-53.9,0.6,-51.8,-13.6C-49.8,-27.8,-45.5,-41.1,-36.5,-53C-27.6,-64.9,-13.8,-75.4,1.2,-76.7C16.2,-78.1,32.4,-70,45.5,-62.7Z" transform="translate(100 100)" />
-        </svg> -->
+
 
         <div class="about-content" style="position: relative; z-index: 2;">
             <h2 style="font-size: 2.5em; text-align: center; color: #6A097D;">Our Story</h2>
@@ -641,7 +638,7 @@ session_start();
                 // Show all notifications
                 const notifications = document.querySelectorAll('.notification');
                 notifications.forEach(notification => {
-                    notification.style.display = 'flex'; // Show notification after 2 seconds
+                    notification.style.display = 'flex'; 
                 });
 
                 // Show the "Close All" button after 2 seconds

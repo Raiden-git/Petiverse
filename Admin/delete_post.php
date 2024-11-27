@@ -4,7 +4,7 @@ include('session_check.php');
 
 // Get the post ID from the URL
 $post_id = $_GET['post_id'] ?? 0;
-$post_id = intval($post_id); // Sanitize input
+$post_id = intval($post_id);
 
 // Begin a transaction to ensure both deletions succeed or fail together
 $conn->begin_transaction();

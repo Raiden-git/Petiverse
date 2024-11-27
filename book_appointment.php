@@ -1,5 +1,4 @@
 <?php
-// book_appointment.php - For premium users to book appointments
 session_start();
 require 'db.php';
 

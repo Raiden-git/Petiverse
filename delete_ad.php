@@ -14,7 +14,7 @@ $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     $ad_id = intval($_POST['delete_id']);
-    $user_id = $_SESSION['user_id']; // Ensure the ad belongs to the logged-in user
+    $user_id = $_SESSION['user_id']; 
 
     // Check if the ad belongs to the user
     $check_query = "SELECT * FROM pet_selling_ads WHERE ad_id = ? AND user_id = ?";

@@ -1,5 +1,4 @@
 <?php
-// Include the database connection
 include 'db.php';
 
 // Start the session
@@ -63,8 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
        
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9; /* Light gray background */
-    color: #333; /* Dark text for readability */
+    background-color: #f9f9f9; 
+    color: #333; 
     margin: 0;
     padding: 0;
     display: flex;
@@ -82,7 +81,7 @@ h1 {
 
 /* Form container */
 form {
-    background: linear-gradient(135deg, #6a9bfa, #a0d7f5); /* Gradient matching Petiverse's color palette */
+    background: linear-gradient(135deg, #6a9bfa, #a0d7f5); 
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -93,7 +92,7 @@ form {
 /* Labels */
 label {
     font-weight: bold;
-    color: #fff; /* White text on gradient background */
+    color: #fff;
     display: block;
     margin-bottom: 0.5rem;
 }
@@ -132,7 +131,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background: #3a8d41; /* Slightly darker green on hover */
+    background: #3a8d41; 
 }
 
 /* Responsive design */

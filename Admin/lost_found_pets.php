@@ -1,12 +1,12 @@
 <?php
-include('../db.php'); // Include the database connection
-include('session_check.php'); // Include session check for admin
+include('../db.php'); 
+include('session_check.php'); 
 
 // Approve or Reject Pet Submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action']) && isset($_POST['pet_id'])) {
-        $pet_id = intval($_POST['pet_id']); // Ensure it's an integer
-        $action = $_POST['action']; // Action can be 'approve' or 'reject'
+        $pet_id = intval($_POST['pet_id']); 
+        $action = $_POST['action']; 
 
         if ($action === 'approve') {
             $sql = "UPDATE lost_and_found_pets SET approved = 1 WHERE id = ?";
@@ -199,20 +199,20 @@ form {
 /* Edit Link Button Styling */
 a.btn-edit {
     display: inline-block;
-    background-color: #007bff; /* Blue background */
+    background-color: #007bff;
     color: white;
     padding: 8px 15px;
     border-radius: 5px;
     text-align: center;
     font-size: 0.9rem;
     font-weight: bold;
-    text-decoration: none; /* Remove underline */
+    text-decoration: none; 
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 a.btn-edit:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: scale(1.05); /* Slightly enlarge the link on hover */
+    background-color: #0056b3; 
+    transform: scale(1.05);
 }
 
 a.btn-edit:active {

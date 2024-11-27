@@ -1,5 +1,5 @@
 <?php
-// Database connection
+
 include 'db.php';
 
 // Start session to track logged-in user
@@ -16,7 +16,7 @@ $user_id = $_SESSION['user_id'];
 
 // Get post ID from URL
 $post_id = $_GET['post_id'] ?? 0;
-$post_id = intval($post_id); // Sanitize input
+$post_id = intval($post_id); 
 
 // Fetch post details
 $sql = "SELECT * FROM posts WHERE id = $post_id";
@@ -144,8 +144,8 @@ $post_author_id = $post['user_id'];
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .post-container img {
-            max-width: 100%;         /* Ensure image doesn't overflow */
-            height: auto;            /* Keep image proportionate */
+            max-width: 100%;        
+            height: auto;            
             border-radius: 10px;
             margin: 15px 0;
         }
@@ -156,10 +156,10 @@ $post_author_id = $post['user_id'];
             margin-bottom: 10px;
         }
         .post-detail h2, .post-detail p {
-            word-wrap: break-word;   /* Break long words if needed */
+            word-wrap: break-word;  
             overflow-wrap: break-word;
-            hyphens: auto;           /* Add hyphen when breaking words */
-            max-width: 100%;         /* Ensure they don't exceed the container */
+            hyphens: auto;          
+            max-width: 100%;        
             margin-bottom: 10px;
             font-size: 16px;
             color: #333;
@@ -255,7 +255,7 @@ $post_author_id = $post['user_id'];
             font-size: 14px;
             font-weight: bold;
             color: #333;
-            background-color: #DA8359; /* Default pastel color */
+            background-color: #DA8359; 
             margin-right: 5px;
         }
 
@@ -283,7 +283,7 @@ $post_author_id = $post['user_id'];
     position: absolute; 
     top: 10px;
     right: 10px;
-    display: inline-block; /* Align to the right of the post */
+    display: inline-block; 
 }
         .options-button {
             background: none;
@@ -297,14 +297,14 @@ $post_author_id = $post['user_id'];
 
         /* Options menu dropdown */
         .options-menu {
-            display: none; /* Hidden initially */
+            display: none; 
     position: absolute;
     right: 0;
     top: 30px;
     background-color: #fff; 
     border: 1px solid #ddd; 
     border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     list-style: none;
     padding: 5px 0;
     margin: 0;
@@ -325,7 +325,7 @@ $post_author_id = $post['user_id'];
         }
 
         .options-menu li:hover {
-            background-color: #f2f2f2; /* Light hover effect */
+            background-color: #f2f2f2; 
             color: #ff5733; 
         }
 

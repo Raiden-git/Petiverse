@@ -51,7 +51,7 @@ h1::after {
   font-weight: 600;
   color: #4a5568;
   margin-bottom: 1.5rem;
-  border-bottom: 2px solid #38a169; /* Underline effect */
+  border-bottom: 2px solid #38a169;
   padding-bottom: 0.5rem;
 }
 

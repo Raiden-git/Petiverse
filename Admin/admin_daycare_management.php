@@ -101,7 +101,7 @@
         </thead>
         <tbody>
             <?php
-            include '../db.php'; // Include the database connection
+            include '../db.php'; 
 
             // Fetch all daycare locations
             $sql = "SELECT * FROM daycare_locations";
