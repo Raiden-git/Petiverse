@@ -12,6 +12,7 @@ $result = mysqli_query($conn, $sql);
 <head>
     <title>Petiverse - Admin Panel</title>
     <link rel="stylesheet" href="admin_sidebar.css">
+    <link rel="stylesheet" href="moderator_sidebar.css">
     
     <!-- Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -67,7 +68,7 @@ $result = mysqli_query($conn, $sql);
 </head>
 <body>
 <header>
-    <h1>Admin Panel</h1>
+    <h1>Feedback</h1>
 </header>
 
 <nav>

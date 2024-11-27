@@ -17,6 +17,7 @@ $google_login_url = $google_client->createAuthUrl(); // Google login URL
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.cdnfonts.com/css/cheri" rel="stylesheet">                
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
 
@@ -323,13 +324,8 @@ nav.desktop-nav a:hover {
 
 
 .custom-cart-icon{
-    margin-right: 80px;
+    margin-right: 50px;
 }
-
-
-
-
-
 
 
 
@@ -364,13 +360,17 @@ nav.desktop-nav a:hover {
     
     <div class="header-right">
     <a href="cart.php" class="custom-cart-icon">
-        <box-icon name="cart" type="solid" size="lg"></box-icon>
-        <?php 
-        $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0; 
-        if ($total_cart_items > 0): ?>
-            <span class="custom-cart-badge"><?= $total_cart_items ?></span>
-        <?php endif; ?>
-    </a>
+    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+    </svg>
+    <?php 
+    $total_cart_items = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0; 
+    if ($total_cart_items > 0): ?>
+        <span class="custom-cart-badge"><?= $total_cart_items ?></span>
+    <?php endif; ?>
+</a>
         
         <?php if(isset($_SESSION['username'])): ?>
             <div class="profile-container">
