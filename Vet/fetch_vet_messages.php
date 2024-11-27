@@ -1,5 +1,5 @@
 <?php
-require 'db.php';
+require '../db.php';
 session_start();
 
 if (!isset($_SESSION['vet_id']) || !isset($_GET['user_id'])) {

@@ -80,7 +80,7 @@
             </ul>
         </div>
 
-        <button onclick="window.location.href='vet_login.php';">Back to Login</button>
+        <button onclick="window.location.href='./vet/index.php';">Back to Login</button>
     </div>
 </body>
 </html>

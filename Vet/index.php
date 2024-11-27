@@ -4,71 +4,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vet Login - Petiverse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f6f8f9 0%, #e5ebee 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            line-height: 1.6;
         }
+
         .login-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 40px;
             width: 100%;
             max-width: 400px;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
+            transition: transform 0.3s ease;
         }
-        .login-container h2 {
+
+        .login-container:hover {
+            transform: scale(1.02);
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            padding: 12px 15px;
             margin-bottom: 20px;
-            color: #333;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease;
         }
-        .login-container input[type="email"], 
-        .login-container input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
+
+        input:focus {
+            outline: none;
+            border-color: #3498db;
         }
-        .login-container button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background-color: #28a745;
+
+        button {
+            background-color: #3498db;
             color: white;
-            font-size: 16px;
-            border-radius: 5px;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
             cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
-        .login-container button:hover {
-            background-color: #218838;
+
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
         }
-        .login-container .error {
-            color: red;
-            margin-top: 10px;
+
+        .error-message {
+            color: #e74c3c;
+            background-color: #ffeeee;
+            border: 1px solid #e74c3c;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            animation: shake 0.5s;
+            text-align: left;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                width: 90%;
+                padding: 25px;
+            }
         }
     </style>
 </head>
 <body>
-
     <div class="login-container">
         <h2>Vet Login</h2>
+        
+        <?php 
+        session_start();
+        if (isset($_SESSION['login_error'])): ?>
+            <div class="error-message">
+                <?php 
+                echo htmlspecialchars($_SESSION['login_error']); 
+                unset($_SESSION['login_error']);
+                ?>
+            </div>
+        <?php endif; ?>
+
         <form action="vet_login.php" method="POST">
             <input type="email" name="email" placeholder="Enter your email" required>
             <input type="password" name="password" placeholder="Enter your password" required>
             <button type="submit">Login</button>
-            <?php if (isset($error)): ?>
-                <p class="error"><?php echo $error; ?></p>
-            <?php endif; ?>
         </form>
     </div>
-
 </body>
 </html>

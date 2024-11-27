@@ -78,12 +78,36 @@ mysqli_close($conn);
             margin: 10px 0;
         }
         .profile-section {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
+    background: linear-gradient(135deg, #f6f8f9 0%, #e5ebee 100%);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    border-left: 5px solid #3498db;
+    transition: transform 0.3s ease;
+}
+
+.profile-section:hover {
+    transform: translateY(-5px);
+}
+
+.profile-section h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+.profile-section p {
+    color: #34495e;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.profile-section p strong {
+    color: #2980b9;
+    margin-right: 10px;
+}
         .quick-actions {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -117,10 +141,6 @@ mysqli_close($conn);
                 <h3>Unread Messages</h3>
                 <div class="number"><?php echo $unread_messages; ?></div>
             </div>
-            <div class="stat-card">
-                <h3>Total Patients</h3>
-                <div class="number"><!--Add PHP logic for total patients--></div>
-            </div>
         </div>
 
         <div class="profile-section">
@@ -128,7 +148,7 @@ mysqli_close($conn);
             <p><strong>Clinic:</strong> <?php echo htmlspecialchars($vet['clinic_name']); ?></p>
             <p><strong>Specialization:</strong> <?php echo htmlspecialchars($vet['specialization']); ?></p>
             <p><strong>Experience:</strong> <?php echo htmlspecialchars($vet['experience']); ?> years</p>
-            <p><strong>Consultation Fee:</strong> $<?php echo htmlspecialchars($vet['consultation_fee']); ?></p>
+            <p><strong>Consultation Fee:</strong> LKR <?php echo htmlspecialchars($vet['consultation_fee']); ?></p>
         </div>
 
         <div class="quick-actions">
