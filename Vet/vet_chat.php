@@ -2,7 +2,6 @@
 require '../db.php';
 session_start();
 
-// Check if vet is logged in
 if (!isset($_SESSION['vet_id'])) {
     header('Location: vet_login.php');
     exit;
@@ -10,10 +9,9 @@ if (!isset($_SESSION['vet_id'])) {
 
 $vet_id = $_SESSION['vet_id'];
 
-// Get user ID from URL
+
 $user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
 
-// Fetch user details
 $user_query = "SELECT full_name, profile_pic FROM users WHERE id = ?";
 $user_stmt = $conn->prepare($user_query);
 $user_stmt->bind_param('i', $user_id);
@@ -21,7 +19,6 @@ $user_stmt->execute();
 $user_result = $user_stmt->get_result();
 $user = $user_result->fetch_assoc();
 
-// Handle message sending
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
     $message = trim($_POST['message']);
     
@@ -32,13 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
         $insert_stmt->bind_param('iis', $vet_id, $user_id, $message);
         $insert_stmt->execute();
 
-        // After successful insertion, redirect to avoid resubmitting the form
         header("Location: " . $_SERVER['PHP_SELF'] . "?user_id=" . $user_id);
         exit;
     }
 }
 
-// Fetch chat list (all users who have messaged this vet)
 $chat_list_query = "SELECT DISTINCT 
                     u.id as user_id,
                     u.full_name,
@@ -61,7 +56,6 @@ $chat_list_stmt->bind_param('iiiii', $vet_id, $vet_id, $vet_id, $vet_id, $vet_id
 $chat_list_stmt->execute();
 $chat_list = $chat_list_stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-// If a user is selected, fetch chat history
 if ($user_id) {
     $chat_query = "SELECT m.*, 
                    CASE 
@@ -80,7 +74,6 @@ if ($user_id) {
     $chat_stmt->execute();
     $messages = $chat_stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-    // Mark messages as read
     $update_query = "UPDATE messages 
                     SET read_status = 1 
                     WHERE sender_type = 'user' 
@@ -267,38 +260,49 @@ if ($user_id) {
     <div class="chat-dashboard">
         <div class="chat-list">
             <?php foreach ($chat_list as $chat): ?>
+
                 <div class="chat-item <?php echo $chat['user_id'] == $user_id ? 'active' : ''; ?>" 
                      onclick="window.location.href='?user_id=<?php echo $chat['user_id']; ?>'">
+
                     <?php 
                     $profilePic = !empty($chat['profile_pic']) 
                         ? 'data:image/jpeg;base64,'.base64_encode($chat['profile_pic']) 
                         : 'default-profile.jpg'; 
                     ?>
+
                     <img src="<?php echo $profilePic; ?>" alt="" class="chat-item-avatar">
+
                     <div class="chat-item-details">
                         <div class="chat-item-name"><?php echo htmlspecialchars($chat['full_name']); ?></div>
                         <div class="chat-item-last-message"><?php echo htmlspecialchars($chat['last_message']); ?></div>
                     </div>
+
                     <?php if ($chat['unread_count'] > 0): ?>
                         <span class="unread-badge"><?php echo $chat['unread_count']; ?></span>
                     <?php endif; ?>
                 </div>
+
             <?php endforeach; ?>
+
         </div>
 
         <div class="chat-main">
             <?php if ($user_id && $user): ?>
                 <div class="chat-header">
+
                     <?php 
                     $userProfilePic = !empty($user['profile_pic']) 
                         ? 'data:image/jpeg;base64,'.base64_encode($user['profile_pic']) 
                         : 'default-profile.jpg'; 
                     ?>
+
                     <img src="<?php echo $userProfilePic; ?>" alt="" class="chat-item-avatar">
                     <h2><?php echo htmlspecialchars($user['full_name']); ?></h2>
+
                 </div>
 
                 <div class="chat-messages" id="chatMessages">
+
                     <?php foreach ($messages as $message): ?>
                         <div class="message <?php echo $message['sender_type'] === 'vet' ? 'sent' : 'received'; ?>">
                             <?php echo htmlspecialchars($message['message']); ?>
@@ -306,6 +310,7 @@ if ($user_id) {
                                 <?php echo date('M d, Y H:i', strtotime($message['created_at'])); ?>
                             </div>
                         </div>
+
                     <?php endforeach; ?>
                 </div>
 
@@ -328,7 +333,7 @@ if ($user_id) {
     </div>
 
     <script>
-        // Auto-scroll to bottom of chat
+        
         function scrollToBottom() {
             const chatMessages = document.getElementById('chatMessages');
             if (chatMessages) {
@@ -336,10 +341,8 @@ if ($user_id) {
             }
         }
 
-        // Scroll to bottom on page load
         scrollToBottom();
 
-        // Check for new messages every 5 seconds
         <?php if ($user_id): ?>
         setInterval(function() {
             fetch('fetch_vet_messages.php?user_id=<?php echo $user_id; ?>')

@@ -2,7 +2,13 @@
 include('../db.php');
 session_start();
 
+// Check if vet is logged in
+if (!isset($_SESSION['vet_id'])) {
+    header("Location: index.php");
+    exit();
+}
 $vet_id = $_SESSION['vet_id'];
+
 
 // Pagination setup
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -119,7 +125,7 @@ $total_pages = ceil($total_appointments / $results_per_page);
                 <h1 class="text-2xl font-bold text-gray-800">My Appointments</h1>
             </div>
             <div class="px-6 py-4 bg-gray-50 border-b border-gray-200 flex justify-end">
-                <a href="manage_appointment.php" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">
+                <a href="manage_appointments.php" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">
                     Edit Schedule
                 </a>
             </div>
