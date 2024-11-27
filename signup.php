@@ -91,9 +91,7 @@ $google_signup_url = $google_client->createAuthUrl();
             border-radius: 10px;
             box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
             width: 100%;
-            max-width: 500px;
-            animation: slideIn 0.8s ease;
-            left: 25%;
+            margin: 0 auto;
         }
 
         h2 {
@@ -123,21 +121,22 @@ $google_signup_url = $google_client->createAuthUrl();
             color: #333;
         }
 
-        input[type="text"], input[type="email"], input[type="password"] {
+        input[type="text"], 
+        input[type="email"], 
+        input[type="password"] {
             width: 100%;
             padding: 12px;
             margin-bottom: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+        input[type="text"]:focus, 
+        input[type="email"]:focus, 
+        input[type="password"]:focus {
             border-color: #FC5C7D;
-        }
-
-        .full-width {
-            width: 100%;
+            box-shadow: 0 0 10px rgba(252, 92, 125, 0.2);
         }
 
         input[type="submit"] {
@@ -150,106 +149,148 @@ $google_signup_url = $google_client->createAuthUrl();
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.1s;
             margin-top: 20px;
         }
 
         input[type="submit"]:hover {
             background-color: #FC5C7D;
+            transform: scale(1.02);
         }
 
         .google-signup-btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background-color: #4285F4;
-            color: #fff;
-            font-size: 16px;
-            text-align: center;
-            border-radius: 5px;
-            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            background-color: #4285f4;
+            color: white;
             text-decoration: none;
-            transition: background-color 0.3s ease;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.1s;
+            margin-top: 10px;
         }
 
         .google-signup-btn:hover {
             background-color: #357ae8;
+            transform: scale(1.02);
         }
 
-        a {
-            color: #6A82FB;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: none;
-        }
-
-        p {
+        .error-message {
+            color: #fff;
+            background-color: #FF5A5A;
+            padding: 10px;
+            margin-bottom: 20px;
             text-align: center;
-            margin-top: 20px;
+            border-radius: 5px;
+            animation: shake 0.5s;
         }
 
-        .centered-or {
-            text-align: center;
-            /* margin-top: -10px; */
-            margin-bottom: 5px;
-            position: relative;
-            left: 47%;
-        }
-
-        .error {
-            color: #FF0000;
-            text-align: center;
-            margin: 10px 0;
-        }
-
-        .success {
-            color: #28a745;
-            text-align: center;
-            margin: 10px 0;
-        }
-
-        @keyframes slideIn {
+        @keyframes slideInLeft {
             from {
                 opacity: 0;
-                transform: translateY(50px);
+                transform: translateX(-100%);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateX(0);
             }
         }
 
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(-10px);
+            }
+            to {
+                transform: translateY(10px);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                flex-direction: column;
+            }
+
+            .description-section, .signup-container {
+                width: 100%;
+                padding: 20px;
+            }
+
+            .left-column, .right-column {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="signup-container">
-        <h2>Signup to Petiverse</h2>
-        <form action="signup.php" method="POST">
-            <div class="left-column">
-                <label>Email:</label>
-                <input type="email" name="email" placeholder="Enter your email" required>
+    <div class="page-container">
+        <div class="description-section">
+            <h1>Join Petiverse</h1>
+            <p>Create your account and unlock a world of comprehensive pet care. Petiverse offers a seamless platform to manage your pet's health, connect with pet lovers, and access personalized pet care resources.</p>
+            <img src="./src/img/pet-log.png" alt="Petiverse Signup Illustration" class="description-image">
+        </div>
+        <div class="signup-container">
+            <div class="signup-form">
+                <h2>Signup to Petiverse</h2>
+                <?php if (!empty($error_message)): ?>
+                    <div class="error-message">
+                        <?php echo $error_message; ?>
+                    </div>
+                <?php endif; ?>
+                <form action="signup.php" method="POST">
+                    <div class="left-column">
+                        <label>Email:</label>
+                        <input type="email" name="email" placeholder="Enter your email" required>
 
-                <label>Password:</label>
-                <input type="password" name="password" placeholder="Enter your password" required>
+                        <label>Password:</label>
+                        <input type="password" name="password" placeholder="Enter your password" required>
 
-                <label>Confirm Password:</label>
-                <input type="password" name="confirm_password" placeholder="Confirm your password" required>
+                        <label>Confirm Password:</label>
+                        <input type="password" name="confirm_password" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="right-column">
+                        <label>Name:</label>
+                        <input type="text" name="name" placeholder="Enter your name" required>
+
+                        <label>Address:</label>
+                        <input type="text" name="address" placeholder="Enter your address" required>
+
+                        <label>Mobile Number:</label>
+                        <input type="text" name="mobile_number" placeholder="Enter your mobile number" required>
+                    </div>
+                    <input type="submit" value="Signup" class="full-width">
+                </form>
+                <p style="text-align: center; margin-top: 15px;">Already registered? <a href="login.php" style="color: #6A82FB;">Login here</a></p>
             </div>
-            <div class="right-column">
-                <label>Name:</label>
-                <input type="text" name="name" placeholder="Enter your name" required>
-
-                <label>Address:</label>
-                <input type="text" name="address" placeholder="Enter your address" required>
-
-                <label>Mobile Number:</label>
-                <input type="text" name="mobile_number" placeholder="Enter your mobile number" required>
-            </div>
-            <input type="submit" value="Signup" class="full-width">
-        </form>
-        <p>Already registered? <a href="login.php">Login here</a></p>
+        </div>
     </div>
 </body>
 </html>

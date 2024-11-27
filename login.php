@@ -220,36 +220,67 @@ p {
                 opacity: 1;
             }
         }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(-10px);
+            }
+            to {
+                transform: translateY(10px);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                flex-direction: column;
+            }
+
+            .description-section, .login-container {
+                width: 100%;
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login to Petiverse</h2>
-        <?php if (!empty($error_message)): ?>
-            <div class="error-message">
-                <?php echo $error_message; ?>
-            </div>
-        <?php endif; ?>
-        <form action="./login.php" method="POST">
-            <label>Email:</label>
-            <input type="email" name="email" placeholder="Enter your email" required>
+    <div class="page-container">
+        <div class="description-section">
+            <h1>Welcome to Petiverse</h1>
+            <p>Petiverse is your all-in-one pet care web application designed to simplify and enhance your pet ownership experience. From health tracking and veterinary records to pet-friendly location recommendations and community connections, Petiverse is the ultimate companion for pet lovers.</p>
+            <img src="./src/img/pet-log.png" alt="Petiverse Illustration" class="description-image">
+        </div>
+        <div class="login-container">
+            <div class="login-form">
+                <h2>Login to Petiverse</h2>
+                <?php if (!empty($error_message)): ?>
+                    <div class="error-message">
+                        <?php echo $error_message; ?>
+                    </div>
+                <?php endif; ?>
+                <form action="./login.php" method="POST">
+                    <label>Email:</label>
+                    <input type="email" name="email" placeholder="Enter your email" required>
 
-            <label>Password:</label>
-            <input type="password" name="password" placeholder="Enter your password" required>
+                    <label>Password:</label>
+                    <input type="password" name="password" placeholder="Enter your password" required>
 
-            
+                    <a href="forgot-password.php" style="display: block; text-align: right; margin-top: -15px; margin-bottom: 20px; color: #6A82FB;">Forgot Password?</a>
 
-            <a href="forgot-password.php" class="forgot-password">Forgot Password?</a>
+                    <input type="submit" value="Login">
 
-            <input type="submit" value="Login">
+                    <p style="text-align: center; margin: 15px 0;">OR</p>
 
-            <p>OR</p>
-
-            <a href="<?php echo $google_login_url; ?>" class="google-login-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="google" viewBox="-380.2 274.7 65.7 65.8" width="25" height="25">
-                    <circle cx="-347.3" cy="307.6" r="32.9" style="fill:#e0e0e0"></circle>
-                    <circle cx="-347.3" cy="307.1" r="32.4" style="fill:#fff"></circle>
-                    <g>
+                    <a href="<?php echo $google_login_url; ?>" class="google-login-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="25" viewBox="-380.2 274.7 65.7 65.8">
+                            <circle cx="-347.3" cy="307.6" r="32.9" style="fill:#e0e0e0"></circle>
+                            <circle cx="-347.3" cy="307.1" r="32.4" style="fill:#fff"></circle>
+                            <g>
                         <defs>
                             <path id="SVGID_1_" d="M-326.3 303.3h-20.5v8.5h11.8c-1.1 5.4-5.7 8.5-11.8 8.5-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4c-3.9-3.4-8.9-5.5-14.5-5.5-12.2 0-22 9.8-22 22s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path>
                         </defs>
