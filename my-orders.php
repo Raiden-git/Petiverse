@@ -235,7 +235,10 @@ $stmt->close();
         }
 
         foreach ($orders as $order_code => $products):
-            $order_details = $products[0]; 
+            $order_details = $products[0];
+            $calculated_total_price = array_reduce($products, function($carry, $product) {
+                return $carry + ($product['quantity'] * $product['price']);
+            }, 0);
 
             // Determine status color class
             $status_class = 'status-pending';
@@ -258,7 +261,7 @@ $stmt->close();
                         <p><strong>Delivery Address:</strong> <?= htmlspecialchars($order_details['delivery_address']) ?></p>
                         <p><strong>Phone Number:</strong> <?= htmlspecialchars($order_details['phone_number']) ?></p>
                         <p><strong>Postal Code:</strong> <?= htmlspecialchars($order_details['postal_code']) ?></p>
-                        <p><strong>Total Price:</strong> LKR. <?= number_format($order_details['total_price'], 2) ?></p>
+                        <p><strong>Total Price:</strong> LKR. <?= number_format($calculated_total_price, 2) ?></p>
                         <p><strong>Status Message:</strong> <?= htmlspecialchars($order_details['order_status_message']) ?></p>
                     </div>
                 </div>

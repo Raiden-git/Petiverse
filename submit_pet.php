@@ -91,6 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Lost or Found Pet</title>
     <link rel="stylesheet" href="./assets/css/submit_pet.css">
+    <link rel="stylesheet" href="./assets/css/scrollbar.css">
     <style>
         /* Popup styling */
         .popup {
