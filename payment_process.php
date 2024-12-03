@@ -13,7 +13,7 @@ $plan = $_GET['plan'];
 
 $stripe = new \Stripe\StripeClient('sk_test_51QNWQKG2zxFLmtj9w1HsGLgAkVByklUMkMC59EYOk9A2XNaL5azhcTTlFT2LE5oJMkYPxOysXU4cdJidanITC70n00S49ksdJ4'); // Use your secret key
 
-$amount = $plan === 'monthly' ? 999 : 10080;
+$amount = $plan === 'monthly' ? 99900 : 1008000;
 $description = $plan === 'monthly' ? 'Monthly Premium Plan' : 'Annual Premium Plan';
 
 // Create a checkout session

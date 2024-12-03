@@ -62,155 +62,169 @@ $google_login_url = $google_client->createAuthUrl();
         }
 
         body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to bottom right, #6A82FB, #FC5C7D);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url('./assets/img/login3.jpg'); 
-    background-size: cover; 
-    background-repeat: no-repeat; 
-    background-position: center; 
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)), url('./assets/img/login2.jpg');
-  background-size: cover;
+            font-family: 'Poppins', sans-serif;
+            background-image: url('src/img/background-petiverse.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
 
-}
+        .page-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+        }
 
+        .description-section {
+            width: 60%;
+            background-color: #6A82FB;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            animation: slideInLeft 1s ease-out;
+        }
 
+        .description-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-out;
+        }
 
-.login-container {
-    position: relative;
-    background-color: transparent; 
-    padding: 40px;
-    border-radius: 10px;
-    max-width: 450px;
-    width: 100%;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
-    animation: slideIn 0.8s ease;
-    left: 25%;
-}
+        .description-section p {
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-bottom: 30px;
+            animation: fadeIn 2s ease-out;
+        }
 
+        .description-image {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            animation: bounce 2s infinite alternate;
+        }
+
+        .login-container {
+            width: 40%;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .login-form {
+            max-width: 350px;
+            width: 100%;
+            margin: 0 auto;
+        }
 
         h2 {
             text-align: center;
             margin-bottom: 30px;
             font-weight: 600;
-            color: black;
-            font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            font-size: 55px;
-            
+            color: #FC5C7D;
         }
 
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #333;
-    font-size: 1rem;
-}
-input[type="email"], input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
 
-input[type="email"]:focus, input[type="password"]:focus {
-    border-color: #FC5C7D;
-    box-shadow: 0 0 10px rgba(252, 92, 125, 0.4);
-}
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
 
-input[type="submit"] {
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(to right, #FC5C7D, #6A82FB);
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: buttonPulse 1.5s infinite;
-}
+        input[type="email"]:focus, input[type="password"]:focus {
+            border-color: #FC5C7D;
+            box-shadow: 0 0 10px rgba(252, 92, 125, 0.2);
+        }
 
-input[type="submit"]:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 15px 30px rgba(252, 92, 125, 0.5);
-}
-.google-login-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    background-color: #4285f4;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #6A82FB;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s;
+        }
 
-.google-login-btn:hover {
-    background-color: #357ae8;
-    transform: translateY(-3px);
-}
+        input[type="submit"]:hover {
+            background-color: #FC5C7D;
+            transform: scale(1.02);
+        }
 
+        .google-login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            background-color: #4285f4;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.1s;
+        }
 
-a {
-    color: red;
-    text-decoration: underline;
-    text-decoration: none;
-   
-    font-weight: bold;
-}
+        .google-login-btn:hover {
+            background-color: #357ae8;
+            transform: scale(1.02);
+        }
 
-a:hover {
-    color: white;
-    text-decoration: underline;
-    text-decoration: none;
-}
+        .error-message {
+            color: #fff;
+            background-color: #FF5A5A;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-radius: 5px;
+            animation: shake 0.5s;
+        }
 
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
 
-p {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    color: #555;
-    font-size: 0.9rem;
-}
-
-/* Forgot Password */
-.forgot-password {
-    display: block;
-    text-align: right;
-    margin-top: -15px;
-    margin-bottom: 20px;
-    color: black;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-.forgot-password:hover {
-    color: white;
-}
-
-/* Error Message */
-.error-message {
-    color: red;
-    background-color: #FF5A5A;
-    padding: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-    border-radius: 5px;
-    font-size: 14px;
-    animation: fadeIn 0.5s ease-in-out;
-    box-shadow: 0px 10px 20px rgba(255, 90, 90, 0.3);
-}
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
 
         @keyframes fadeIn {
             from {
@@ -270,17 +284,17 @@ p {
                     <label>Password:</label>
                     <input type="password" name="password" placeholder="Enter your password" required>
 
-                    <a href="forgot-password.php" style="display: block; text-align: right; margin-top: -15px; margin-bottom: 20px; color: #6A82FB;">Forgot Password?</a>
+                   
 
                     <input type="submit" value="Login">
 
                     <p style="text-align: center; margin: 15px 0;">OR</p>
 
                     <a href="<?php echo $google_login_url; ?>" class="google-login-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="25" viewBox="-380.2 274.7 65.7 65.8">
-                            <circle cx="-347.3" cy="307.6" r="32.9" style="fill:#e0e0e0"></circle>
-                            <circle cx="-347.3" cy="307.1" r="32.4" style="fill:#fff"></circle>
-                            <g>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="google" viewBox="-380.2 274.7 65.7 65.8" width="25" height="25">
+                    <circle cx="-347.3" cy="307.6" r="32.9" style="fill:#e0e0e0"></circle>
+                    <circle cx="-347.3" cy="307.1" r="32.4" style="fill:#fff"></circle>
+                    <g>
                         <defs>
                             <path id="SVGID_1_" d="M-326.3 303.3h-20.5v8.5h11.8c-1.1 5.4-5.7 8.5-11.8 8.5-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4c-3.9-3.4-8.9-5.5-14.5-5.5-12.2 0-22 9.8-22 22s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path>
                         </defs>
@@ -315,9 +329,11 @@ p {
                         </g>
                     </g>
                 </svg> Continue with Google
-                </a>
-        </form>
-        <p>Not registered? <a href="signup.php">Sign up here</a></p>
-
+                    </a>
+                </form>
+                <p style="text-align: center; margin-top: 15px;">Not registered? <a href="signup.php" style="color: #6A82FB; text-decoration: none;" >Sign up here</a></p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
