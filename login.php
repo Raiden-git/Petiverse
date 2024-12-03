@@ -63,7 +63,10 @@ $google_login_url = $google_client->createAuthUrl();
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to bottom right, #6A82FB, #FC5C7D);
+            background-image: url('src/img/background-petiverse.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             height: 100vh;
             display: flex;
             overflow: hidden;
@@ -281,7 +284,7 @@ $google_login_url = $google_client->createAuthUrl();
                     <label>Password:</label>
                     <input type="password" name="password" placeholder="Enter your password" required>
 
-                    <a href="forgot-password.php" style="display: block; text-align: right; margin-top: -15px; margin-bottom: 20px; color: #6A82FB;">Forgot Password?</a>
+                   
 
                     <input type="submit" value="Login">
 
