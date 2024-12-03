@@ -102,7 +102,7 @@ session_start();
         }
     </style>
 </head>
-<body>
+<body >
     <?php include 'Cus-NavBar/navBar.php'; ?>
 
     <div class="container">

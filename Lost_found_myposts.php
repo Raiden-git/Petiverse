@@ -38,6 +38,7 @@ $result = $stmt->get_result();
     <title>My Posts - Lost and Found</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="./assets/css/lost_found.css">
+    <link rel="stylesheet" href="./assets/css/scrollbar.css">
     <style>
         .myposts-section {
             padding: 20px;
@@ -49,6 +50,7 @@ $result = $stmt->get_result();
             border-radius: 8px;
             margin-bottom: 20px;
             padding: 10px;
+            width: 260px;
         }
         .mypost-card img {
             width: 100%;
