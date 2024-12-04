@@ -182,6 +182,121 @@ $conn->close();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
+
+<style>
+
+form .addbtn{
+background-color: #333;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 20%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+
+ form .addbtn:hover{
+ background-color: #555;
+color: white;
+}
+
+.addeditem .editbtn{
+background-color: #333;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+
+}
+
+
+.addeditem .editbtn:hover{
+background-color: #555;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+
+}
+
+.addeditem .delbtn{
+    background-color: #ef4444;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+.addeditem .delbtn:hover{
+    background-color: #dc2626;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+.modal .editbtn{
+    background-color: #333;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+
+}
+
+
+.modal .editbtn:hover{
+background-color: #555;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -204,7 +319,7 @@ $conn->close();
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
-        <li><a href="petselling.php">Pet selling</a><li>
+        <li><a href="petselling.php">Pet selling</a><li>        
         <li><a href="view_feedback.php">Feedbacks</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
@@ -238,7 +353,7 @@ $conn->close();
                 <input type="text" class="form-control" name="sub_category" placeholder="Enter subcategory name" required>
             </div>
 
-            <button type="submit" class="btn btn-primary" name="add_subcategory">Add Subcategory</button>
+            <button class="addbtn" type="submit" class="btn btn-primary" name="add_subcategory">Add Subcategory</button>
         </form>
 
         <!-- List of Existing Subcategories -->
@@ -316,7 +431,7 @@ $conn->close();
         <input type="file" class="form-control" id="photo" name="photo" accept="image/*">
     </div>
 
-    <button type="submit" name="add_product" class="btn btn-primary">Add Product</button>
+    <button class="addbtn" type="submit" name="add_product" class="btn btn-primary">Add Product</button>
 </form>
 
 
@@ -335,7 +450,7 @@ $conn->close();
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="addeditem">
         <?php if ($all_products->num_rows > 0) : ?>
             <?php while ($row = $all_products->fetch_assoc()) : ?>
                 <tr>
@@ -350,10 +465,10 @@ $conn->close();
                         <?php endif; ?>
                     </td>
                     <td>
-                        <button class="btn btn-warning" onclick="editProduct(<?= htmlspecialchars($row['id']) ?>, '<?= htmlspecialchars($row['category']) ?>', '<?= htmlspecialchars($row['subcategory']) ?>', '<?= htmlspecialchars($row['name']) ?>', '<?= htmlspecialchars($row['description']) ?>', <?= htmlspecialchars($row['price']) ?>, '<?= base64_encode($row['photo']) ?>')">Edit</button>
+                        <button class="editbtn btn-warning" onclick="editProduct(<?= htmlspecialchars($row['id']) ?>, '<?= htmlspecialchars($row['category']) ?>', '<?= htmlspecialchars($row['subcategory']) ?>', '<?= htmlspecialchars($row['name']) ?>', '<?= htmlspecialchars($row['description']) ?>', <?= htmlspecialchars($row['price']) ?>, '<?= base64_encode($row['photo']) ?>')">Edit</button>
                         <form action="" method="post" class="d-inline">
                             <input type="hidden" name="product_id" value="<?= htmlspecialchars($row['id']) ?>">
-                            <button type="submit" class="btn btn-danger" name="delete_product" onclick="return confirm('Are you sure you want to delete this product?');">Delete</button>
+                            <button type="submit" class="delbtn btn-danger" name="delete_product" onclick="return confirm('Are you sure you want to delete this product?');">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -414,7 +529,7 @@ $conn->close();
                         <input type="file" class="form-control" name="photo" id="edit_photo">
                     </div>
 
-                    <button type="submit" class="btn btn-primary" name="edit_product">Update Product</button>
+                    <button type="submit" class="editbtn btn-primary" name="edit_product">Update Product</button>
                 </form>
             </div>
         </div>

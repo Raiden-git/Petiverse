@@ -74,7 +74,7 @@ if ($result) {
 
 /* Body Styling */
 body {
-    margin: 20px;
+
     background-color: #f9f9f9;
     color: #333;
     line-height: 1.6;
@@ -114,7 +114,7 @@ th, td {
 }
 
 th {
-    background-color: #007bff;
+    background-color: #333;
     color: white;
     font-weight: bold;
 }
@@ -123,9 +123,7 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-tr:hover {
-    background-color: #f1f1f1;
-}
+
 
 /* Status Labels */
 .status {
@@ -137,12 +135,12 @@ tr:hover {
 }
 
 .status.pending {
-    background-color: #ffcc00;
+    background-color: green;
     color: white;
 }
 
 .status.approved {
-    background-color: #28a745;
+    background-color: green;
     color: white;
 }
 
@@ -160,19 +158,51 @@ tr:hover {
 }
 
 .btn.approve {
-    background-color: #28a745;
+    background-color: #333;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
 }
 
 .btn.reject {
-    background-color: #dc3545;
+background-color: #ef4444;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
 }
+
+
 
 .btn.edit {
     background-color: #007bff;
 }
 
 .btn.delete {
-    background-color: #6c757d;
+background-color: #333;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
 }
 
 .btn:hover {
@@ -198,25 +228,35 @@ form {
 }
 /* Edit Link Button Styling */
 a.btn-edit {
-    display: inline-block;
-    background-color: #007bff;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-decoration: none; 
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-color: #333;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
 }
 
 a.btn-edit:hover {
-    background-color: #0056b3; 
-    transform: scale(1.05);
+    background-color: #555;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
 }
 
 a.btn-edit:active {
-    background-color: #004085; /* Even darker blue on click */
+    background-color: #004085; 
 }
 
 /* Optional: Add a border to match button-like appearance */
@@ -224,6 +264,37 @@ a.btn-edit {
     border: 1px solid transparent;
 }
 
+
+
+form .delbtn{
+    background-color: #ef4444;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+
+
+form .delbtn:hover{
+    background-color: #dc2626;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
 </style>
 </head>
 <body>
@@ -236,17 +307,17 @@ a.btn-edit {
 
 <nav>
     <ul>
-        <li><a href="dashboard.php">Dashboard</a></li>
+        <li><a href="dashboard.php">Home</a></li>
         <li><a href="user_management.php">User Management</a></li>
         <li><a href="shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
         <li><a href="admin_daycare_management.php">Daycare Management</a></li>
-        <li><a href="lost_found_pets.php" class="active">Lost & Found Pets</a></li>
+        <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
-        <li><a href="petselling.php">Pet selling</a></li>
+        <li><a href="petselling.php">Pet selling</a><li>        
         <li><a href="view_feedback.php">Feedbacks</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
@@ -333,7 +404,7 @@ a.btn-edit {
                         <form method="POST" action="delete_ad.php">
                             <!-- Replace $row['id'] with the actual variable holding the ID -->
                             <input type="hidden" name="pet_id" value="<?= htmlspecialchars($row['id']) ?>">
-                            <button type="submit" class="btn delete" onclick="return confirm('Are you sure you want to delete this pet?');">Delete</button>
+                            <button type="submit" class="delbtn delete" onclick="return confirm('Are you sure you want to delete this pet?');">Delete</button>
                         </form>
 
                         </td>

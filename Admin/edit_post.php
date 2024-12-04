@@ -1,3 +1,5 @@
+
+
 <?php
 include('../db.php');
 include('session_check.php');
@@ -39,14 +41,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Post</title>
+    <title>Petiverse - Edit Community post</title>
+    <link rel="stylesheet" href="admin_sidebar.css">
+    <script src="logout_js.js"></script>
     <style>
-        /* General Reset */
+
+                /* General Reset */
 * {
     margin: 0;
     padding: 0;
@@ -54,15 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     font-family: 'Arial', sans-serif;
 }
 
-/* Body Styling */
-body {
-    background-color: #f4f6f9;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+
 
 /* Container for the Edit Post Form */
 .edit-post-container {
@@ -70,15 +66,16 @@ body {
     border-radius: 12px;
     padding: 30px 40px;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    width: 450px;
+    width: 600px;
     max-width: 90%;
     border: 2px solid #e0e0e0;
+    margin-left: 300px;
 }
 
 /* Form Header */
 .edit-post-container h1 {
-    font-size: 1.8rem;
-    color: #4CAF50;
+    font-size: 3rem;
+    color: black;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -158,7 +155,7 @@ body {
     padding: 12px 20px;
     font-size: 1rem;
     color: #fff;
-    background-color: #4CAF50;
+    background-color: #333;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -166,7 +163,7 @@ body {
 }
 
 .edit-post-container button:hover {
-    background-color: #45a049;
+    background-color: #555;
     transform: scale(1.02);
 }
 
@@ -189,6 +186,30 @@ body {
     </style>
 </head>
 <body>
+<header>
+    <h1 class="text-center mt-4">Community Management</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="dashboard.php">Home</a></li>
+        <li><a href="user_management.php">User Management</a></li>
+        <li><a href="shop_management.php">Shop Management</a></li>
+        <li><a href="community_controls.php">Community Controls</a></li>
+        <li><a href="blog_management.php">Blog Management</a></li>
+        <li><a href="admin_daycare_management.php">Daycare Management</a></li>
+        <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
+        <li><a href="special_events.php">Special Events</a></li>
+        <li><a href="vet_management.php">Vet Management</a></li>
+        <li><a href="moderator_management.php">Moderator Management</a></li>
+        <li><a href="petselling.php">Pet selling</a><li>        
+        <li><a href="view_feedback.php">Feedbacks</a></li>
+        <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
+    </ul>
+</nav>
+
+<main>
+
 <div class="edit-post-container">
     <h1>Edit Post</h1>
     <form action="" method="POST">
@@ -234,6 +255,7 @@ body {
         <button type="submit">Update Post</button>
     </form>
 </div>
+
+</main>
 </body>
 </html>
-<?php $conn->close(); ?>

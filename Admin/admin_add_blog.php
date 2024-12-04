@@ -80,122 +80,199 @@ $result = $stmt->get_result();
   <link rel="stylesheet" href="../Admin/admin_sidebar.css">
   <style>
  
+/* Reset styles */
+body, h1, h2, h3, p, ul, li, a, button, input, textarea, select, form {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
 
- 
-/* Style for Delete Button */
-form button[name="delete_blog"] {
-    background-color: #e74c3c; 
-    color: white; 
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px; 
-    cursor: pointer; 
+body {
+    font-size: 16px;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+
+
+/* Main Content */
+main {
+    margin-left: 22%;
+    padding: 20px;
+}
+
+/* Form Styling */
+.form-container {
+    background: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
     font-weight: bold;
-    transition: background-color 0.3s ease; 
 }
 
-form button[name="delete_blog"]:hover {
-    background-color: #c0392b;
+form input[type="text"], 
+form textarea, 
+form select, 
+form input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
-/* Style for Edit Blog Popup Section */
+form button {
+    background-color:#333 ;
+    color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 15%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+form button:hover {
+    background-color:#555 ;
+    color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 15%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+
+
+form .delbtn{
+    background-color: #ef4444;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 15%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+
+form .delbtn:hover{
+    background-color: #dc2626;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 15%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+
+
+/* Blog Display */
+.blog-container {
+    margin: 20px 0;
+}
+
+.blog {
+    background: white;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.blog h3 {
+    color: #004d99;
+    margin-bottom: 10px;
+}
+
+.blog img {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+.blog form button {
+    margin-right: 10px;
+}
+
+/* Edit Form Popup */
 #editForm {
-    position: fixed; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    background-color: #f9f9f9; 
-    border: 1px solid #ddd; 
-    border-radius: 10px; 
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-    padding: 20px; 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
-    height: 500px;
 }
 
-/* Style for input fields in Edit Form */
-#editForm input[type="text"],
-#editForm textarea,
-#editForm select {
-    width: 100%; 
-    padding: 10px; 
-    margin-bottom: 20px; 
-    border: 1px solid #ccc; 
-    border-radius: 5px; 
-    box-sizing: border-box; 
-    font-size: 16px; 
-    margin-bottom: 40px;
-}
-
-
-
-#editForm #edit-content{
-    color: #e74c3c;
-    height: 130px;
-   
-}
-
-
-
-
-
-/* Style for buttons in Edit Form */
-#editForm button {
-    background-color: #3498db;
-    color: white; 
-    border: none; 
-    padding: 10px 20px;  
-    border-radius: 5px;
-    cursor: pointer; 
-    font-weight: bold; 
-    margin-right: 10px; 
-    transition: background-color 0.3s ease; 
-}
-
-#editForm button:hover {
-    background-color: #2980b9;
-}
-
-/* Style for Cancel Button */
-#editForm button[type="button"] {
-    background-color: #7f8c8d; 
-}
-
-#editForm button[type="button"]:hover {
-    background-color: #5a6a6b; 
-}
-
-/* Background overlay for Edit Form */
-body::before {
-    content: '';
-    display: none; 
-    position: fixed; 
+.editing::before {
+    content: "";
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
-    z-index: 999; 
-}
-
-
-body.editing::before {
-    display: block; 
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
 }
 
 
 
-.blog-container .editbtn {
-    background-color: #e74c3c; 
-    color: white;
-    border: none; 
-    padding: 10px 15px;
-    border-radius: 5px; 
-    cursor: pointer; 
-    font-weight: bold; 
-    transition: background-color 0.3s ease;
 
+
+
+
+/* Button for canceling */
+#editForm button[type="button"] {
+    background-color: #ccc;
+    color: #333;
 }
+
+#editForm button[type="button"]:hover {
+    background-color: #aaa;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav ul {
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+
+    main {
+        margin-left: 0;
+    }
+}
+
+
 </style>
 
 
@@ -212,15 +289,16 @@ body.editing::before {
         <li><a href="shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
+        <li><a href="admin_daycare_management.php">Daycare Management</a></li>
         <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
-        <li><a href="petselling.php">Pet selling</a><li>
+        <li><a href="petselling.php">Pet selling</a><li>        
+        <li><a href="view_feedback.php">Feedbacks</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
 </nav>
-
 <main>
 <h1>Admin Blog Management</h1>
 
@@ -260,7 +338,7 @@ body.editing::before {
             <form method="POST" style="margin-top: 10px;">
                 <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                 <button type="button" class="editbtn"onclick="showEditForm(<?php echo $row['id']; ?>, '<?php echo htmlspecialchars($row['title']); ?>', '<?php echo htmlspecialchars($row['content']); ?>', '<?php echo htmlspecialchars($row['category']); ?>')">Edit</button>
-                <button type="submit" name="delete_blog">Delete</button>
+                <button type="submit" name="delete_blog" class="delbtn">Delete</button>
             </form>
         </div>
     <?php endwhile; ?>

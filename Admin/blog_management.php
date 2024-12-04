@@ -79,7 +79,153 @@ $result_approved_posts = $stmt_approved_posts->get_result();
     <link rel="stylesheet" href="admin_sidebar.css">
     <link rel="stylesheet" href="../assets/css/blog_management.css">
     <script src="logout_js.js"></script>
-    
+    <style>
+        .createblog{
+            background-color: #333;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 15%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+        }
+
+.createblog:hover{
+    background-color: #555;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 15%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+
+form .approvebtn{
+background-color: #333;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+form .approvebtn:hover{
+background-color: #555;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+
+form .rejectbtn{
+    background-color: #ef4444;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+
+form .rejectbtn:hover{
+    background-color: #dc2626;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+form .edit-button{
+    background-color: #333;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+
+form .edit-button:hover{
+    background-color: #555;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+
+form .rejected-button{
+    background-color: #ef4444;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+form .rejected-button:hover{
+    background-color: #dc2626;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+    </style>
 </head>
 <body>
 <header>
@@ -98,8 +244,8 @@ $result_approved_posts = $stmt_approved_posts->get_result();
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
+        <li><a href="petselling.php">Pet selling</a><li>        
         <li><a href="view_feedback.php">Feedbacks</a></li>
-        <li><a href="petselling.php">Pet selling</a><li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
 </nav>
@@ -128,8 +274,8 @@ $result_approved_posts = $stmt_approved_posts->get_result();
                         <?php endif; ?>
                         <form method="POST" action="" style="display: inline;">
                             <input type="hidden" name="blog_id" value="<?php echo $row['id']; ?>">
-                            <button type="submit" name="action" value="approve">Approve</button>
-                            <button type="submit" name="action" value="reject" class="rejected-button">Reject</button>
+                            <button class="approvebtn" type="submit" name="action" value="approve">Approve</button>
+                            <button class="rejectbtn" type="submit" name="action" value="reject" class="rejected-button">Reject</button>
                         </form>
                     </div>
                 <?php endwhile; ?>
