@@ -87,7 +87,7 @@ $result = $conn->query($query);
 }
     </script>
     <style>
-        /* Pet Selling Platform Main Stylesheet */
+       
 body {
     font-family: 'Inter', sans-serif;
     background-color: #f6f3e8;
