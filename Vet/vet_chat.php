@@ -267,7 +267,7 @@ if ($user_id) {
                     <?php 
                     $profilePic = !empty($chat['profile_pic']) 
                         ? 'data:image/jpeg;base64,'.base64_encode($chat['profile_pic']) 
-                        : 'default-profile.jpg'; 
+                        : '../assets/img/default.webp'; 
                     ?>
 
                     <img src="<?php echo $profilePic; ?>" alt="" class="chat-item-avatar">
@@ -293,7 +293,7 @@ if ($user_id) {
                     <?php 
                     $userProfilePic = !empty($user['profile_pic']) 
                         ? 'data:image/jpeg;base64,'.base64_encode($user['profile_pic']) 
-                        : 'default-profile.jpg'; 
+                        : '../assets/img/default.webp'; 
                     ?>
 
                     <img src="<?php echo $userProfilePic; ?>" alt="" class="chat-item-avatar">

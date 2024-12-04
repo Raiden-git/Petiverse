@@ -19,29 +19,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if passwords match
     if ($_POST['password'] != $_POST['confirm_password']) {
-        echo "<p class='error'>Passwords do not match!</p>";
+        $error_message = "Passwords do not match!";
     } else {
         // Check if the email already exists
         $email_check = $conn->prepare("SELECT id FROM users WHERE email = ?");
         $email_check->bind_param("s", $email);
         $email_check->execute();
         $email_check->store_result();
-        
+
         if ($email_check->num_rows > 0) {
-            echo "<p class='error'>Email already exists!</p>";
+            $error_message = "Email already exists!";
         } else {
             // Insert user into database
             $stmt = $conn->prepare("INSERT INTO users (full_name, email, password, address, contact_number) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("sssss", $name, $email, $password, $address, $mobile_number);
 
             if ($stmt->execute()) {
-                echo "<script>
-                          alert('Signup successful!');
-                          window.location.href = 'login.php';
-                      </script>";
-                exit;
+                // Redirect to avoid form resubmission
+                header("Location: signup.php?signup_success=true"); // No output should occur before this
+                exit(); // Ensure exit is called to stop script execution
             } else {
-                echo "<p class='error'>Error: " . $stmt->error . "</p>";
+                $error_message = "Error: " . $stmt->error;
             }
             $stmt->close();
         }
@@ -49,6 +47,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $conn->close();
+}
+
+// Show success message if redirected (get request)
+if (isset($_GET['signup_success']) && $_GET['signup_success'] == "true") {
+    echo "<script>alert('Signup successful!'); window.location.href = 'login.php';</script>";
 }
 
 $google_signup_url = $google_client->createAuthUrl(); 
@@ -70,7 +73,10 @@ $google_signup_url = $google_client->createAuthUrl();
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to bottom right, #6A82FB, #FC5C7D);
+            background-image: url('src/img/background-petiverse.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             height: 100vh;
             display: flex;
             overflow: hidden;
@@ -85,8 +91,8 @@ $google_signup_url = $google_client->createAuthUrl();
 
         .description-section {
             width: 60%;
-            background-color: #6A82FB;
-            color: white;
+            background-color: #FFF8E7;
+            color: #333;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -179,7 +185,7 @@ $google_signup_url = $google_client->createAuthUrl();
         input[type="submit"] {
             width: 100%;
             padding: 12px;
-            background-color: #6A82FB;
+            background-color: #DA8359;
             border: none;
             border-radius: 5px;
             color: #fff;
@@ -216,7 +222,7 @@ $google_signup_url = $google_client->createAuthUrl();
         }
 
         .error-message {
-            color: #fff;
+            color: white;
             background-color: #FF5A5A;
             padding: 10px;
             margin-bottom: 20px;
@@ -288,7 +294,7 @@ $google_signup_url = $google_client->createAuthUrl();
     </style>
 </head>
 <body>
-    <div class="page-container">
+<div class="page-container">
         <div class="description-section">
             <h1>Join Petiverse</h1>
             <p>Create your account and unlock a world of comprehensive pet care. Petiverse offers a seamless platform to manage your pet's health, connect with pet lovers, and access personalized pet care resources.</p>
@@ -302,7 +308,7 @@ $google_signup_url = $google_client->createAuthUrl();
                         <?php echo $error_message; ?>
                     </div>
                 <?php endif; ?>
-                <form action="signup.php" method="POST">
+                <form method="POST" action="signup.php">
                     <div class="left-column">
                         <label>Email:</label>
                         <input type="email" name="email" placeholder="Enter your email" required>

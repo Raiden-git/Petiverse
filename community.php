@@ -68,7 +68,7 @@ if (!$result) {
     <style>
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: #f0f2f5;
+    background-color: #f6f3e8;
     line-height: 1.6;
     color: #1c1e21;
 }

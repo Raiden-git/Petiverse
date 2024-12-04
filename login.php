@@ -81,8 +81,8 @@ $google_login_url = $google_client->createAuthUrl();
 
         .description-section {
             width: 60%;
-            background-color: #6A82FB;
-            color: white;
+            background-color: #FFF8E7;
+            color: #333;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -160,7 +160,8 @@ $google_login_url = $google_client->createAuthUrl();
         input[type="submit"] {
             width: 100%;
             padding: 12px;
-            background-color: #6A82FB;
+            margin-top: 20px;
+            background-color: #DA8359;
             border: none;
             border-radius: 5px;
             color: #fff;
@@ -171,7 +172,7 @@ $google_login_url = $google_client->createAuthUrl();
         }
 
         input[type="submit"]:hover {
-            background-color: #FC5C7D;
+            background-color: #9c5f41;
             transform: scale(1.02);
         }
 
@@ -180,9 +181,10 @@ $google_login_url = $google_client->createAuthUrl();
             align-items: center;
             justify-content: center;
             padding: 10px 20px;
-            background-color: #4285f4;
-            color: white;
+            background-color: white;
+            color: black;
             text-decoration: none;
+            border: 2px solid #DA8359;
             border-radius: 5px;
             font-size: 16px;
             font-weight: bold;
@@ -190,7 +192,7 @@ $google_login_url = $google_client->createAuthUrl();
         }
 
         .google-login-btn:hover {
-            background-color: #357ae8;
+            background-color: #fff;
             transform: scale(1.02);
         }
 
