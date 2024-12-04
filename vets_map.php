@@ -2,10 +2,6 @@
 include 'db.php';
 
 session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
 
 // Fetch vet data including more details
 $sql = "SELECT id, name, qualification, experience, clinic_name, consultation_fee, latitude, longitude FROM vets";

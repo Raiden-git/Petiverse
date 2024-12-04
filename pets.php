@@ -89,23 +89,30 @@ $result = $stmt->get_result();
             position: relative;
         }
 
-        .pets-section h2:after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: var(--primary-color);
-            margin: 1rem auto;
-            border-radius: 2px;
-        }
+        
 
         .hii {
             display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            padding: 2rem 2rem;
+            justify-content: space-between;
+            align-items: center;
+            gap: 5rem;
+            padding: 1rem 0;
             max-width: 1400px;
             margin: 0 auto;
+        }
+
+        .search-section {
+            flex-grow: 1;
+        }
+
+        .inline-search {
+            margin-bottom: 0;
+            max-width: none;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
         }
 
         .submit-btn {
@@ -149,9 +156,7 @@ $result = $stmt->get_result();
             display: flex;
             gap: 1rem;
             margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            
         }
 
         .search-form input {
@@ -180,7 +185,7 @@ $result = $stmt->get_result();
         }
 
         .search-form button:hover {
-            background: #357abd;
+            background: #b8704d;
         }
 
         .category-filter {
@@ -358,6 +363,26 @@ $result = $stmt->get_result();
                 padding: 1rem;
                 margin: 1rem;
             }
+            .hii {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .action-buttons {
+                justify-content: center;
+            }
+
+            .search-section {
+                margin-bottom: 1rem;
+            }
+
+            .inline-search {
+                flex-direction: column;
+            }
+
+            .inline-search input {
+                margin-bottom: 1rem;
+            }
         }
 
 </style>
@@ -370,22 +395,21 @@ $result = $stmt->get_result();
 
     <!-- Submit Pet Button -->
     <div class="hii">
-
-    <a href="Lost_found_myposts.php" class="my-posts-btn">
-        <i class="fas fa-user"></i> My Posts
-    </a>
-
-    <a href="submit_pet.php" class="submit-btn">
-        <i class="fas fa-plus-circle"></i> Report a Pet
-    </a>
-
-    
+    <div class="search-section">
+        <form method="POST" class="search-form inline-search">
+            <input type="text" name="search" placeholder="Search for pets..." value="<?php echo htmlspecialchars($searchQuery); ?>">
+            <button type="submit"><i class="fas fa-search"></i> Search</button>
+        </form>
     </div>
-
-    <form method="POST" class="search-form">
-        <input type="text" name="search" placeholder="Search for pets..." value="<?php echo htmlspecialchars($searchQuery); ?>">
-        <button type="submit"><i class="fas fa-search"></i> Search</button>
-    </form>
+    <div class="action-buttons">
+        <a href="Lost_found_myposts.php" class="my-posts-btn">
+            <i class="fas fa-user"></i> My Posts
+        </a>
+        <a href="submit_pet.php" class="submit-btn">
+            <i class="fas fa-plus-circle"></i> Report a Pet
+        </a>
+    </div>
+</div>
 
     <div class="category-filter">
         <form method="POST" class="category-form">
