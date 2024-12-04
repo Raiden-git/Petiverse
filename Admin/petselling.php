@@ -112,6 +112,96 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     .delete-btn:hover {
         background-color: #c0392b;
     }
+
+
+    form .approve-btn{
+        background-color: #333;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+    }
+
+    form .approve-btn:hover{
+background-color: #555;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+    }
+
+
+
+    form .reject-btn{
+        background-color: #ef4444;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+    }
+
+
+form .reject-btn:hover{
+    background-color: #dc2626;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+table .delbtn{
+    background-color: #ef4444;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+table .delbtn:hover{
+    background-color: #dc2626;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+
 </style>
 
     </style>
@@ -121,21 +211,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1>Admin Panel - Pet Selling</h1>
     </header>
     <nav>
-        <ul>
+    <ul>
         <li><a href="dashboard.php">Home</a></li>
         <li><a href="user_management.php">User Management</a></li>
         <li><a href="shop_management.php">Shop Management</a></li>
         <li><a href="community_controls.php">Community Controls</a></li>
         <li><a href="blog_management.php">Blog Management</a></li>
         <li><a href="admin_daycare_management.php">Daycare Management</a></li>
-        <li><a href="lost_found_pets.php" class="active">Lost & Found Pets</a></li>
+        <li><a href="lost_found_pets.php">Lost & Found Pets</a></li>
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
-        <li><a href="petselling.php">Pet selling</a><li>
+        <li><a href="petselling.php">Pet selling</a><li>        
+        <li><a href="view_feedback.php">Feedbacks</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
-        </ul>
-    </nav>
+    </ul>
+</nav>
 
     <main>
         <!-- Pending Ads Section -->
@@ -206,7 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <td>
                                 <form method="POST" style="display: inline;">
                                     <input type="hidden" name="delete_id" value="<?= $row['ad_id'] ?>">
-                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this ad?');" class="delete-btn">Delete</button>
+                                    <button class="delbtn" type="submit" onclick="return confirm('Are you sure you want to delete this ad?');" class="delete-btn">Delete</button>
                                 </form>
                             </td>
                         </tr>

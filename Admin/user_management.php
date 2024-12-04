@@ -67,6 +67,7 @@ $result = $conn->query($sql);
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+          
         }
         th, td {
             padding: 12px;
@@ -74,11 +75,11 @@ $result = $conn->query($sql);
             border-bottom: 1px solid #ddd;
         }
         th {
-            background-color: #007bff;
+            background-color: #333;
             color: #fff;
         }
         tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color:white;
         }
         .action-btn {
             color: blue;
@@ -112,6 +113,7 @@ $result = $conn->query($sql);
     padding-top: 70px;
 }
 
+
 /* Modal Content Box */
 .modal-content {
     background-color: #fefefe;
@@ -123,6 +125,11 @@ $result = $conn->query($sql);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.3s ease;
 }
+
+
+
+
+
 
 /* Close Button */
 .close {
@@ -138,6 +145,8 @@ $result = $conn->query($sql);
     color: #000;
     text-decoration: none;
 }
+
+
 
 /* Form Label and Input Styles */
 .modal-content label {
@@ -158,9 +167,12 @@ $result = $conn->query($sql);
     font-size: 14px;
 }
 
+
+
+
 /* Submit Button */
 .modal-content button[type="submit"] {
-    background-color: #007bff;
+    background-color: #333;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -171,7 +183,73 @@ $result = $conn->query($sql);
 }
 
 .modal-content button[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #555;
+}
+
+.container .action-btn,.delete-btn {
+
+    background-color: #333;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 15px;
+    text-decoration: none;
+    display: block;
+
+}
+
+
+
+.container .action-btn:hover {
+
+background-color: #555;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+
+}
+
+
+.container .delete-btn {
+background-color: #ef4444;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+
+}
+
+.container .delete-btn:hover {
+
+background-color: #dc2626;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+
 }
 
 /* Animation for Modal */
@@ -233,7 +311,7 @@ $result = $conn->query($sql);
                     <td><?= $row['address'] ?></td>
                     <td><?= $row['created_at'] ?></td>
                     <td>
-                        <a href="javascript:void(0)" class="action-btn" onclick="openModal(<?= $row['id'] ?>)">Edit</a> |
+                        <a href="javascript:void(0)" class="action-btn" onclick="openModal(<?= $row['id'] ?>)">Edit</a> 
                         <a href="?delete_id=<?= $row['id'] ?>" class="delete-btn" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
                     </td>
                 </tr>
@@ -261,7 +339,7 @@ $result = $conn->query($sql);
             <input type="text" name="contact_number" id="modal_contact_number"><br>
             <label>Address:</label>
             <input type="text" name="address" id="modal_address"><br>
-            <button type="submit" name="edit_user">Update User</button>
+            <button type="submit" name="edit_user" class="update">Update User</button>
         </form>
     </div>
 </div>

@@ -107,14 +107,19 @@ form input[type="text"] {
 }
 
 form button {
-    padding: 8px 15px;
     background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-bottom: 60px;
-    margin-top: 10px;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 30%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+margin-top: 20px;
+margin-bottom: 60px;
 }
 
 form button:hover {
@@ -216,7 +221,64 @@ a:hover {
     }
 }
 
+table .editbtn{
+    background-color: #333;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
 
+
+table .editbtn:hover{
+    background-color: #555;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+
+
+table .delbtn{
+    background-color: #ef4444;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
+
+table .delbtn:hover{
+    background-color: #dc2626;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 100%;
+margin-bottom: 15px;
+text-decoration: none;
+display: block;
+}
 
   </style>
 </head>
@@ -236,7 +298,7 @@ a:hover {
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
-        <li><a href="petselling.php">Pet selling</a><li>
+        <li><a href="petselling.php">Pet selling</a><li>        
         <li><a href="view_feedback.php">Feedbacks</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
@@ -289,8 +351,8 @@ a:hover {
             <td><?= $row['contact_number'] ?></td>
             <td><?= $row['address'] ?></td>
             <td>
-                <a href="javascript:void(0)" onclick="openModal(<?= $row['id'] ?>)">Edit</a>
-                <a href="moderator_management.php?delete_id=<?= $row['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a>
+                <a href="javascript:void(0)" onclick="openModal(<?= $row['id'] ?>)" class="editbtn">Edit</a>
+                <a href="moderator_management.php?delete_id=<?= $row['id'] ?>" onclick="return confirm('Are you sure?')" class="delbtn">Delete</a>
             </td>
         </tr>
         <?php } ?>

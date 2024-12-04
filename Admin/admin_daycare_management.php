@@ -36,10 +36,11 @@
         }
         h3 {
             margin-top: 0;
+            
         }
         #btn {
             text-decoration: none;
-            background-color: #28a745;
+            background-color: #333;
             color: white;
             padding: 15px 30px;
             font-size: 1.2em;
@@ -50,7 +51,7 @@
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
         #btn:hover {
-            background-color: #218838;
+            background-color: #555;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
     </style>
@@ -62,7 +63,6 @@
 </header>
 
 <nav>
-    <!-- Navigation menu remains the same as in the previous script -->
     <ul>
         <li><a href="dashboard.php">Home</a></li>
         <li><a href="user_management.php">User Management</a></li>
@@ -74,7 +74,7 @@
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
-        <li><a href="petselling.php">Pet selling</a></li>
+        <li><a href="petselling.php">Pet selling</a><li>        
         <li><a href="view_feedback.php">Feedbacks</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>

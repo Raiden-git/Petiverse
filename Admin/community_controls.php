@@ -77,6 +77,90 @@ nav ul li .dropdown-menu a:hover {
 nav ul li:hover .dropdown-menu {
     display: flex;
 }
+
+ 
+#posts-section .editbtn{
+    background-color: #333;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 40%;
+margin-bottom: 15px;
+text-decoration: none;
+margin-right: 20px;
+}
+
+#posts-section .editbtn:hover{
+    background-color: #555;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 40%;
+margin-bottom: 15px;
+text-decoration: none;
+
+}
+
+#posts-section .delbtn{
+    background-color: #ef4444;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 40%;
+margin-bottom: 15px;
+text-decoration: none;
+}
+
+
+#posts-section .delbtn:hover{
+    background-color: #dc2626;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 40%;
+margin-bottom: 15px;
+text-decoration: none;
+}
+
+
+#comments-section .delbtn{
+    background-color: #ef4444;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 40%;
+margin-bottom: 15px;
+text-decoration: none;
+}
+
+#comments-section .delbtn:hover{
+    background-color: #dc2626;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-size: 16px;
+width: 40%;
+margin-bottom: 15px;
+text-decoration: none;
+}
+
     </style>
 </head>
 <body>
@@ -96,7 +180,7 @@ nav ul li:hover .dropdown-menu {
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
-        <li><a href="petselling.php">Pet selling</a><li>
+        <li><a href="petselling.php">Pet selling</a><li>        
         <li><a href="view_feedback.php">Feedbacks</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
@@ -123,8 +207,8 @@ nav ul li:hover .dropdown-menu {
                             <td><?php echo htmlspecialchars($post['title']); ?></td>
                             <td><?php echo htmlspecialchars($post['user_id']); ?></td>
                             <td>
-                                <a href="edit_post.php?post_id=<?php echo $post['id']; ?>">Edit</a>
-                                <a href="delete_post.php?post_id=<?php echo $post['id']; ?>"
+                                <a class="editbtn" href="edit_post.php?post_id=<?php echo $post['id']; ?>">Edit</a>
+                                <a class="delbtn" href="delete_post.php?post_id=<?php echo $post['id']; ?>"
                                    onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
                             </td>
                         </tr>
@@ -151,7 +235,7 @@ nav ul li:hover .dropdown-menu {
                             <td><?php echo htmlspecialchars($comment['content']); ?></td>
                             <td><?php echo $comment['post_id']; ?></td>
                             <td>
-                                <a href="delete_comment.php?comment_id=<?php echo $comment['id']; ?>">Delete</a>
+                                <a class="delbtn" href="delete_comment.php?comment_id=<?php echo $comment['id']; ?>">Delete</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>

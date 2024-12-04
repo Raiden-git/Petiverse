@@ -39,13 +39,15 @@ if ($result_online_payment->num_rows > 0) {
         }
     </script>
     <style>
-             
+        
+        
+
         /* Notification styling */
         .notification {
             display: flex;
             align-items: center;
             background-color: #ff5722; 
-            color: white;
+            color: black;
             padding: 10px 15px;
             border-radius: 25px;
             font-size: 16px;
@@ -54,7 +56,7 @@ if ($result_online_payment->num_rows > 0) {
             transition: transform 0.2s, box-shadow 0.2s;
             margin-top: 15px;
             width: 550px;
-           
+           font-weight: bold;
         }
 
         .notification:hover {
@@ -78,11 +80,12 @@ if ($result_online_payment->num_rows > 0) {
             margin-right: 10px;
         }
 
+
         /* Button styling */
         .action-button {
             display: inline-flex;
             align-items: center;
-            background-color: #4caf50; 
+            background-color:#333; 
             color: white;
             padding: 10px 20px;
             font-size: 16px;
@@ -100,7 +103,7 @@ if ($result_online_payment->num_rows > 0) {
         }
 
         .action-button:hover {
-            background-color: #45a049;
+            background-color: #555;
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
         }
 
@@ -108,6 +111,9 @@ if ($result_online_payment->num_rows > 0) {
             font-size: 20px;
             margin-right: 10px;
         }
+
+
+        
     </style>
 
     
