@@ -78,6 +78,24 @@ $result = mysqli_query($conn, $sql);
         .status-pending { color: #F59E0B; }
         .status-approved { color: #10B981; }
         .status-rejected { color: #EF4444; }
+
+       #h1 h1{
+        background-color: #333;
+        padding: 15px;
+       }
+
+form #approve{
+    background-color: #333;
+}
+
+form #delet{
+    background-color: #ef4444;
+}
+
+form #edit{
+    background-color: #333;
+}
+
     </style>
 </head>
 <body>
@@ -86,7 +104,6 @@ $result = mysqli_query($conn, $sql);
 </header>
 
 <nav>
-    <!-- Navigation menu remains the same as in the previous script -->
     <ul>
         <li><a href="dashboard.php">Home</a></li>
         <li><a href="user_management.php">User Management</a></li>
@@ -98,7 +115,7 @@ $result = mysqli_query($conn, $sql);
         <li><a href="special_events.php">Special Events</a></li>
         <li><a href="vet_management.php">Vet Management</a></li>
         <li><a href="moderator_management.php">Moderator Management</a></li>
-        <li><a href="petselling.php">Pet selling</a></li>
+        <li><a href="petselling.php">Pet selling</a><li>        
         <li><a href="view_feedback.php">Feedbacks</a></li>
         <li><a href="logout.php" onclick="return confirmLogout();">Logout</a></li>
     </ul>
@@ -107,7 +124,7 @@ $result = mysqli_query($conn, $sql);
 <main>
 <div class="container mx-auto px-4 py-8">
     <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <div class="bg-indigo-600 text-white px-6 py-4">
+        <div id="h1" class="bg-600 text-white px-6 py-4">
             <h1 class="text-2xl font-bold">Vet Management Dashboard</h1>
         </div>
 
@@ -176,7 +193,7 @@ $result = mysqli_query($conn, $sql);
                                 <div class="mt-4 space-y-2">
                                     <form method='post' class="inline-block">
                                         <input type='hidden' name='vet_id' value='<?php echo $row['id']; ?>'>
-                                        <button type='submit' name='approve' 
+                                        <button type='submit' name='approve' id="approve"
                                             class='bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 
                                             <?php echo ($row['approval_status'] == 'approved' ? 'opacity-50 cursor-not-allowed' : ''); ?>'
                                             <?php echo ($row['approval_status'] == 'approved' ? 'disabled' : ''); ?>>
@@ -194,7 +211,7 @@ $result = mysqli_query($conn, $sql);
                                     </form>
                                     <form method='post' class="inline-block">
                                         <input type='hidden' name='vet_id' value='<?php echo $row['id']; ?>'>
-                                        <button type='submit' name='delete' 
+                                        <button type='submit' name='delete' id="delet"
                                             onclick='return confirm("Are you sure you want to delete this vet?")'
                                             class='bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600'>
                                             Delete
@@ -202,7 +219,7 @@ $result = mysqli_query($conn, $sql);
                                     </form>
                                     <form action='edit_vet.php' method='get' class="inline-block">
                                         <input type='hidden' name='vet_id' value='<?php echo $row['id']; ?>'>
-                                        <button type='submit' 
+                                        <button type='submit' id="edit"
                                             class='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'>
                                             Edit
                                         </button>
