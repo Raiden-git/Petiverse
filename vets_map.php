@@ -21,7 +21,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <title>Veterinary Services</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="./assets/css/scrollbar.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHdLOieN0OIcTyyY6CmJv6gPNx-OX3MwA&callback=initMap"   
+    <script src="https://maps.googleapis.com/maps/api/js?key=api_key&callback=initMap"   
     async defer></script>
     <style>
         body {
