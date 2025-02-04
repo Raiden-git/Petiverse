@@ -4,7 +4,7 @@ require 'vendor/autoload.php';
 require 'db.php'; 
 session_start();
 
-\Stripe\Stripe::setApiKey('sk_test_51QNWQKG2zxFLmtj9w1HsGLgAkVByklUMkMC59EYOk9A2XNaL5azhcTTlFT2LE5oJMkYPxOysXU4cdJidanITC70n00S49ksdJ4'); // Replace with your Stripe Secret Key
+\Stripe\Stripe::setApiKey('api-key'); // Replace with your Stripe Secret Key
 
 if (isset($_POST['full_name'], $_POST['delivery_address'], $_POST['phone_number'], $_POST['total_price']) && isset($_SESSION['cart'])) {
     // Retrieve and sanitize user details
