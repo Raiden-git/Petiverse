@@ -4,7 +4,7 @@ require 'vendor/autoload.php';
 session_start();
 
 
-\Stripe\Stripe::setApiKey('sk_test_51QNWQKG2zxFLmtj9w1HsGLgAkVByklUMkMC59EYOk9A2XNaL5azhcTTlFT2LE5oJMkYPxOysXU4cdJidanITC70n00S49ksdJ4');
+\Stripe\Stripe::setApiKey('api_key');
 
 // Check if a vet ID is passed in the URL
 if (!isset($_GET['id'])) {
